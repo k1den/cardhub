@@ -63,6 +63,7 @@ export default async function PublicCardPage({ params, searchParams }: PublicCar
       deletedAt: null,
     },
     include: {
+      company: true,
       fields: {
         orderBy: { sortOrder: 'asc' },
       },
@@ -179,6 +180,14 @@ export default async function PublicCardPage({ params, searchParams }: PublicCar
     coverUrl: card.coverUrl,
     templateId: card.templateId as any,
     themeConfig: card.themeConfig as any,
+    company: card.company
+      ? {
+          name: card.company.name,
+          logoUrl: card.company.logoUrl,
+          brandColor: card.company.brandColor,
+          website: card.company.website,
+        }
+      : null,
     fields: card.fields.map((f) => ({
       id: f.id,
       type: f.type,

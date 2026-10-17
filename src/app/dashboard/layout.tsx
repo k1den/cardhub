@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth/session';
 import LogoutButton from '@/components/dashboard/LogoutButton';
-import { CreditCard, Radio, BarChart3, Settings, ShieldCheck } from 'lucide-react';
+import { CreditCard, Radio, BarChart3, Settings, ShieldCheck, Building2 } from 'lucide-react';
 
 export default async function DashboardLayout({
   children,
@@ -37,6 +37,13 @@ export default async function DashboardLayout({
                 className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition"
               >
                 Мои визитки
+              </Link>
+              <Link
+                href="/dashboard/company"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center gap-1.5"
+              >
+                <Building2 className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Компания</span>
               </Link>
               <Link
                 href="/dashboard/subscription"

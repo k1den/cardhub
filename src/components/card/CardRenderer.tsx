@@ -44,6 +44,12 @@ export interface CardRenderData {
     layout?: 'standard' | 'compact' | 'expanded';
   };
   fields: CardRenderField[];
+  company?: {
+    name: string;
+    logoUrl?: string | null;
+    brandColor?: string | null;
+    website?: string | null;
+  } | null;
 }
 
 interface CardRendererProps {
@@ -61,7 +67,7 @@ export default function CardRenderer({
 }: CardRendererProps) {
   const [copied, setCopied] = useState(false);
 
-  const primaryColor = card.themeConfig?.primaryColor || '#3b82f6';
+  const primaryColor = card.themeConfig?.primaryColor || card.company?.brandColor || '#3b82f6';
   const fontFamily = card.themeConfig?.fontFamily || 'sans';
   const template = card.templateId || 'modern';
 
@@ -220,13 +226,21 @@ export default function CardRenderer({
         {/* Name and Titles */}
         <div className="space-y-1">
           <h1 className="text-2xl font-black tracking-tight text-white">{card.fullName}</h1>
-          {(card.position || card.companyName) && (
+          {(card.position || card.companyName || card.company?.name) && (
             <p className="text-xs font-medium text-slate-300 flex flex-wrap items-center gap-1.5">
               {card.position && <span>{card.position}</span>}
-              {card.position && card.companyName && <span className="text-slate-600">•</span>}
-              {card.companyName && (
-                <span className="font-semibold" style={{ color: primaryColor }}>
-                  {card.companyName}
+              {card.position && (card.companyName || card.company?.name) && <span className="text-slate-600">•</span>}
+              {(card.companyName || card.company?.name) && (
+                <span className="font-semibold inline-flex items-center gap-1" style={{ color: primaryColor }}>
+                  {card.company?.logoUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={card.company.logoUrl}
+                      alt={card.company.name}
+                      className="w-3.5 h-3.5 rounded object-contain inline-block"
+                    />
+                  )}
+                  <span>{card.companyName || card.company?.name}</span>
                 </span>
               )}
             </p>
