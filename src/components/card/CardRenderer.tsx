@@ -171,7 +171,7 @@ export default function CardRenderer({
       </div>
 
       {/* Profile Section */}
-      <div className="px-6 relative -mt-16 pb-6 space-y-5">
+      <div className="px-5 sm:px-6 relative -mt-16 pb-6 space-y-5">
         <div className="flex items-end justify-between">
           {/* Avatar */}
           <div className="relative">
@@ -315,27 +315,27 @@ export default function CardRenderer({
                         >
                           {getFieldIcon(field.type)}
                         </div>
-                        <div className="text-left">
+                        <div className="text-left overflow-hidden">
                           <div className="text-[11px] text-slate-400 font-medium">{field.label}</div>
-                          <div className="text-xs font-medium text-slate-200 truncate max-w-[210px]">
+                          <div className="text-xs font-medium text-slate-200 truncate max-w-[170px] sm:max-w-[240px]">
                             {field.value}
                           </div>
                         </div>
                       </div>
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-600 group-hover:text-slate-400 transition" />
+                      <ExternalLink className="w-3.5 h-3.5 text-slate-600 group-hover:text-slate-400 transition shrink-0 ml-2" />
                     </a>
                   ) : (
                     <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900/70 border border-slate-800/80">
                       <div className="flex items-center gap-3">
                         <div
-                          className="w-8 h-8 rounded-lg flex items-center justify-center text-white"
+                          className="w-8 h-8 rounded-lg flex items-center justify-center text-white shrink-0"
                           style={{ backgroundColor: `${primaryColor}25`, color: primaryColor }}
                         >
                           {getFieldIcon(field.type)}
                         </div>
-                        <div className="text-left">
+                        <div className="text-left overflow-hidden">
                           <div className="text-[11px] text-slate-400 font-medium">{field.label}</div>
-                          <div className="text-xs font-medium text-slate-200 truncate max-w-[210px]">
+                          <div className="text-xs font-medium text-slate-200 truncate max-w-[170px] sm:max-w-[240px]">
                             {field.value}
                           </div>
                         </div>

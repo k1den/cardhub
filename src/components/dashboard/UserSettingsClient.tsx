@@ -307,7 +307,7 @@ export default function UserSettingsClient({ user }: UserSettingsClientProps) {
       {/* 2FA Setup Modal */}
       {setupModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl relative space-y-5">
+          <div className="glass-panel w-full max-w-md max-h-[92vh] overflow-y-auto rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl relative space-y-5">
             <button
               onClick={() => setSetupModalOpen(false)}
               className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-xl bg-slate-900 border border-slate-800"
@@ -393,7 +393,7 @@ export default function UserSettingsClient({ user }: UserSettingsClientProps) {
       {/* 2FA Disable Modal */}
       {disableModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl relative space-y-5">
+          <div className="glass-panel w-full max-w-md max-h-[92vh] overflow-y-auto rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl relative space-y-5">
             <button
               onClick={() => setDisableModalOpen(false)}
               className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-xl bg-slate-900 border border-slate-800"
@@ -441,7 +441,7 @@ export default function UserSettingsClient({ user }: UserSettingsClientProps) {
       {/* Account Deletion Modal */}
       {deleteModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 border border-rose-500/30 shadow-2xl relative space-y-5">
+          <div className="glass-panel w-full max-w-md max-h-[92vh] overflow-y-auto rounded-3xl p-6 sm:p-8 border border-rose-500/30 shadow-2xl relative space-y-5">
             <button
               onClick={() => setDeleteModalOpen(false)}
               className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-xl bg-slate-900 border border-slate-800"

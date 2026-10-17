@@ -1,6 +1,14 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import CookieConsentBanner from '@/components/legal/CookieConsentBanner';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: '#020617',
+};
 
 export const metadata: Metadata = {
   title: 'CardHub — Цифровые NFC-визитки нового поколения',

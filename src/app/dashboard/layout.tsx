@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth/session';
 import LogoutButton from '@/components/dashboard/LogoutButton';
-import { CreditCard, Radio, BarChart3, Settings, ShieldCheck, Building2 } from 'lucide-react';
+import MobileNav from '@/components/dashboard/MobileNav';
+import { CreditCard, Settings, ShieldCheck, Building2 } from 'lucide-react';
 
 export default async function DashboardLayout({
   children,
@@ -21,14 +22,14 @@ export default async function DashboardLayout({
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       {/* Top Header */}
-      <header className="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur sticky top-0 z-40 px-6 py-3.5">
+      <header className="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur sticky top-0 z-30 px-4 py-3 sm:px-6 sm:py-3.5">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6">
             <Link href="/dashboard" className="flex items-center gap-2.5 group">
-              <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20 group-hover:scale-105 transition">
+              <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20 group-hover:scale-105 transition shrink-0">
                 CH
               </span>
-              <span className="font-bold tracking-tight text-white">CardHub</span>
+              <span className="font-bold tracking-tight text-white text-base sm:text-lg">CardHub</span>
             </Link>
 
             <nav className="hidden md:flex items-center gap-1">
@@ -72,13 +73,13 @@ export default async function DashboardLayout({
 
             <Link
               href="/dashboard/subscription"
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-400 text-xs font-medium transition"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-400 text-xs font-medium transition"
             >
-              <span>Тариф: <strong>{roleLabel}</strong></span>
+              <span>{roleLabel}</span>
             </Link>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <div className="text-right hidden sm:block">
               <div className="text-xs font-medium text-slate-200">{session.user.email}</div>
               <div className="text-[10px] text-emerald-400 flex items-center justify-end gap-1">
@@ -94,13 +95,16 @@ export default async function DashboardLayout({
         </div>
       </header>
 
-      {/* Main Container */}
-      <div className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-8">
+      {/* Main Container with bottom padding for mobile navigation bar */}
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 pb-24 md:pb-8">
         {children}
-      </div>
+      </main>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <MobileNav isAdmin={session.user.role === 'ADMIN'} />
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 py-6 text-center text-xs text-slate-500 mt-auto">
+      <footer className="border-t border-slate-900 py-6 text-center text-xs text-slate-500 mt-auto mb-16 md:mb-0">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/70" />

@@ -110,7 +110,7 @@ export default function PublicCardClient({ card, cardUrl }: PublicCardClientProp
             </div>
 
             {/* QR View Container */}
-            <div className="p-4 rounded-2xl bg-white mx-auto w-64 h-64 flex items-center justify-center shadow-inner">
+            <div className="p-4 rounded-2xl bg-white mx-auto w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center shadow-inner">
               {loadingQr ? (
                 <Loader2 className="w-8 h-8 text-slate-600 animate-spin" />
               ) : qrPngUrl ? (
@@ -145,7 +145,7 @@ export default function PublicCardClient({ card, cardUrl }: PublicCardClientProp
       {/* Report Modal */}
       {showReportModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl relative text-left space-y-5">
+          <div className="glass-panel w-full max-w-md max-h-[92vh] overflow-y-auto rounded-3xl p-5 sm:p-8 border border-slate-700 shadow-2xl relative text-left space-y-4 sm:space-y-5">
             <button
               onClick={() => setShowReportModal(false)}
               className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-xl bg-slate-900 border border-slate-800 transition"

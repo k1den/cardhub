@@ -70,10 +70,10 @@ export default async function DashboardPage() {
           </p>
         </div>
 
-        <div>
+        <div className="w-full sm:w-auto">
           <Link
             href="/dashboard/cards/new"
-            className="inline-flex items-center gap-2 py-2.5 px-4 rounded-xl font-medium text-white bg-blue-600 hover:bg-blue-500 transition shadow-lg shadow-blue-600/25 text-sm"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 transition shadow-lg shadow-blue-600/25 text-sm active:scale-98"
           >
             <Plus className="w-4 h-4" />
             <span>Создать визитку</span>

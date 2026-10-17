@@ -36,7 +36,7 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       {/* Admin Header */}
-      <header className="border-b border-amber-500/20 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-6 py-3.5 shadow-lg shadow-black/40">
+      <header className="border-b border-amber-500/20 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-3 sm:px-6 sm:py-3.5 shadow-lg shadow-black/40">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link href="/admin" className="flex items-center gap-2.5 group">

@@ -79,7 +79,7 @@ export default function RegisterForm() {
       <div className="ambient-glow bg-blue-600 w-96 h-96 -top-20 -left-20" />
       <div className="ambient-glow bg-indigo-600 w-96 h-96 -bottom-20 -right-20" />
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center px-4 sm:px-0">
         <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
           <span className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-blue-500/25 group-hover:scale-105 transition">
             CH

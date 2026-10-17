@@ -107,17 +107,18 @@ export default async function CardStatsPage({ params }: StatsPageProps) {
   return (
     <div className="space-y-8">
       {/* Top Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard"
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition"
+            className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition shrink-0"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
-            <h1 className="text-2xl font-black text-white tracking-tight flex items-center gap-2">
-              <BarChart3 className="w-6 h-6 text-blue-400" />
+            <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
               <span>Статистика визитки</span>
             </h1>
             <p className="text-xs text-slate-400">
@@ -208,8 +209,8 @@ export default async function CardStatsPage({ params }: StatsPageProps) {
         </div>
 
         {/* Bar Chart Representation */}
-        <div className="pt-6 pb-2">
-          <div className="h-48 flex items-end justify-between gap-1 sm:gap-2">
+        <div className="overflow-x-auto no-scrollbar pt-6 pb-2">
+          <div className="min-w-[420px] sm:min-w-0 h-48 flex items-end justify-between gap-1 sm:gap-2">
             {dailyData.map((d) => {
               const heightPercent = Math.max((d.views / maxDayViews) * 100, 4);
 

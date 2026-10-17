@@ -354,11 +354,11 @@ export default function AdminDashboardClient({
       )}
 
       {/* Tabs Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-3">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap w-full sm:w-auto pb-1 sm:pb-0">
           <button
             onClick={() => switchTab('overview')}
-            className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shrink-0 ${
               activeTab === 'overview'
                 ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
                 : 'bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800'
@@ -370,7 +370,7 @@ export default function AdminDashboardClient({
 
           <button
             onClick={() => switchTab('reports')}
-            className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 relative ${
+            className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shrink-0 relative ${
               activeTab === 'reports'
                 ? 'bg-red-500 text-white shadow-md shadow-red-500/20'
                 : 'bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800'
@@ -387,7 +387,7 @@ export default function AdminDashboardClient({
 
           <button
             onClick={() => switchTab('users')}
-            className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shrink-0 ${
               activeTab === 'users'
                 ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
                 : 'bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800'
@@ -399,7 +399,7 @@ export default function AdminDashboardClient({
 
           <button
             onClick={() => switchTab('audit')}
-            className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 shrink-0 ${
               activeTab === 'audit'
                 ? 'bg-emerald-600 text-white shadow-md shadow-emerald-500/20'
                 : 'bg-slate-900 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800'

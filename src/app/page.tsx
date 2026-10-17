@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { getSession } from '@/lib/auth/session';
+import LandingHeader from '@/components/landing/LandingHeader';
 import {
   Smartphone,
   QrCode,
@@ -21,85 +22,42 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative overflow-hidden">
       {/* Ambient background glows */}
-      <div className="ambient-glow bg-blue-600/30 w-[600px] h-[600px] -top-40 -left-40" />
-      <div className="ambient-glow bg-indigo-500/20 w-[600px] h-[600px] top-1/3 -right-40" />
-      <div className="ambient-glow bg-emerald-500/15 w-[500px] h-[500px] bottom-10 left-1/4" />
+      <div className="ambient-glow bg-blue-600/30 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] -top-20 sm:-top-40 -left-20 sm:-left-40" />
+      <div className="ambient-glow bg-indigo-500/20 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] top-1/3 -right-20 sm:-right-40" />
+      <div className="ambient-glow bg-emerald-500/15 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bottom-10 left-1/4" />
 
-      {/* Navigation */}
-      <nav className="glass-panel border-b border-slate-800/80 sticky top-0 z-50 px-6 py-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <span className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-blue-500/25 group-hover:scale-105 transition">
-              CH
-            </span>
-            <span className="text-xl font-bold tracking-tight text-white">CardHub</span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-            <a href="#how-it-works" className="hover:text-white transition">Как это работает</a>
-            <a href="#features" className="hover:text-white transition">Возможности</a>
-            <a href="#pricing" className="hover:text-white transition">Тарифы</a>
-            <a href="#security" className="hover:text-white transition">Безопасность</a>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {session ? (
-              <Link
-                href="/dashboard"
-                className="text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 px-4 py-2 rounded-xl shadow-lg shadow-blue-600/25 transition flex items-center gap-2"
-              >
-                <span>Личный кабинет</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            ) : (
-              <>
-                <Link
-                  href="/auth/login"
-                  className="text-sm font-medium text-slate-300 hover:text-white px-3.5 py-2 rounded-lg hover:bg-slate-800/60 transition"
-                >
-                  Войти
-                </Link>
-                <Link
-                  href="/auth/register"
-                  className="text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl shadow-lg shadow-blue-600/25 transition active:scale-95"
-                >
-                  Создать визитку
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </nav>
+      {/* Navigation Header with Mobile Drawer */}
+      <LandingHeader isAuthenticated={Boolean(session)} />
 
       {/* Hero Section */}
-      <section className="relative z-10 pt-20 pb-24 px-6 max-w-6xl mx-auto text-center">
+      <section className="relative z-10 pt-10 sm:pt-20 pb-16 sm:pb-24 px-4 sm:px-6 max-w-6xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-6">
           <Radio className="w-3.5 h-3.5 animate-pulse text-blue-400" />
           <span>Поддержка NFC стикеров, QR и коротких ссылок</span>
         </div>
 
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white max-w-4xl mx-auto leading-[1.1]">
+        <h1 className="text-3xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white max-w-4xl mx-auto leading-[1.15]">
           Цифровая визитка, <br className="hidden sm:inline" />
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
             готовая к передаче в одно касание
           </span>
         </h1>
 
-        <p className="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        <p className="mt-4 sm:mt-6 text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
           Приложите телефон собеседника к вашему стикеру или покажите QR-код. Контакты сохраняются мгновенно без установки приложений.
         </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
           <Link
             href={session ? "/dashboard" : "/auth/register"}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-xl shadow-blue-600/30 text-base transition active:scale-98"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-xl shadow-blue-600/30 text-sm sm:text-base transition active:scale-98"
           >
             <span>{session ? 'Перейти в личный кабинет' : 'Создать бесплатно'}</span>
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </Link>
           <a
             href="#pricing"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-slate-200 font-semibold text-base transition"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-slate-200 font-semibold text-sm sm:text-base transition"
           >
             Тарифы для бизнеса
           </a>
@@ -146,41 +104,41 @@ export default async function HomePage() {
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="py-20 border-t border-slate-900 px-6 max-w-6xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Как работает CardHub</h2>
-          <p className="mt-3 text-slate-400 text-sm">
+      <section id="how-it-works" className="py-14 sm:py-20 border-t border-slate-900 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white">Как работает CardHub</h2>
+          <p className="mt-2.5 sm:mt-3 text-slate-400 text-xs sm:text-sm">
             Всего 3 простых шага для перехода на современный формат обмена контактами.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="glass-card p-8 rounded-3xl space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="glass-card p-6 sm:p-8 rounded-2xl sm:rounded-3xl space-y-4">
             <div className="w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/20 text-blue-400 flex items-center justify-center">
               <Smartphone className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-white">1. Создайте визитку</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <h3 className="text-lg sm:text-xl font-bold text-white">1. Создайте визитку</h3>
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
               Заполните контакты, ссылки на Telegram, WhatsApp, соцсети, загрузите фото и выберите индивидуальный стиль.
             </p>
           </div>
 
-          <div className="glass-card p-8 rounded-3xl space-y-4">
+          <div className="glass-card p-6 sm:p-8 rounded-2xl sm:rounded-3xl space-y-4">
             <div className="w-12 h-12 rounded-2xl bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
               <Radio className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-white">2. Запишите на метку</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <h3 className="text-lg sm:text-xl font-bold text-white">2. Запишите на метку</h3>
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
               Используйте Web NFC прямо в браузере или бесплатное приложение NFC Tools для записи вашей персональной ссылки на стикер.
             </p>
           </div>
 
-          <div className="glass-card p-8 rounded-3xl space-y-4">
+          <div className="glass-card p-6 sm:p-8 rounded-2xl sm:rounded-3xl space-y-4">
             <div className="w-12 h-12 rounded-2xl bg-emerald-600/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
               <Share2 className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-white">3. Делитесь в касание</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <h3 className="text-lg sm:text-xl font-bold text-white">3. Делитесь в касание</h3>
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
               Коснитесь телефоном стикера или покажите QR-код на экране. Собеседник сразу видит визитку и сохраняет vCard в телефонную книгу.
             </p>
           </div>
@@ -188,17 +146,17 @@ export default async function HomePage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 border-t border-slate-900 px-6 max-w-6xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Прозрачные тарифы</h2>
-          <p className="mt-3 text-slate-400 text-sm">
+      <section id="pricing" className="py-14 sm:py-20 border-t border-slate-900 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white">Прозрачные тарифы</h2>
+          <p className="mt-2.5 sm:mt-3 text-slate-400 text-xs sm:text-sm">
             Выберите подходящий тариф для себя или настройте единый корпоративный стиль компании.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
           {/* Regular Plan */}
-          <div className="glass-card p-8 rounded-3xl border border-slate-800 flex flex-col justify-between">
+          <div className="glass-card p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-slate-800 flex flex-col justify-between">
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold text-white">Обычный</h3>
@@ -206,7 +164,7 @@ export default async function HomePage() {
               </div>
 
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-black text-white">290 ₽</span>
+                <span className="text-3xl sm:text-4xl font-black text-white">290 ₽</span>
                 <span className="text-sm text-slate-400">/ месяц</span>
               </div>
 
@@ -238,10 +196,10 @@ export default async function HomePage() {
               </ul>
             </div>
 
-            <div className="pt-8">
+            <div className="pt-6 sm:pt-8">
               <Link
                 href="/auth/register"
-                className="w-full inline-flex justify-center items-center py-3.5 px-4 rounded-xl font-semibold text-white bg-slate-800 hover:bg-slate-700 transition text-sm"
+                className="w-full inline-flex justify-center items-center py-3.5 px-4 rounded-xl font-semibold text-white bg-slate-800 hover:bg-slate-700 transition text-sm active:scale-98"
               >
                 Выбрать «Обычный»
               </Link>
@@ -249,7 +207,7 @@ export default async function HomePage() {
           </div>
 
           {/* Pro Plan */}
-          <div className="glass-panel p-8 rounded-3xl border-2 border-blue-500/50 relative flex flex-col justify-between shadow-2xl shadow-blue-500/10">
+          <div className="glass-panel p-6 sm:p-8 rounded-2xl sm:rounded-3xl border-2 border-blue-500/50 relative flex flex-col justify-between shadow-2xl shadow-blue-500/10">
             <div className="absolute -top-3.5 right-6 px-3 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[11px] font-bold tracking-wider uppercase">
               Для компаний
             </div>
@@ -264,7 +222,7 @@ export default async function HomePage() {
               </div>
 
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-black text-white">1 490 ₽</span>
+                <span className="text-3xl sm:text-4xl font-black text-white">1 490 ₽</span>
                 <span className="text-sm text-slate-400">/ месяц</span>
               </div>
 
@@ -300,10 +258,10 @@ export default async function HomePage() {
               </ul>
             </div>
 
-            <div className="pt-8">
+            <div className="pt-6 sm:pt-8">
               <Link
                 href="/auth/register"
-                className="w-full inline-flex justify-center items-center py-3.5 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 transition shadow-lg shadow-blue-600/30 text-sm"
+                className="w-full inline-flex justify-center items-center py-3.5 px-4 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 transition shadow-lg shadow-blue-600/30 text-sm active:scale-98"
               >
                 Подключить Pro
               </Link>
@@ -313,8 +271,8 @@ export default async function HomePage() {
       </section>
 
       {/* Security & Compliance */}
-      <section id="security" className="py-16 border-t border-slate-900 px-6 max-w-6xl mx-auto">
-        <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-slate-800 grid md:grid-cols-3 gap-8 text-center md:text-left">
+      <section id="security" className="py-14 sm:py-16 border-t border-slate-900 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div className="glass-panel p-6 sm:p-12 rounded-2xl sm:rounded-3xl border border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 text-center md:text-left">
           <div className="space-y-3">
             <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mx-auto md:mx-0">
               <Shield className="w-5 h-5" />
@@ -348,7 +306,7 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-slate-900 bg-slate-950/80 py-12 px-6">
+      <footer className="mt-auto border-t border-slate-900 bg-slate-950/80 py-8 sm:py-12 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-500">
           <div className="flex items-center gap-3">
             <span className="w-6 h-6 rounded-md bg-blue-600 flex items-center justify-center text-white font-bold text-xs">
@@ -357,7 +315,7 @@ export default async function HomePage() {
             <span className="font-medium text-slate-400">CardHub © 2026</span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <Link href="/legal/pd-policy" className="hover:text-slate-300 transition">
               Политика обработки ПДн (152-ФЗ)
             </Link>

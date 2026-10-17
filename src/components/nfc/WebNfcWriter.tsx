@@ -208,11 +208,11 @@ export default function WebNfcWriter({ slug, cardTitle }: WebNfcWriterProps) {
 
       {/* Step-by-Step Instructions Tabs */}
       <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-          <h3 className="text-lg font-bold text-white">Инструкция по записи на метку</h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <h3 className="text-base sm:text-lg font-bold text-white">Инструкция по записи на метку</h3>
 
           {/* Guide Selector */}
-          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900 border border-slate-800 text-xs w-full sm:w-auto overflow-x-auto no-scrollbar">
             <button
               onClick={() => setActiveGuideTab('iphone')}
               className={`py-1.5 px-3 rounded-lg font-medium transition ${

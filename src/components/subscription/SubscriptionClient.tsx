@@ -518,7 +518,7 @@ export default function SubscriptionClient({
       {/* Checkout Modal */}
       {modalOpen && selectedPlan && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 border border-slate-700 shadow-2xl relative space-y-6">
+          <div className="glass-panel w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-3xl p-5 sm:p-8 border border-slate-700 shadow-2xl relative space-y-5 sm:space-y-6">
             <button
               onClick={() => setModalOpen(false)}
               className="absolute top-5 right-5 p-2 text-slate-400 hover:text-white rounded-xl bg-slate-900 border border-slate-800 transition"

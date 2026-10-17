@@ -53,6 +53,7 @@ export default function CardEditorForm({
   const isEditing = Boolean(initialCard?.id);
 
   // Form State
+  const [mobileView, setMobileView] = useState<'editor' | 'preview'>('editor');
   const [activeTab, setActiveTab] = useState<'profile' | 'fields' | 'design' | 'settings'>('profile');
   const [fullName, setFullName] = useState(initialCard?.fullName || '');
   const [position, setPosition] = useState(initialCard?.position || '');
@@ -244,12 +245,13 @@ export default function CardEditorForm({
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard"
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition"
+            className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition shrink-0"
+            title="Назад в панель управления"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
-            <h1 className="text-2xl font-black text-white tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
               {isEditing ? 'Редактирование визитки' : 'Создание визитки'}
             </h1>
             <p className="text-xs text-slate-400">
@@ -258,14 +260,14 @@ export default function CardEditorForm({
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 w-full sm:w-auto">
           {initialCard?.slug && (
             <Link
               href={`/c/${initialCard.slug}`}
               target="_blank"
-              className="inline-flex items-center gap-1.5 py-2 px-3.5 rounded-xl border border-slate-800 bg-slate-900/80 text-xs text-slate-300 hover:text-white transition"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 py-2.5 px-3.5 rounded-xl border border-slate-800 bg-slate-900/80 text-xs text-slate-300 hover:text-white transition"
             >
-              <span>Открыть страницу</span>
+              <span>Открыть</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </Link>
           )}
@@ -273,7 +275,7 @@ export default function CardEditorForm({
           <button
             onClick={handleSubmit}
             disabled={saving}
-            className="inline-flex items-center gap-2 py-2.5 px-5 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 transition shadow-lg shadow-blue-600/30 text-xs active:scale-95 disabled:opacity-50"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-500 transition shadow-lg shadow-blue-600/30 text-xs active:scale-95 disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             <span>{saving ? 'Сохранение...' : 'Сохранить визитку'}</span>
@@ -296,15 +298,44 @@ export default function CardEditorForm({
         </div>
       )}
 
+      {/* Mobile Switcher between Form & Live Preview (Visible on screens < lg) */}
+      <div className="lg:hidden flex items-center p-1 rounded-2xl bg-slate-900 border border-slate-800 text-xs font-semibold">
+        <button
+          type="button"
+          onClick={() => setMobileView('editor')}
+          className={`flex-1 py-2.5 rounded-xl flex items-center justify-center gap-2 transition ${
+            mobileView === 'editor'
+              ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Layout className="w-4 h-4" />
+          <span>Редактор данных</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setMobileView('preview')}
+          className={`flex-1 py-2.5 rounded-xl flex items-center justify-center gap-2 transition ${
+            mobileView === 'preview'
+              ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Eye className="w-4 h-4" />
+          <span>Предпросмотр</span>
+        </button>
+      </div>
+
       {/* Editor Main Grid: Form Tabs (Left) + Live Mobile Mockup (Right) */}
       <div className="grid lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Editor Tabs & Form */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className={`lg:col-span-7 space-y-6 ${mobileView === 'preview' ? 'hidden lg:block' : 'block'}`}>
           {/* Tabs Navigation */}
-          <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-slate-900/90 border border-slate-800 text-xs font-semibold overflow-x-auto">
+          <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-slate-900/90 border border-slate-800 text-xs font-semibold overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap">
             <button
               onClick={() => setActiveTab('profile')}
-              className={`flex items-center gap-2 py-2 px-4 rounded-xl transition ${
+              className={`flex items-center gap-2 py-2 px-4 rounded-xl transition shrink-0 ${
                 activeTab === 'profile'
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
                   : 'text-slate-400 hover:text-slate-200'
@@ -316,7 +347,7 @@ export default function CardEditorForm({
 
             <button
               onClick={() => setActiveTab('fields')}
-              className={`flex items-center gap-2 py-2 px-4 rounded-xl transition ${
+              className={`flex items-center gap-2 py-2 px-4 rounded-xl transition shrink-0 ${
                 activeTab === 'fields'
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
                   : 'text-slate-400 hover:text-slate-200'
@@ -328,7 +359,7 @@ export default function CardEditorForm({
 
             <button
               onClick={() => setActiveTab('design')}
-              className={`flex items-center gap-2 py-2 px-4 rounded-xl transition ${
+              className={`flex items-center gap-2 py-2 px-4 rounded-xl transition shrink-0 ${
                 activeTab === 'design'
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
                   : 'text-slate-400 hover:text-slate-200'
@@ -340,7 +371,7 @@ export default function CardEditorForm({
 
             <button
               onClick={() => setActiveTab('settings')}
-              className={`flex items-center gap-2 py-2 px-4 rounded-xl transition ${
+              className={`flex items-center gap-2 py-2 px-4 rounded-xl transition shrink-0 ${
                 activeTab === 'settings'
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
                   : 'text-slate-400 hover:text-slate-200'
@@ -621,7 +652,7 @@ export default function CardEditorForm({
                 <label className="block text-xs font-semibold text-slate-300">
                   Шаблон визитки
                 </label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
                   {[
                     { id: 'modern', title: 'Modern', desc: 'Стекло и неон' },
                     { id: 'minimal', title: 'Minimal', desc: 'Строгий минимализм' },
@@ -674,7 +705,7 @@ export default function CardEditorForm({
                 <label className="block text-xs font-semibold text-slate-300">
                   Типографика (локальные безопасные шрифты)
                 </label>
-                <div className="grid grid-cols-3 gap-3 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-xs">
                   {[
                     { id: 'sans', name: 'Без засечек (Sans)' },
                     { id: 'serif', name: 'С засечками (Serif)' },
@@ -773,7 +804,7 @@ export default function CardEditorForm({
         </div>
 
         {/* Right Column: Live Mobile Mockup Preview */}
-        <div className="lg:col-span-5 sticky top-20">
+        <div className={`lg:col-span-5 sticky top-20 ${mobileView === 'editor' ? 'hidden lg:block' : 'block'}`}>
           <div className="space-y-3">
             <div className="flex items-center justify-between text-xs text-slate-400 px-2">
               <span className="font-semibold flex items-center gap-1.5 text-slate-300">
