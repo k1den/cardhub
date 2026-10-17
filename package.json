@@ -10,6 +10,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:email": "npx tsx src/scripts/test-email.ts",
+    "cron:maintenance": "npx tsx src/scripts/maintenance.ts",
     "postinstall": "prisma generate"
   },
   "dependencies": {
