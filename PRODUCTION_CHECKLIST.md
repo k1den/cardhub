@@ -69,13 +69,11 @@
 
 ## 4. Хранилище медиафайлов (Аватары и обложки)
 
-Сейчас файлы загружаются в локальную директорию `public/uploads`. В продакшене (особенно при контейнеризации или перезапуске нод) локальные файлы могут теряться.
-
-- [ ] **Вариант А (Облачный S3 в РФ — рекомендуется)**:
-  - Подключить S3-совместимое объектное хранилище (Selectel S3, Yandex Object Storage, Cloud.ru).
-  - Настроить presigned upload URL или загрузку через серверный адаптер.
-- [ ] **Вариант Б (Постоянный том Docker)**:
-  - Если запуск на одном VPS через Docker: смонтировать внешний volume на каталог `/app/public/uploads`, чтобы загруженные фотографии сохранялись между перезапусками контейнеров.
+- [x] **Постоянный том Docker (Volume)**:
+  - В `docker-compose.prod.yml` настроен именованный volume `cardhub_uploads:/app/public/uploads`.
+  - В Nginx volume примонтирован как `/var/www/uploads:ro` для прямой и сверхбыстрой отдачи пользовательских фотографий и аватарок в обход Node.js с кэшированием браузером на 30 дней.
+- [ ] **Облачный S3 в РФ (Опционально при масштабировании на несколько серверов)**:
+  - При необходимости распределения нагрузки на кластер серверов подключить S3-совместимое хранилище (Yandex Object Storage, Selectel S3, Cloud.ru) через переменные `S3_*` в `.env`.
 
 ---
 
@@ -119,20 +117,49 @@
 
 ## 7. Инфраструктура, Reverse Proxy и Безопасность (DevOps)
 
-- [ ] **Nginx / Caddy перед Next.js**:
-  - Настроить SSL-сертификаты с автообновлением (Let's Encrypt или сертификаты Минцифры).
-  - Настроить принудительный редирект с `http://` на `https://`.
-  - Пробросить заголовки реального IP клиента:
-    ```nginx
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
+- [x] **Готовый боевой Docker Compose (`docker-compose.prod.yml`)**:
+  - Подготовлен стек из 5 контейнеров:
+    1. `postgres:16-alpine` — боевая база данных с проверкой `healthcheck` (закрыта внутри сети `cardhub-net`, порты наружу не торчат);
+    2. `redis:7-alpine` — кэш и распределенный Rate Limiter;
+    3. `cardhub-app` — multi-stage сборка Next.js 16 в standalone-режиме под непривилегированным пользователем `nextjs`;
+    4. `cardhub-nginx` — Reverse Proxy, SSL, Gzip, отдача статики и защита;
+    5. `cardhub-certbot` — автоматическое продление бесплатных SSL-сертификатов Let's Encrypt каждые 12 часов.
+  - Запуск стека в 1 команду:
+    ```bash
+    docker compose -f docker-compose.prod.yml up -d --build
     ```
-    *(Необходимо для корректной работы встроенного Rate Limiter и фиксации IP в 152-ФЗ логах).*
-  - Ограничить размер загружаемого тела запроса:
-    `client_max_body_size 5M;`
-- [ ] **Резервное копирование (Backups)**:
-  - Настроить ночной автоматический дамп базы данных (`pg_dump` с шифрованием GPG) и копированием в изолированное географически удаленное хранилище.
+
+- [x] **Конфигурация Nginx (`nginx/nginx.conf` и `nginx/conf.d/cardhub.conf`)**:
+  - Включен Gzip для всех типов данных (JSON, CSS, JS, SVG, XML).
+  - Принудительный редирект с `http://` на `https://`.
+  - Проброшены заголовки реального IP (`X-Real-IP`, `X-Forwarded-For`, `X-Forwarded-Proto`) для встроенного Rate Limiter и 152-ФЗ логов.
+  - Ограничение размера загрузок: `client_max_body_size 5M;`.
+  - Оптимизация статики:
+    - `/uploads/` отдаются напрямую из volume с кэшем 30 дней;
+    - `/_next/static/` кэшируются браузером на 1 год (`max-age=31536000, immutable`).
+  - Скрипт быстрого выпуска SSL-сертификата Let's Encrypt:
+    ```bash
+    chmod +x scripts/init-letsencrypt.sh
+    ./scripts/init-letsencrypt.sh cardhub.ru admin@cardhub.ru
+    ```
+
+- [x] **Резервное копирование базы данных с ротацией 7 дней**:
+  - Подготовлены скрипты бэкапа со сжатием в gzip и расчетом SHA-256 контрольной суммы:
+    - **Универсальный (Node.js/npm)**:
+      ```bash
+      npm run db:backup
+      ```
+    - **Для Linux crontab (`scripts/backup-db.sh`)**:
+      ```bash
+      # Запуск каждую ночь в 02:00:
+      0 2 * * * cd /var/www/cardhub && ./scripts/backup-db.sh >> /var/log/cardhub-backup.log 2>&1
+      ```
+    - **Для Windows (`scripts/backup-db.ps1`)**:
+      ```powershell
+      .\scripts\backup-db.ps1 -DbUser postgres -DbName cardhub
+      ```
+  - Автоматически удаляет резервные копии старше 7 дней для экономии места на диске.
+
 - [x] **Создание / Назначение первого аккаунта администратора (Bootstrap)**:
   - Реализован удобный скрипт назначения администратора:
     ```bash
@@ -140,3 +167,4 @@
     ```
     *(Автоматически выдает роль `ADMIN`, подтверждает Email и активирует Pro-подписку для тестирования всех возможностей).*
   - Включить 2FA (TOTP) для учетной записи администратора в настройках `/dashboard/settings`.
+

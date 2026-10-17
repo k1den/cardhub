@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { prisma } from '@/lib/prisma';
-import { SubscriptionStatus } from '@prisma/client';
+import { Prisma, SubscriptionStatus } from '@prisma/client';
 
 export interface MaintenanceOptions {
   dryRun?: boolean;
@@ -164,7 +164,7 @@ export async function runMaintenance(options: MaintenanceOptions = {}): Promise<
         targetType: 'SYSTEM',
         targetId: 'CRON_MAINTENANCE',
         action: 'SYSTEM_MAINTENANCE_RUN',
-        details: report,
+        details: report as unknown as Prisma.InputJsonValue,
       },
     }).catch(() => {});
   }

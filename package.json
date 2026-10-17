@@ -12,6 +12,7 @@
     "test:email": "npx tsx src/scripts/test-email.ts",
     "cron:maintenance": "npx tsx src/scripts/maintenance.ts",
     "db:clean": "npx tsx src/scripts/db-clean.ts",
+    "db:backup": "npx tsx src/scripts/db-backup.ts",
     "admin:promote": "npx tsx src/scripts/promote-admin.ts",
     "postinstall": "prisma generate"
   },
