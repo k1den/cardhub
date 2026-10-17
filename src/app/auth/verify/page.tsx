@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { useEffect, useState, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircle2, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
@@ -12,6 +12,7 @@ function VerifyContent() {
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState<string>('Проверяем токен подтверждения...');
+  const hasFired = useRef(false);
 
   useEffect(() => {
     if (!token) {
@@ -20,6 +21,12 @@ function VerifyContent() {
       setMessage('Токен подтверждения не найден в ссылке.');
       return;
     }
+
+    // Guard against React 18/19 StrictMode double-execution
+    if (hasFired.current) {
+      return;
+    }
+    hasFired.current = true;
 
     const verify = async () => {
       try {
@@ -77,12 +84,18 @@ function VerifyContent() {
           <div className="w-16 h-16 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 mx-auto flex items-center justify-center">
             <AlertCircle className="w-8 h-8" />
           </div>
-          <h2 className="text-2xl font-bold text-white">Ошибка подтверждения</h2>
+          <h2 className="text-2xl font-bold text-white">Статус подтверждения</h2>
           <p className="text-slate-300 text-sm max-w-sm mx-auto">{message}</p>
-          <div className="pt-4">
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              href="/auth/login"
+              className="inline-flex items-center gap-2 py-2.5 px-5 rounded-xl font-medium text-white bg-blue-600 hover:bg-blue-500 transition text-sm shadow-lg shadow-blue-600/20"
+            >
+              Войти в аккаунт <ArrowRight className="w-4 h-4" />
+            </Link>
             <Link
               href="/auth/register"
-              className="text-sm text-blue-400 hover:text-blue-300 transition"
+              className="text-xs text-slate-400 hover:text-slate-300 transition"
             >
               Зарегистрироваться заново
             </Link>
