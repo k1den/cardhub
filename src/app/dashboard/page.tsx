@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
+import { paymentService } from '@/lib/payments/service';
 import {
   CreditCard,
   Plus,
@@ -44,6 +45,9 @@ export default async function DashboardPage() {
   let totalViews = 0;
   let totalNfc = 0;
   let totalVCard = 0;
+
+  // Fetch user subscription status
+  const subStatus = await paymentService.getUserSubscription(session.user.id);
 
   cards.forEach((c) => {
     c.events.forEach((ev) => {
@@ -106,6 +110,33 @@ export default async function DashboardPage() {
           <div className="text-[11px] text-slate-500">Добавлено в телефонную книгу</div>
         </div>
       </div>
+
+      {/* Pro Callout Banner if not Pro */}
+      {!subStatus.isPro && (
+        <div className="glass-panel p-5 rounded-2xl border border-indigo-500/30 bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-indigo-600/30">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-sm font-bold text-white">
+                Перейдите на тариф Pro для расширенных возможностей
+              </div>
+              <div className="text-xs text-slate-300">
+                До 10 визиток сотрудников, единый брендинг компании, красивый персональный адрес и подробный аудит.
+              </div>
+            </div>
+          </div>
+
+          <Link
+            href="/dashboard/subscription"
+            className="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition shadow-md shadow-indigo-600/20 shrink-0"
+          >
+            <span>Тарифы и оплата</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      )}
 
       {/* Cards List or Empty State */}
       <div className="space-y-4">

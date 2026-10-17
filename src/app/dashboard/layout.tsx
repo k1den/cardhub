@@ -31,9 +31,28 @@ export default async function DashboardLayout({
               <span className="font-bold tracking-tight text-white">CardHub</span>
             </Link>
 
-            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium">
+            <nav className="hidden md:flex items-center gap-1">
+              <Link
+                href="/dashboard"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition"
+              >
+                Мои визитки
+              </Link>
+              <Link
+                href="/dashboard/subscription"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center gap-1.5"
+              >
+                <CreditCard className="w-3.5 h-3.5 text-blue-400" />
+                <span>Подписка</span>
+              </Link>
+            </nav>
+
+            <Link
+              href="/dashboard/subscription"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-400 text-xs font-medium transition"
+            >
               <span>Тариф: <strong>{roleLabel}</strong></span>
-            </div>
+            </Link>
           </div>
 
           <div className="flex items-center gap-4">

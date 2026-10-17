@@ -108,6 +108,38 @@ export default async function PublicCardPage({ params, searchParams }: PublicCar
     console.error('Failed to record card event view:', err);
   }
 
+  // Check owner subscription expiration (TZ section 3: 14 days grace before showing placeholder)
+  const ownerSub = await prisma.subscription.findFirst({
+    where: { userId: card.ownerId },
+    orderBy: { currentPeriodEnd: 'desc' },
+  });
+
+  if (ownerSub) {
+    const fourteenDaysAfterEnd = new Date(ownerSub.currentPeriodEnd);
+    fourteenDaysAfterEnd.setDate(fourteenDaysAfterEnd.getDate() + 14);
+
+    if (new Date() > fourteenDaysAfterEnd && ownerSub.status !== 'ACTIVE') {
+      return (
+        <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-6 text-center">
+          <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-slate-800 max-w-md w-full space-y-4">
+            <div className="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 text-slate-400 mx-auto flex items-center justify-center">
+              <Lock className="w-8 h-8" />
+            </div>
+            <h1 className="text-xl font-bold text-white">Визитка временно недоступна</h1>
+            <p className="text-sm text-slate-400 leading-relaxed">
+              Срок действия подписки на эту визитку истек. Владелец может возобновить показ в личном кабинете.
+            </p>
+            <div className="pt-4">
+              <Link href="/" className="text-xs text-blue-400 hover:text-blue-300 transition">
+                Перейти на главную CardHub
+              </Link>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
+
   // If card is unpublished, show compliant placeholder (TZ section 3)
   if (!card.published) {
     return (

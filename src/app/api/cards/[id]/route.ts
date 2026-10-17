@@ -3,6 +3,7 @@ import { getSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 import { cardFormSchema } from '@/lib/validations/card';
 import { isValidCustomSlug } from '@/lib/cards/slug';
+import { paymentService } from '@/lib/payments/service';
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -107,7 +108,8 @@ export async function PUT(req: Request, { params }: RouteParams) {
     // Check custom slug if changed
     let slug = card.slug;
     if (data.slug && data.slug !== card.slug) {
-      if (session.user.role === 'USER') {
+      const subStatus = await paymentService.getUserSubscription(session.user.id);
+      if (!subStatus.isPro && session.user.role !== 'ADMIN') {
         return NextResponse.json(
           { error: 'Настройка персонального адреса визитки доступна на тарифе Pro' },
           { status: 403 }

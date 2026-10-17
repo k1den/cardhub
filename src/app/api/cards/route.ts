@@ -3,6 +3,7 @@ import { getSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 import { cardFormSchema } from '@/lib/validations/card';
 import { generateRandomSlug, isValidCustomSlug } from '@/lib/cards/slug';
+import { paymentService } from '@/lib/payments/service';
 
 export async function GET() {
   try {
@@ -50,19 +51,13 @@ export async function POST(req: Request) {
 
     const data = result.data;
 
-    // Check plan limits (Section 3: "Обычный" allows 1 card)
-    const activeCardsCount = await prisma.card.count({
-      where: {
-        ownerId: session.user.id,
-        deletedAt: null,
-      },
-    });
-
-    if (session.user.role === 'USER' && activeCardsCount >= 1) {
+    // Check plan limits (Section 3)
+    const planCheck = await paymentService.checkCardCreationAllowed(session.user.id);
+    if (!planCheck.allowed && session.user.role !== 'ADMIN') {
       return NextResponse.json(
         {
           error:
-            'На тарифе «Обычный» доступно создание 1 визитки. Перейдите на тариф Pro для создания дополнительных визиток.',
+            `На вашем тарифе доступно создание не более ${planCheck.maxCards} визитки. Перейдите на тариф Pro для создания дополнительных визиток.`,
         },
         { status: 403 }
       );
@@ -70,7 +65,14 @@ export async function POST(req: Request) {
 
     // Determine slug
     let slug = '';
-    if (data.slug && session.user.role !== 'USER') {
+    if (data.slug) {
+      if (!planCheck.isPro && session.user.role !== 'ADMIN') {
+        return NextResponse.json(
+          { error: 'Собственный короткий адрес визитки доступен только на тарифе Pro' },
+          { status: 403 }
+        );
+      }
+
       // Pro user custom slug
       const check = isValidCustomSlug(data.slug);
       if (!check.valid) {
