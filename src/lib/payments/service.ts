@@ -260,18 +260,31 @@ export class PaymentService {
    * Get comprehensive subscription and usage status for a user
    */
   async getUserSubscription(userId: string) {
-    const sub = await prisma.subscription.findFirst({
-      where: { userId },
-      include: {
-        plan: true,
-      },
-      orderBy: { currentPeriodEnd: 'desc' },
-    });
+    const [sub, user] = await Promise.all([
+      prisma.subscription.findFirst({
+        where: { userId },
+        include: {
+          plan: true,
+        },
+        orderBy: { currentPeriodEnd: 'desc' },
+      }),
+      prisma.user.findUnique({
+        where: { id: userId },
+        select: { role: true },
+      }),
+    ]);
+
+    const isRoleProOrAdmin = user?.role === 'PRO' || user?.role === 'ADMIN';
 
     const now = new Date();
-    const isActive = Boolean(sub && (sub.status === SubscriptionStatus.ACTIVE || sub.status === SubscriptionStatus.CANCELED) && sub.currentPeriodEnd > now);
+    const isSubActive = Boolean(
+      sub &&
+      (sub.status === SubscriptionStatus.ACTIVE || sub.status === SubscriptionStatus.CANCELED) &&
+      sub.currentPeriodEnd > now
+    );
     const isPastDue = Boolean(sub && sub.currentPeriodEnd <= now && sub.gracePeriodEnd && sub.gracePeriodEnd > now);
-    const isPro = Boolean(isActive && sub?.plan?.code === 'PRO');
+    const isPro = Boolean((isSubActive && sub?.plan?.code === 'PRO') || isRoleProOrAdmin);
+    const isActive = isSubActive || isRoleProOrAdmin;
 
     const cardsCount = await prisma.card.count({
       where: {
@@ -289,21 +302,38 @@ export class PaymentService {
 
     const maxCards = isPro ? 10 : 1;
 
+    const defaultProPlan = {
+      code: 'PRO',
+      name: user?.role === 'ADMIN' ? 'Администратор' : 'Pro (Выдан администратором)',
+      description: 'Компания, визитки сотрудников, единый корпоративный брендинг, красивый slug и аудит.',
+      priceMonth: 1490,
+      priceYear: 14900,
+      maxCards: 10,
+    };
+
+    const effectivePlan = (isRoleProOrAdmin && (!sub || sub?.plan?.code !== 'PRO'))
+      ? defaultProPlan
+      : (sub?.plan || {
+          code: 'FREE',
+          name: 'Базовый',
+          description: '1 цифровая визитка, ссылка, QR-код, запись на NFC-метку и скачивание vCard.',
+          priceMonth: 0,
+          priceYear: 0,
+          maxCards: 1,
+        });
+
+    const effectiveEnd = sub?.currentPeriodEnd || (isRoleProOrAdmin ? new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000) : null);
+    const daysRemaining = effectiveEnd ? Math.max(0, Math.ceil((effectiveEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))) : 0;
+
     return {
       subscription: sub,
-      plan: sub?.plan || {
-        code: 'FREE',
-        name: 'Базовый',
-        priceMonth: 0,
-        priceYear: 0,
-        maxCards: 1,
-      },
+      plan: effectivePlan,
       isActive: isActive || isPastDue,
       isPro,
       isPastDue,
       autoRenew: sub?.autoRenew || false,
-      currentPeriodEnd: sub?.currentPeriodEnd || null,
-      daysRemaining: sub ? Math.max(0, Math.ceil((sub.currentPeriodEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))) : 0,
+      currentPeriodEnd: effectiveEnd,
+      daysRemaining,
       cardsUsed: cardsCount,
       maxCards,
       payments,

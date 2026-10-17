@@ -111,6 +111,51 @@ export async function POST(request: NextRequest) {
         data: { role: newRole },
       });
 
+      // Synchronize with Subscription table
+      if (newRole === 'PRO') {
+        const proPlan = await prisma.plan.findUnique({ where: { code: 'PRO' } });
+        if (proPlan) {
+          const oneYearAhead = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+          const existingSub = await prisma.subscription.findFirst({
+            where: { userId },
+            orderBy: { currentPeriodEnd: 'desc' },
+          });
+
+          if (existingSub) {
+            await prisma.subscription.update({
+              where: { id: existingSub.id },
+              data: {
+                planId: proPlan.id,
+                status: 'ACTIVE',
+                currentPeriodStart: new Date(),
+                currentPeriodEnd: oneYearAhead,
+                autoRenew: false,
+              },
+            });
+          } else {
+            await prisma.subscription.create({
+              data: {
+                userId,
+                planId: proPlan.id,
+                status: 'ACTIVE',
+                currentPeriodStart: new Date(),
+                currentPeriodEnd: oneYearAhead,
+                autoRenew: false,
+                providerPaymentId: `admin_grant_${Date.now()}`,
+              },
+            });
+          }
+        }
+      } else if (newRole === 'USER') {
+        await prisma.subscription.updateMany({
+          where: { userId, status: 'ACTIVE' },
+          data: {
+            status: 'CANCELED',
+            currentPeriodEnd: new Date(),
+          },
+        });
+      }
+
       await prisma.auditLog.create({
         data: {
           actorId: session.user.id,
@@ -126,7 +171,7 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({
         success: true,
-        message: `Роль пользователя успешно изменена на ${newRole}`,
+        message: `Роль пользователя успешно изменена на ${newRole} (подписка синхронизирована)`,
         user: { id: updated.id, role: updated.role },
       });
     }
