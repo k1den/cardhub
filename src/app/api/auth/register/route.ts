@@ -119,10 +119,14 @@ export async function POST(req: Request) {
     const verificationToken = await createEmailVerificationToken(newUser.id);
     await sendVerificationEmail(email, verificationToken);
 
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const verifyUrl = `${appUrl}/auth/verify?token=${verificationToken}`;
+
     return NextResponse.json(
       {
         success: true,
         message: 'Регистрация прошла успешно! Проверьте вашу электронную почту для подтверждения.',
+        devVerifyUrl: process.env.NODE_ENV === 'development' ? verifyUrl : undefined,
       },
       { status: 201 }
     );
