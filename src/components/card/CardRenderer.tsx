@@ -284,6 +284,14 @@ export default function CardRenderer({
                       href={href}
                       target={field.type === CardFieldType.PHONE || field.type === CardFieldType.EMAIL ? '_self' : '_blank'}
                       rel="noopener noreferrer nofollow ugc"
+                      onClick={() => {
+                        const targetId = card.id || card.slug;
+                        if (targetId) {
+                          try {
+                            fetch(`/api/cards/${targetId}/click`, { method: 'POST', keepalive: true }).catch(() => {});
+                          } catch {}
+                        }
+                      }}
                       className="group flex items-center justify-between p-3 rounded-xl bg-slate-900/70 hover:bg-slate-850 border border-slate-800/80 hover:border-slate-700 transition"
                     >
                       <div className="flex items-center gap-3">

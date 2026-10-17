@@ -15,6 +15,7 @@ import {
   Sparkles,
   ArrowRight,
   Shield,
+  BarChart3,
 } from 'lucide-react';
 
 export default async function DashboardPage() {
@@ -37,6 +38,19 @@ export default async function DashboardPage() {
     orderBy: {
       createdAt: 'desc',
     },
+  });
+
+  // Calculate real metrics across all user cards
+  let totalViews = 0;
+  let totalNfc = 0;
+  let totalVCard = 0;
+
+  cards.forEach((c) => {
+    c.events.forEach((ev) => {
+      totalViews += ev.viewsCount;
+      totalVCard += ev.vcardDownloads;
+      if (ev.source === 'NFC') totalNfc += ev.viewsCount;
+    });
   });
 
   return (
@@ -70,7 +84,7 @@ export default async function DashboardPage() {
             <span>Просмотры визитки</span>
             <Eye className="w-4 h-4 text-blue-400" />
           </div>
-          <div className="text-2xl font-black text-white">0</div>
+          <div className="text-2xl font-black text-white">{totalViews}</div>
           <div className="text-[11px] text-slate-500">За последние 30 дней</div>
         </div>
 
@@ -79,7 +93,7 @@ export default async function DashboardPage() {
             <span>Переходы с NFC-меток</span>
             <Radio className="w-4 h-4 text-indigo-400" />
           </div>
-          <div className="text-2xl font-black text-white">0</div>
+          <div className="text-2xl font-black text-indigo-400">{totalNfc}</div>
           <div className="text-[11px] text-slate-500">Касания стикера телефоном</div>
         </div>
 
@@ -88,7 +102,7 @@ export default async function DashboardPage() {
             <span>Сохранений контакта (vCard)</span>
             <Download className="w-4 h-4 text-emerald-400" />
           </div>
-          <div className="text-2xl font-black text-white">0</div>
+          <div className="text-2xl font-black text-emerald-400">{totalVCard}</div>
           <div className="text-[11px] text-slate-500">Добавлено в телефонную книгу</div>
         </div>
       </div>
@@ -162,9 +176,17 @@ export default async function DashboardPage() {
                   </Link>
                   <Link
                     href={`/dashboard/cards/${card.id}/nfc`}
-                    className="py-2 px-3 rounded-lg bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-500/20 text-xs font-medium transition flex items-center gap-1"
+                    className="py-2 px-3 rounded-lg bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 text-xs font-medium transition flex items-center gap-1"
+                    title="Записать на NFC"
                   >
                     <Radio className="w-3.5 h-3.5" /> NFC
+                  </Link>
+                  <Link
+                    href={`/dashboard/cards/${card.id}/stats`}
+                    className="py-2 px-3 rounded-lg bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 border border-blue-500/20 text-xs font-medium transition flex items-center gap-1"
+                    title="Статистика"
+                  >
+                    <BarChart3 className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
