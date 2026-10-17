@@ -16,7 +16,6 @@ export default function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [devVerifyUrl, setDevVerifyUrl] = useState<string | null>(null);
 
   // Password validation helpers
   const hasMinLength = password.length >= 10;
@@ -67,7 +66,6 @@ export default function RegisterForm() {
       }
 
       setSuccessMessage(data.message || 'Регистрация прошла успешно! Проверьте вашу электронную почту.');
-      setDevVerifyUrl(data.devVerifyUrl || null);
     } catch {
       setErrorMessage('Не удалось связаться с сервером. Пожалуйста, попробуйте позже.');
     } finally {
@@ -107,22 +105,9 @@ export default function RegisterForm() {
               <h3 className="text-xl font-bold text-white">Подтвердите ваш email</h3>
               <p className="text-sm text-slate-300 leading-relaxed">{successMessage}</p>
 
-              {devVerifyUrl && (
-                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs text-left space-y-2">
-                  <div className="font-semibold flex items-center gap-1.5 text-amber-200">
-                    <span>⚡ Быстрое подтверждение (режим разработки):</span>
-                  </div>
-                  <p className="text-slate-300 text-[11px]">
-                    В локальном режиме перейдите по сгенерированной ссылке:
-                  </p>
-                  <Link
-                    href={devVerifyUrl}
-                    className="inline-flex items-center gap-1.5 py-2 px-3 rounded-lg bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 font-medium transition text-xs break-all"
-                  >
-                    🔗 Подтвердить Email сейчас →
-                  </Link>
-                </div>
-              )}
+              <p className="text-xs text-slate-400">
+                Мы отправили письмо со ссылкой для подтверждения. Пожалуйста, откройте почту и перейдите по ссылке для активации аккаунта.
+              </p>
 
               <div className="pt-2">
                 <Link
