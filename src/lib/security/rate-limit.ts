@@ -34,6 +34,10 @@ export async function rateLimit(
   identifier: string,
   options: RateLimitOptions = { limit: 10, windowSeconds: 60 }
 ): Promise<RateLimitResult> {
+  // In development mode, relax rate limit for smooth developer testing
+  const effectiveLimit =
+    process.env.NODE_ENV === 'development' && !process.env.VITEST ? 1000 : options.limit;
+
   const now = Date.now();
   const windowMs = options.windowSeconds * 1000;
   const key = `ratelimit:${identifier}`;
@@ -48,16 +52,16 @@ export async function rateLimit(
     memoryStore.set(key, entry);
     return {
       success: true,
-      limit: options.limit,
-      remaining: options.limit - 1,
+      limit: effectiveLimit,
+      remaining: effectiveLimit - 1,
       reset: Math.ceil((entry.resetAt - now) / 1000),
     };
   }
 
-  if (current.count >= options.limit) {
+  if (current.count >= effectiveLimit) {
     return {
       success: false,
-      limit: options.limit,
+      limit: effectiveLimit,
       remaining: 0,
       reset: Math.ceil((current.resetAt - now) / 1000),
     };
@@ -66,8 +70,8 @@ export async function rateLimit(
   current.count += 1;
   return {
     success: true,
-    limit: options.limit,
-    remaining: options.limit - current.count,
+    limit: effectiveLimit,
+    remaining: effectiveLimit - current.count,
     reset: Math.ceil((current.resetAt - now) / 1000),
   };
 }
