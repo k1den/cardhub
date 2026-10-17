@@ -183,4 +183,75 @@ describe('Stage 4: Subscriptions, YooKassa Payments & 54-FZ Fiscalization', () =
     // Clean up created test card
     await prisma.card.delete({ where: { id: card1.id } });
   });
+
+  it('automatically grants a 7-day trial and blocks card creation after trial expiration', async () => {
+    // Create fresh trial user
+    const trialEmail = `trial_${Date.now()}@example.com`;
+    const passwordHash = await hashPassword('SecurePass123!');
+    const trialUser = await prisma.user.create({
+      data: {
+        email: trialEmail,
+        passwordHash,
+        emailVerified: true,
+        role: UserRole.USER,
+      },
+    });
+
+    try {
+      // 1. Initial status grants 7-day trial
+      const status = await paymentService.getUserSubscription(trialUser.id);
+      expect(status.isTrial).toBe(true);
+      expect(status.isActive).toBe(true);
+      expect(status.daysRemaining).toBeGreaterThanOrEqual(6);
+      expect(status.daysRemaining).toBeLessThanOrEqual(7);
+      expect(status.maxCards).toBe(1);
+
+      // Card creation should be allowed for 1 card
+      const allowedCheck = await paymentService.checkCardCreationAllowed(trialUser.id);
+      expect(allowedCheck.allowed).toBe(true);
+      expect(allowedCheck.maxCards).toBe(1);
+
+      // Create 1 card during trial
+      const card = await prisma.card.create({
+        data: {
+          ownerId: trialUser.id,
+          slug: `trial-card-${Date.now()}`,
+          fullName: 'Тестовая визитка на триале',
+          published: true,
+        },
+      });
+
+      // 2nd card during trial is rejected
+      const secondCheck = await paymentService.checkCardCreationAllowed(trialUser.id);
+      expect(secondCheck.allowed).toBe(false);
+
+      // 2. Simulate trial expiration: set currentPeriodEnd in the past (beyond grace period)
+      const pastDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+      await prisma.subscription.updateMany({
+        where: { userId: trialUser.id },
+        data: {
+          status: SubscriptionStatus.EXPIRED,
+          currentPeriodEnd: pastDate,
+          gracePeriodEnd: pastDate,
+        },
+      });
+
+      // After expiration, status should reflect expired
+      const expiredStatus = await paymentService.getUserSubscription(trialUser.id);
+      expect(expiredStatus.isTrial).toBe(false);
+      expect(expiredStatus.isActive).toBe(false);
+      expect(expiredStatus.maxCards).toBe(0);
+
+      // Card creation must be blocked
+      const expiredCheck = await paymentService.checkCardCreationAllowed(trialUser.id);
+      expect(expiredCheck.allowed).toBe(false);
+      expect(expiredCheck.reason).toContain('пробного периода или подписки истек');
+
+      await prisma.card.delete({ where: { id: card.id } });
+    } finally {
+      await prisma.subscription.deleteMany({ where: { userId: trialUser.id } });
+      await prisma.auditLog.deleteMany({ where: { actorId: trialUser.id } });
+      await prisma.user.deleteMany({ where: { id: trialUser.id } });
+    }
+  });
 });

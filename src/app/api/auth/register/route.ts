@@ -5,7 +5,7 @@ import { hashPassword } from '@/lib/auth/password';
 import { createEmailVerificationToken } from '@/lib/auth/tokens';
 import { sendVerificationEmail } from '@/lib/email/sender';
 import { rateLimit, getClientIp } from '@/lib/security/rate-limit';
-import { ConsentType } from '@prisma/client';
+import { ConsentType, SubscriptionStatus } from '@prisma/client';
 
 export async function POST(req: Request) {
   try {
@@ -99,6 +99,41 @@ export async function POST(req: Request) {
           },
         });
       }
+
+      // 4. Initial 7-day Free Trial on REGULAR plan (Option C)
+      let regularPlan = await tx.plan.findUnique({
+        where: { code: 'REGULAR' },
+      });
+      if (!regularPlan) {
+        regularPlan = await tx.plan.create({
+          data: {
+            code: 'REGULAR',
+            name: 'Обычный',
+            description: '1 цифровая визитка, ссылка, QR-код, запись на NFC-метку и скачивание vCard.',
+            priceMonth: 290,
+            priceYear: 2900,
+            maxCards: 1,
+            maxMembers: 0,
+          },
+        });
+      }
+
+      const now = new Date();
+      const trialEnd = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const graceEnd = new Date(trialEnd.getTime() + 14 * 24 * 60 * 60 * 1000);
+
+      await tx.subscription.create({
+        data: {
+          userId: user.id,
+          planId: regularPlan.id,
+          status: SubscriptionStatus.TRIAL,
+          currentPeriodStart: now,
+          currentPeriodEnd: trialEnd,
+          gracePeriodEnd: graceEnd,
+          autoRenew: false,
+          providerPaymentId: 'trial_7_days',
+        },
+      });
 
       // Audit log registration
       await tx.auditLog.create({

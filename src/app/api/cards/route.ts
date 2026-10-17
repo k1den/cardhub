@@ -57,6 +57,7 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           error:
+            planCheck.reason ||
             `На вашем тарифе доступно создание не более ${planCheck.maxCards} визитки. Перейдите на тариф Pro для создания дополнительных визиток.`,
         },
         { status: 403 }

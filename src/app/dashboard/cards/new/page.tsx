@@ -4,6 +4,8 @@ import { getSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 import CardEditorForm from '@/components/card/CardEditorForm';
 
+import { paymentService } from '@/lib/payments/service';
+
 export default async function NewCardPage() {
   const session = await getSession();
 
@@ -11,15 +13,12 @@ export default async function NewCardPage() {
     redirect('/auth/login');
   }
 
-  // Check card count for Regular users
-  const activeCards = await prisma.card.count({
-    where: {
-      ownerId: session.user.id,
-      deletedAt: null,
-    },
-  });
-
-  if (session.user.role === 'USER' && activeCards >= 1) {
+  // Check card creation allowance (including 7-day trial and plan limits)
+  const planCheck = await paymentService.checkCardCreationAllowed(session.user.id);
+  if (!planCheck.allowed && session.user.role !== 'ADMIN') {
+    if (planCheck.maxCards === 0) {
+      redirect('/dashboard/subscription?error=trial_expired');
+    }
     redirect('/dashboard?error=plan_limit_reached');
   }
 

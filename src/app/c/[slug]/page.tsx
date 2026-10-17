@@ -115,11 +115,22 @@ export default async function PublicCardPage({ params, searchParams }: PublicCar
     orderBy: { currentPeriodEnd: 'desc' },
   });
 
-  if (ownerSub) {
+  const ownerUser = await prisma.user.findUnique({
+    where: { id: card.ownerId },
+    select: { role: true },
+  });
+
+  const isExempt = ownerUser?.role === 'ADMIN' || ownerUser?.role === 'PRO';
+
+  if (ownerSub && !isExempt) {
     const fourteenDaysAfterEnd = new Date(ownerSub.currentPeriodEnd);
     fourteenDaysAfterEnd.setDate(fourteenDaysAfterEnd.getDate() + 14);
 
-    if (new Date() > fourteenDaysAfterEnd && ownerSub.status !== 'ACTIVE') {
+    const isOwnerActive =
+      (ownerSub.status === 'ACTIVE' || ownerSub.status === 'TRIAL') &&
+      ownerSub.currentPeriodEnd > new Date();
+
+    if (!isOwnerActive && new Date() > fourteenDaysAfterEnd) {
       return (
         <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-center p-6 text-center">
           <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-slate-800 max-w-md w-full space-y-4">

@@ -115,7 +115,7 @@ export async function runMaintenance(options: MaintenanceOptions = {}): Promise<
   // 4. Subscriptions maintenance: transition expired or past due subscriptions
   const activeSubsDue = await prisma.subscription.findMany({
     where: {
-      status: SubscriptionStatus.ACTIVE,
+      status: { in: [SubscriptionStatus.ACTIVE, SubscriptionStatus.TRIAL, SubscriptionStatus.PAST_DUE] },
       currentPeriodEnd: { lte: now },
     },
   });

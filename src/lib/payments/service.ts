@@ -257,10 +257,75 @@ export class PaymentService {
   }
 
   /**
+   * Automatically ensure a user has an initial 7-day trial subscription if no subscription exists
+   */
+  async ensureTrialSubscription(userId: string) {
+    const existing = await prisma.subscription.findFirst({
+      where: { userId },
+      include: { plan: true },
+    });
+    if (existing) return existing;
+
+    // Fetch or create REGULAR plan
+    let regularPlan = await prisma.plan.findUnique({
+      where: { code: 'REGULAR' },
+    });
+    if (!regularPlan) {
+      regularPlan = await prisma.plan.create({
+        data: {
+          code: 'REGULAR',
+          name: 'Обычный',
+          description: '1 цифровая визитка, ссылка, QR-код, запись на NFC-метку и скачивание vCard.',
+          priceMonth: 290,
+          priceYear: 2900,
+          maxCards: 1,
+          maxMembers: 0,
+        },
+      });
+    }
+
+    const now = new Date();
+    const trialEnd = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days trial
+    const graceEnd = new Date(trialEnd.getTime() + 14 * 24 * 60 * 60 * 1000); // +14 days grace (TZ section 3)
+
+    const trialSub = await prisma.subscription.create({
+      data: {
+        userId,
+        planId: regularPlan.id,
+        status: SubscriptionStatus.TRIAL,
+        currentPeriodStart: now,
+        currentPeriodEnd: trialEnd,
+        gracePeriodEnd: graceEnd,
+        autoRenew: false,
+        providerPaymentId: 'trial_7_days',
+      },
+      include: {
+        plan: true,
+      },
+    });
+
+    await prisma.auditLog.create({
+      data: {
+        actorId: userId,
+        targetType: 'Subscription',
+        targetId: trialSub.id,
+        action: 'SUBSCRIPTION_TRIAL_STARTED',
+        details: {
+          trialDays: 7,
+          currentPeriodEnd: trialEnd.toISOString(),
+          gracePeriodEnd: graceEnd.toISOString(),
+        },
+      },
+    }).catch(() => {});
+
+    return trialSub;
+  }
+
+  /**
    * Get comprehensive subscription and usage status for a user
    */
   async getUserSubscription(userId: string) {
-    const [sub, user] = await Promise.all([
+    let [sub, user] = await Promise.all([
       prisma.subscription.findFirst({
         where: { userId },
         include: {
@@ -276,13 +341,39 @@ export class PaymentService {
 
     const isRoleProOrAdmin = user?.role === 'PRO' || user?.role === 'ADMIN';
 
+    // If regular user has no subscription record at all, grant initial 7-day trial
+    if (!sub && user && !isRoleProOrAdmin) {
+      sub = await this.ensureTrialSubscription(userId);
+    }
+
     const now = new Date();
-    const isSubActive = Boolean(
+    const isTrial = Boolean(
       sub &&
-      (sub.status === SubscriptionStatus.ACTIVE || sub.status === SubscriptionStatus.CANCELED) &&
+      sub.status === SubscriptionStatus.TRIAL &&
       sub.currentPeriodEnd > now
     );
-    const isPastDue = Boolean(sub && sub.currentPeriodEnd <= now && sub.gracePeriodEnd && sub.gracePeriodEnd > now);
+
+    const isSubActive = Boolean(
+      sub &&
+      (sub.status === SubscriptionStatus.ACTIVE ||
+        sub.status === SubscriptionStatus.CANCELED ||
+        sub.status === SubscriptionStatus.TRIAL) &&
+      sub.currentPeriodEnd > now
+    );
+
+    const isPastDue = Boolean(
+      sub &&
+      sub.currentPeriodEnd <= now &&
+      sub.gracePeriodEnd &&
+      sub.gracePeriodEnd > now
+    );
+
+    const isExpired = Boolean(
+      (sub && sub.status === SubscriptionStatus.EXPIRED) ||
+      (sub && sub.currentPeriodEnd <= now && (!sub.gracePeriodEnd || sub.gracePeriodEnd <= now)) ||
+      (!sub && !isRoleProOrAdmin)
+    );
+
     const isPro = Boolean((isSubActive && sub?.plan?.code === 'PRO') || isRoleProOrAdmin);
     const isActive = isSubActive || isRoleProOrAdmin;
 
@@ -300,7 +391,14 @@ export class PaymentService {
       take: 20,
     });
 
-    const maxCards = isPro ? 10 : 1;
+    let maxCards = 0;
+    if (isPro) {
+      maxCards = 10;
+    } else if (isActive || isPastDue) {
+      maxCards = 1;
+    } else {
+      maxCards = 0;
+    }
 
     const defaultProPlan = {
       code: 'PRO',
@@ -311,16 +409,40 @@ export class PaymentService {
       maxCards: 10,
     };
 
-    const effectivePlan = (isRoleProOrAdmin && (!sub || sub?.plan?.code !== 'PRO'))
-      ? defaultProPlan
-      : (sub?.plan || {
-          code: 'FREE',
-          name: 'Базовый',
-          description: '1 цифровая визитка, ссылка, QR-код, запись на NFC-метку и скачивание vCard.',
-          priceMonth: 0,
-          priceYear: 0,
-          maxCards: 1,
-        });
+    const trialPlan = {
+      code: 'TRIAL',
+      name: 'Пробный период (7 дней)',
+      description: 'Бесплатный ознакомительный доступ: 1 цифровая визитка, ссылка, QR-код и запись на NFC.',
+      priceMonth: 0,
+      priceYear: 0,
+      maxCards: 1,
+    };
+
+    const expiredPlan = {
+      code: 'EXPIRED',
+      name: 'Подписка истекла',
+      description: 'Срок пробного периода или подписки завершился. Для использования визиток оформите подписку.',
+      priceMonth: 0,
+      priceYear: 0,
+      maxCards: 0,
+    };
+
+    let effectivePlan = sub?.plan || {
+      code: 'REGULAR',
+      name: 'Обычный',
+      description: '1 цифровая визитка, ссылка, QR-код, запись на NFC-метку и скачивание vCard.',
+      priceMonth: 290,
+      priceYear: 2900,
+      maxCards: 1,
+    };
+
+    if (isRoleProOrAdmin && (!sub || sub?.plan?.code !== 'PRO')) {
+      effectivePlan = defaultProPlan;
+    } else if (isTrial) {
+      effectivePlan = trialPlan;
+    } else if (!isActive && !isPastDue) {
+      effectivePlan = expiredPlan;
+    }
 
     const effectiveEnd = sub?.currentPeriodEnd || (isRoleProOrAdmin ? new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000) : null);
     const daysRemaining = effectiveEnd ? Math.max(0, Math.ceil((effectiveEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))) : 0;
@@ -329,8 +451,10 @@ export class PaymentService {
       subscription: sub,
       plan: effectivePlan,
       isActive: isActive || isPastDue,
+      isTrial,
       isPro,
       isPastDue,
+      isExpired,
       autoRenew: sub?.autoRenew || false,
       currentPeriodEnd: effectiveEnd,
       daysRemaining,
@@ -341,7 +465,7 @@ export class PaymentService {
   }
 
   /**
-   * Check if user is allowed to create another card according to plan limit
+   * Check if user is allowed to create another card according to plan limit and trial status
    */
   async checkCardCreationAllowed(userId: string) {
     const currentCardsCount = await prisma.card.count({
@@ -353,7 +477,18 @@ export class PaymentService {
 
     const status = await this.getUserSubscription(userId);
 
-    const allowed = currentCardsCount < status.maxCards;
+    const allowed = (status.isActive || status.isPro) && currentCardsCount < status.maxCards;
+
+    let reason: string | undefined;
+    if (!status.isActive && !status.isPro) {
+      reason = 'Срок действия вашего 7-дневного пробного периода или подписки истек. Оформите подписку для создания и публикации визиток.';
+    } else if (currentCardsCount >= status.maxCards) {
+      reason = status.isPro
+        ? 'Вы достигли максимального лимита в 10 визиток на тарифе Pro.'
+        : status.isTrial
+        ? 'В рамках 7-дневного пробного периода доступна 1 визитка. Перейдите на тариф Pro для создания дополнительных визиток.'
+        : 'На тарифе Обычный доступна 1 визитка. Перейдите на тариф Pro для создания дополнительных визиток.';
+    }
 
     return {
       allowed,
@@ -361,6 +496,9 @@ export class PaymentService {
       maxCards: status.maxCards,
       planCode: status.plan.code,
       isPro: status.isPro,
+      isTrial: status.isTrial,
+      isPastDue: status.isPastDue,
+      reason,
     };
   }
 }

@@ -37,8 +37,10 @@ interface SubscriptionClientProps {
     subscription: any;
     plan: any;
     isActive: boolean;
+    isTrial?: boolean;
     isPro: boolean;
     isPastDue: boolean;
+    isExpired?: boolean;
     autoRenew: boolean;
     currentPeriodEnd: string | null;
     daysRemaining: number;
@@ -191,7 +193,12 @@ export default function SubscriptionClient({
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                 Текущий статус
               </span>
-              {data.isActive ? (
+              {data.isTrial ? (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Пробный период (7 дней)
+                </span>
+              ) : data.isActive ? (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   {data.isPro ? 'Тариф Pro (Активен)' : 'Тариф Обычный (Активен)'}
@@ -199,11 +206,11 @@ export default function SubscriptionClient({
               ) : data.isPastDue ? (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 border border-amber-500/20 text-amber-400">
                   <AlertCircle className="w-3.5 h-3.5" />
-                  Льготный период (7 дней)
+                  Льготный период (14 дней)
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-400">
-                  Базовый бесплатный доступ
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/10 border border-rose-500/20 text-rose-400">
+                  Подписка не активна
                 </span>
               )}
             </div>
@@ -215,7 +222,8 @@ export default function SubscriptionClient({
             {formattedEndDate && (
               <p className="text-xs text-slate-400 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                Оплачено до: <strong className="text-slate-200">{formattedEndDate}</strong>
+                {data.isTrial ? 'Пробный доступ до:' : 'Оплачено до:'}{' '}
+                <strong className="text-slate-200">{formattedEndDate}</strong>
                 {data.daysRemaining > 0 && (
                   <span className="text-slate-500">({data.daysRemaining} дн. осталось)</span>
                 )}
