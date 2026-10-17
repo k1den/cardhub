@@ -52,6 +52,22 @@ export default async function DashboardLayout({
                 <CreditCard className="w-3.5 h-3.5 text-blue-400" />
                 <span>Подписка</span>
               </Link>
+              <Link
+                href="/dashboard/settings"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center gap-1.5"
+              >
+                <Settings className="w-3.5 h-3.5 text-slate-400" />
+                <span>Настройки</span>
+              </Link>
+              {session.user.role === 'ADMIN' && (
+                <Link
+                  href="/admin"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 transition flex items-center gap-1.5"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Админка</span>
+                </Link>
+              )}
             </nav>
 
             <Link
@@ -85,9 +101,25 @@ export default async function DashboardLayout({
 
       {/* Footer */}
       <footer className="border-t border-slate-900 py-6 text-center text-xs text-slate-500 mt-auto">
-        <div className="flex items-center justify-center gap-1.5">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/70" />
-          <span>Данные зашифрованы и локализованы в РФ (152-ФЗ / 242-ФЗ) • CardHub © 2026</span>
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/70" />
+            <span>Данные зашифрованы и локализованы в РФ (152-ФЗ / 242-ФЗ) • CardHub © 2026</span>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-500">
+            <Link href="/legal/pd-consent" className="hover:text-slate-300 transition">
+              Согласие на ПДн
+            </Link>
+            <Link href="/legal/pd-distribution" className="hover:text-slate-300 transition">
+              Распространение ПДн
+            </Link>
+            <Link href="/legal/cookies" className="hover:text-slate-300 transition">
+              Файлы cookie
+            </Link>
+            <Link href="/legal/content-rules" className="hover:text-slate-300 transition">
+              Правила контента (149-ФЗ)
+            </Link>
+          </div>
         </div>
       </footer>
     </div>

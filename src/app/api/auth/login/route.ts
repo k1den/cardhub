@@ -4,6 +4,7 @@ import { loginSchema } from '@/lib/validations/auth';
 import { verifyPassword } from '@/lib/auth/password';
 import { createSession, setSessionCookie } from '@/lib/auth/session';
 import { rateLimit, getClientIp } from '@/lib/security/rate-limit';
+import { decryptSecret, verifyTotpCode } from '@/lib/security/totp';
 
 export async function POST(req: Request) {
   try {
@@ -70,7 +71,20 @@ export async function POST(req: Request) {
           { status: 200 }
         );
       }
-      // TOTP validation logic will be checked here
+
+      if (!user.totpSecret) {
+        return NextResponse.json({ error: 'Ошибка конфигурации 2FA' }, { status: 500 });
+      }
+
+      const plainSecret = decryptSecret(user.totpSecret.secretEncrypted);
+      const isValidTotp = verifyTotpCode(plainSecret, totpCode.trim());
+
+      if (!isValidTotp) {
+        return NextResponse.json(
+          { error: 'Неверный код двухфакторной аутентификации' },
+          { status: 401 }
+        );
+      }
     }
 
     // Create session and set HttpOnly Cookie
