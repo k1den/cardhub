@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { getSession } from '@/lib/auth/session';
 import {
   Smartphone,
   QrCode,
@@ -14,7 +15,9 @@ import {
   ExternalLink,
 } from 'lucide-react';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await getSession();
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative overflow-hidden">
       {/* Ambient background glows */}
@@ -40,18 +43,30 @@ export default function HomePage() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Link
-              href="/auth/login"
-              className="text-sm font-medium text-slate-300 hover:text-white px-3.5 py-2 rounded-lg hover:bg-slate-800/60 transition"
-            >
-              Войти
-            </Link>
-            <Link
-              href="/auth/register"
-              className="text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl shadow-lg shadow-blue-600/25 transition active:scale-95"
-            >
-              Создать визитку
-            </Link>
+            {session ? (
+              <Link
+                href="/dashboard"
+                className="text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 px-4 py-2 rounded-xl shadow-lg shadow-blue-600/25 transition flex items-center gap-2"
+              >
+                <span>Личный кабинет</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/auth/login"
+                  className="text-sm font-medium text-slate-300 hover:text-white px-3.5 py-2 rounded-lg hover:bg-slate-800/60 transition"
+                >
+                  Войти
+                </Link>
+                <Link
+                  href="/auth/register"
+                  className="text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl shadow-lg shadow-blue-600/25 transition active:scale-95"
+                >
+                  Создать визитку
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -76,10 +91,11 @@ export default function HomePage() {
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            href="/auth/register"
+            href={session ? "/dashboard" : "/auth/register"}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-xl shadow-blue-600/30 text-base transition active:scale-98"
           >
-            Создать бесплатно <ArrowRight className="w-5 h-5" />
+            <span>{session ? 'Перейти в личный кабинет' : 'Создать бесплатно'}</span>
+            <ArrowRight className="w-5 h-5" />
           </Link>
           <a
             href="#pricing"
