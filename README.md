@@ -71,5 +71,6 @@ docker compose up -d
 ## 📜 Документация и стандарты
 
 - [TZ_NFC_vizitki.md](./TZ_NFC_vizitki.md) — Исходное техническое задание.
+- [PRODUCTION_CHECKLIST.md](./PRODUCTION_CHECKLIST.md) — Чек-лист подготовки и вывода проекта в боевой продакшен.
 - [SECURITY.md](./SECURITY.md) — Политика безопасности, соответствие OWASP ASVS и 152-ФЗ.
 - [DECISIONS.md](./DECISIONS.md) — Журнал архитектурных решений (ADR).
