@@ -42,7 +42,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  ...(process.env.NODE_ENV === 'production' ? { output: 'standalone' } : {}),
   turbopack: {
     rules: {
       "*.css": {
