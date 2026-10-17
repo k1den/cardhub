@@ -48,12 +48,14 @@ interface SubscriptionClientProps {
   };
   plans: PlanData[];
   userEmail: string;
+  isSandboxMode?: boolean;
 }
 
 export default function SubscriptionClient({
   initialData,
   plans,
   userEmail,
+  isSandboxMode = false,
 }: SubscriptionClientProps) {
   const [data, setData] = useState(initialData);
   const [billingPeriod, setBillingPeriod] = useState<'MONTH' | 'YEAR'>('MONTH');
@@ -616,15 +618,17 @@ export default function SubscriptionClient({
                 )}
               </button>
 
-              <button
-                onClick={() => handleInitiatePayment(true)}
-                disabled={submittingPayment}
-                className="w-full py-2.5 rounded-xl font-medium text-xs text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-800 transition flex items-center justify-center gap-2"
-                title="Эмуляция успешной оплаты для проверки в dev-окружении"
-              >
-                <Zap className="w-3.5 h-3.5 text-amber-400" />
-                <span>Оплатить в тестовом режиме (Sandbox Эмуляция)</span>
-              </button>
+              {isSandboxMode && (
+                <button
+                  onClick={() => handleInitiatePayment(true)}
+                  disabled={submittingPayment}
+                  className="w-full py-2.5 rounded-xl font-medium text-xs text-slate-300 bg-slate-900 hover:bg-slate-800 border border-slate-800 transition flex items-center justify-center gap-2"
+                  title="Эмуляция успешной оплаты для проверки в dev-окружении без ввода карты"
+                >
+                  <Zap className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Оплатить в тестовом режиме (Sandbox Эмуляция)</span>
+                </button>
+              )}
             </div>
           </div>
         </div>

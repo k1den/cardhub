@@ -53,11 +53,14 @@ export default async function SubscriptionPage() {
     features: p.features,
   }));
 
+  const isSandboxMode = !process.env.YOOKASSA_SHOP_ID || !process.env.YOOKASSA_SECRET_KEY;
+
   return (
     <SubscriptionClient
       initialData={serializedData}
       plans={serializedPlans}
       userEmail={session.user.email}
+      isSandboxMode={isSandboxMode}
     />
   );
 }

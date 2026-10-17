@@ -17,8 +17,8 @@ export class YooKassaProvider implements PaymentProvider {
   constructor() {
     this.shopId = process.env.YOOKASSA_SHOP_ID || '';
     this.secretKey = process.env.YOOKASSA_SECRET_KEY || '';
-    // If credentials are not configured or in development/test, use simulation sandbox
-    this.isTestMode = !this.shopId || !this.secretKey || process.env.NODE_ENV !== 'production';
+    // Real YooKassa is used whenever keys are set in .env; sandbox is used if keys are absent or in Vitest
+    this.isTestMode = !this.shopId || !this.secretKey || Boolean(process.env.VITEST);
   }
 
   /**
