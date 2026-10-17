@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: cardhub
+          POSTGRES_PASSWORD: cardhub_pass
+          POSTGRES_DB: cardhub_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Run Prisma Generate
+        run: npx prisma generate
+        env:
+          DATABASE_URL: "postgresql://cardhub:cardhub_pass@localhost:5432/cardhub_test?schema=public"
+
+      - name: Run Type Check
+        run: npx tsc --noEmit
+
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm run test
+        env:
+          DATABASE_URL: "postgresql://cardhub:cardhub_pass@localhost:5432/cardhub_test?schema=public"
+          SESSION_SECRET: "ci-test-secret-key-at-least-32-chars-long"

@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cardhub-app
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://cardhub:cardhub_pass@postgres:5432/cardhub?schema=public
+      - REDIS_URL=redis://redis:6379
+      - NODE_ENV=production
+      - NEXT_PUBLIC_APP_URL=http://localhost:3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: cardhub-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: cardhub
+      POSTGRES_PASSWORD: cardhub_pass
+      POSTGRES_DB: cardhub
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: cardhub-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+
+volumes:
+  pgdata:
+  redisdata:

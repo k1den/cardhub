@@ -1,0 +1,367 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  PRO
+  ADMIN
+}
+
+enum EmailTokenType {
+  VERIFY_EMAIL
+  RESET_PASSWORD
+}
+
+enum ConsentType {
+  PD_PROCESSING      // Согласие на обработку персональных данных (152-ФЗ)
+  OFFER              // Принятие условий публичной оферты
+  PD_DISTRIBUTION    // Согласие на распространение ПДн (ст. 10.1 152-ФЗ)
+  MARKETING          // Согласие на получение рассылок рекламного характера (38-ФЗ)
+}
+
+enum MemberRole {
+  OWNER
+  MEMBER
+}
+
+enum MemberStatus {
+  ACTIVE
+  INVITED
+  SUSPENDED
+}
+
+enum CardFieldType {
+  PHONE
+  EMAIL
+  WEBSITE
+  TELEGRAM
+  WHATSAPP
+  VK
+  MAX
+  ADDRESS
+  SCHEDULE
+  CUSTOM_LINK
+  BIO
+}
+
+enum SubscriptionStatus {
+  TRIAL
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  EXPIRED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  CANCELED
+}
+
+enum EventSource {
+  NFC
+  QR
+  DIRECT
+}
+
+enum ReportStatus {
+  PENDING
+  RESOLVED
+  REJECTED
+}
+
+model User {
+  id            String      @id @default(uuid())
+  email         String      @unique
+  passwordHash  String
+  emailVerified Boolean     @default(false)
+  role          UserRole    @default(USER)
+  totpEnabled   Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  deletedAt     DateTime?
+
+  sessions      Session[]
+  emailTokens   EmailToken[]
+  totpSecret    TotpSecret?
+  consents      Consent[]
+  cards         Card[]      @relation("CardOwner")
+  memberships   Membership[]
+  subscriptions Subscription[]
+  payments      Payment[]
+  auditLogs     AuditLog[]
+  files         File[]
+
+  @@index([email])
+  @@index([deletedAt])
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipAddress String?
+  userAgent String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model EmailToken {
+  id        String         @id @default(uuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      EmailTokenType
+  tokenHash String         @unique
+  expiresAt DateTime
+  createdAt DateTime       @default(now())
+
+  @@index([userId])
+  @@index([tokenHash])
+}
+
+model TotpSecret {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  secretEncrypted String
+  backupCodesHash String?
+  createdAt       DateTime @default(now())
+}
+
+model Consent {
+  id              String      @id @default(uuid())
+  userId          String
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  consentType     ConsentType
+  documentVersion String
+  ipAddress       String?
+  userAgent       String?
+  createdAt       DateTime    @default(now())
+
+  @@index([userId])
+  @@index([consentType])
+}
+
+model Company {
+  id          String       @id @default(uuid())
+  name        String
+  logoUrl     String?
+  brandColor  String?
+  brandFont   String?
+  website     String?
+  slug        String?      @unique
+  isFrozen    Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deletedAt   DateTime?
+
+  memberships   Membership[]
+  cards         Card[]
+  invitations   Invitation[]
+  subscriptions Subscription[]
+
+  @@index([slug])
+  @@index([deletedAt])
+}
+
+model Membership {
+  id        String       @id @default(uuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId String
+  company   Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  role      MemberRole   @default(MEMBER)
+  status    MemberStatus @default(ACTIVE)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@unique([userId, companyId])
+  @@index([userId])
+  @@index([companyId])
+}
+
+model Invitation {
+  id         String    @id @default(uuid())
+  companyId  String
+  company    Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  email      String
+  tokenHash  String    @unique
+  expiresAt  DateTime
+  acceptedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([companyId])
+  @@index([tokenHash])
+}
+
+model Card {
+  id          String      @id @default(uuid())
+  ownerId     String
+  owner       User        @relation("CardOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  companyId   String?
+  company     Company?    @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  slug        String      @unique
+  title       String?
+  fullName    String
+  position    String?
+  companyName String?
+  bio         String?
+  avatarUrl   String?
+  coverUrl    String?
+  templateId  String      @default("modern")
+  themeConfig Json?
+  published   Boolean     @default(true)
+  isIndexed   Boolean     @default(false)
+  deletedAt   DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  fields      CardField[]
+  events      CardEvent[]
+  reports     Report[]
+
+  @@index([ownerId])
+  @@index([companyId])
+  @@index([slug])
+  @@index([deletedAt])
+}
+
+model CardField {
+  id        String        @id @default(uuid())
+  cardId    String
+  card      Card          @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  type      CardFieldType
+  label     String
+  value     String
+  visible   Boolean       @default(true)
+  sortOrder Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([cardId])
+}
+
+model Plan {
+  id          String         @id @default(uuid())
+  code        String         @unique
+  name        String
+  description String?
+  priceMonth  Int
+  priceYear   Int
+  maxCards    Int            @default(1)
+  maxMembers  Int            @default(0)
+  features    Json?
+  isActive    Boolean        @default(true)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id                 String             @id @default(uuid())
+  userId             String
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyId          String?
+  company            Company?           @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  planId             String
+  plan               Plan               @relation(fields: [planId], references: [id], onDelete: Restrict)
+  status             SubscriptionStatus @default(ACTIVE)
+  currentPeriodStart DateTime           @default(now())
+  currentPeriodEnd   DateTime
+  gracePeriodEnd     DateTime?
+  autoRenew          Boolean            @default(false)
+  providerPaymentId  String?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  @@index([userId])
+  @@index([companyId])
+}
+
+model Payment {
+  id                String        @id @default(uuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscriptionId    String?
+  amount            Int
+  currency          String        @default("RUB")
+  status            PaymentStatus @default(PENDING)
+  provider          String        @default("yookassa")
+  providerPaymentId String?       @unique
+  receiptUrl        String?
+  metadata          Json?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([providerPaymentId])
+}
+
+model CardEvent {
+  id              String      @id @default(uuid())
+  cardId          String
+  card            Card        @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  date            DateTime    @db.Date
+  source          EventSource @default(DIRECT)
+  viewsCount      Int         @default(0)
+  clicksCount     Int         @default(0)
+  vcardDownloads  Int         @default(0)
+
+  @@unique([cardId, date, source])
+  @@index([cardId])
+}
+
+model Report {
+  id          String       @id @default(uuid())
+  cardId      String
+  card        Card         @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  reason      String
+  details     String?
+  reporterIp  String?
+  status      ReportStatus @default(PENDING)
+  createdAt   DateTime     @default(now())
+  resolvedAt  DateTime?
+
+  @@index([cardId])
+  @@index([status])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  companyId  String?
+  targetType String
+  targetId   String
+  action     String
+  details    Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([actorId])
+  @@index([companyId])
+  @@index([targetType, targetId])
+}
+
+model File {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  filePath     String
+  originalName String
+  mimeType     String
+  sizeBytes    Int
+  createdAt    DateTime @default(now())
+
+  @@index([userId])
+}

@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CardHub — Сервис цифровых NFC-визиток
 
-## Getting Started
+Сервис для создания и распространения современных цифровых визиток с поддержкой коротких ссылок, QR-кодов и бесконтактных NFC-меток (NTAG213/215/216).
 
-First, run the development server:
+---
 
+## 🛠 Технологический стек
+
+- **Фреймворк:** Next.js (App Router, React 19, TypeScript)
+- **Стилизация:** Tailwind CSS
+- **База данных:** PostgreSQL 16+ (Prisma ORM)
+- **Кэширование и Rate Limiting:** Redis / In-memory fallback
+- **Безопасность:** Argon2id (`@node-rs/argon2`), серверные HttpOnly сессии, TOTP 2FA
+- **Тестирование:** Vitest
+- **Контейнеризация:** Docker, Docker Compose
+
+---
+
+## 🚀 Быстрый запуск для разработки
+
+### 1. Требования
+- Node.js 20+ (рекомендуется 22 или 24)
+- PostgreSQL 16+ (локально или через Docker)
+
+### 2. Установка зависимостей
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install --legacy-peer-deps
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Настройка окружения
+Скопируйте пример файла конфигурации:
+```bash
+cp .env.example .env
+```
+Убедитесь, что в `.env` указаны корректные параметры `DATABASE_URL` и `SESSION_SECRET`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Применение миграций базы данных
+```bash
+npx prisma migrate dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. Запуск сервера разработки
+```bash
+npm run dev
+```
+Приложение откроется по адресу [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧪 Запуск тестов
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Однократный прогон всех тестов
+npm test
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Запуск тестов в режиме наблюдателя
+npm run test:watch
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🐳 Запуск через Docker Compose
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Для запуска сервисов приложения, PostgreSQL и Redis в контейнерах:
+```bash
+docker compose up -d
+```
+
+---
+
+## 📜 Документация и стандарты
+
+- [TZ_NFC_vizitki.md](./TZ_NFC_vizitki.md) — Исходное техническое задание.
+- [SECURITY.md](./SECURITY.md) — Политика безопасности, соответствие OWASP ASVS и 152-ФЗ.
+- [DECISIONS.md](./DECISIONS.md) — Журнал архитектурных решений (ADR).
