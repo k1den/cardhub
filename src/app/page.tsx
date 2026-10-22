@@ -412,7 +412,7 @@ export default async function HomePage() {
 
           {/* Pro Plan */}
           <div className="glass-panel p-6 sm:p-8 rounded-3xl border-2 border-amber-500/50 relative flex flex-col justify-between shadow-2xl shadow-amber-600/10">
-            <div className="absolute -top-3.5 right-6 px-3 py-1 rounded-full bg-amber-600 text-white text-[11px] font-bold tracking-wider uppercase">
+            <div className="absolute -top-3.5 right-6 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-600 to-orange-500 text-white text-[11px] font-bold tracking-wider uppercase whitespace-nowrap shadow-md border border-amber-400/30">
               Для команд и компаний
             </div>
 

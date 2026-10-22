@@ -232,12 +232,12 @@ export default function SubscriptionClient({
           </div>
 
           {/* Auto-renew switch & usage */}
-          <div className="flex flex-col sm:flex-row md:flex-col items-start md:items-end gap-4 border-t md:border-t-0 pt-4 md:pt-0 border-slate-800">
+          <div className="flex flex-col sm:flex-row md:flex-col items-start md:items-end gap-4 border-t md:border-t-0 pt-4 md:pt-0 border-stone-800">
             {data.isActive && (
-              <div className="flex items-center gap-3 bg-slate-900/80 p-2.5 rounded-2xl border border-slate-800">
+              <div className="flex items-center gap-3 bg-stone-900/80 p-2.5 rounded-2xl border border-stone-800">
                 <div className="text-right">
                   <div className="text-xs font-medium text-white">Автопродление</div>
-                  <div className="text-[10px] text-slate-400">
+                  <div className="text-[10px] text-stone-400">
                     {data.autoRenew ? 'Включено (списание в срок)' : 'Отключено'}
                   </div>
                 </div>
@@ -246,7 +246,7 @@ export default function SubscriptionClient({
                   onClick={handleToggleAutoRenew}
                   disabled={togglingAutoRenew}
                   className={`w-12 h-6 rounded-full transition-colors relative p-0.5 focus:outline-none ${
-                    data.autoRenew ? 'bg-blue-600' : 'bg-slate-700'
+                    data.autoRenew ? 'bg-amber-600' : 'bg-stone-700'
                   }`}
                   title="Переключить автопродление"
                 >
@@ -259,7 +259,7 @@ export default function SubscriptionClient({
               </div>
             )}
 
-            <div className="text-xs text-slate-400">
+            <div className="text-xs text-stone-400">
               Лимит визиток:{' '}
               <strong className="text-white">
                 {data.cardsUsed} из {data.maxCards}
@@ -278,13 +278,13 @@ export default function SubscriptionClient({
           </p>
         </div>
 
-        <div className="inline-flex items-center p-1 rounded-2xl bg-slate-900 border border-slate-800">
+        <div className="inline-flex items-center p-1 rounded-2xl bg-stone-900 border border-stone-800">
           <button
             onClick={() => setBillingPeriod('MONTH')}
             className={`px-5 py-2 rounded-xl text-xs font-semibold transition ${
               billingPeriod === 'MONTH'
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-amber-600 text-white shadow-md'
+                : 'text-stone-400 hover:text-white'
             }`}
           >
             Ежемесячно
@@ -293,8 +293,8 @@ export default function SubscriptionClient({
             onClick={() => setBillingPeriod('YEAR')}
             className={`px-5 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 ${
               billingPeriod === 'YEAR'
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-amber-600 text-white shadow-md'
+                : 'text-stone-400 hover:text-white'
             }`}
           >
             <span>На 1 год</span>
@@ -321,14 +321,15 @@ export default function SubscriptionClient({
               key={plan.id}
               className={`rounded-3xl p-6 sm:p-8 relative flex flex-col justify-between transition-all duration-300 ${
                 isPro
-                  ? 'glass-panel border-2 border-indigo-500/40 shadow-2xl shadow-indigo-500/10'
-                  : 'glass-card border border-slate-800'
+                  ? 'glass-panel border-2 border-amber-500/40 shadow-2xl shadow-amber-500/10'
+                  : 'glass-card border border-stone-800'
               }`}
             >
               {isPro && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg">
-                    Для бизнеса и команд
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10 w-max max-w-[90%]">
+                  <span className="px-3.5 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-lg shadow-amber-600/30 whitespace-nowrap inline-flex items-center gap-1.5 border border-amber-400/30">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-200 shrink-0" />
+                    <span>Для бизнеса и команд</span>
                   </span>
                 </div>
               )}
@@ -336,18 +337,18 @@ export default function SubscriptionClient({
               <div className="space-y-6">
                 <div>
                   <h3 className="text-xl font-black text-white">{plan.name}</h3>
-                  <p className="text-xs text-slate-400 mt-1 min-h-[32px]">
+                  <p className="text-xs text-stone-400 mt-1 min-h-[32px]">
                     {plan.description}
                   </p>
                 </div>
 
-                <div className="flex items-baseline gap-1.5 pb-6 border-b border-slate-800/80">
+                <div className="flex items-baseline gap-1.5 pb-6 border-b border-stone-800/80">
                   <span className="text-4xl font-extrabold text-white tracking-tight">
                     {monthlyEquivalent} ₽
                   </span>
-                  <span className="text-xs text-slate-400">/ месяц</span>
+                  <span className="text-xs text-stone-400">/ месяц</span>
                   {billingPeriod === 'YEAR' && (
-                    <span className="text-[11px] text-slate-500 ml-2">
+                    <span className="text-[11px] text-stone-500 ml-2">
                       ({price} ₽/год)
                     </span>
                   )}
@@ -355,11 +356,11 @@ export default function SubscriptionClient({
 
                 {/* Features list */}
                 <div className="space-y-3">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-stone-400">
                     Что входит:
                   </div>
 
-                  <ul className="space-y-2.5 text-xs text-slate-300">
+                  <ul className="space-y-2.5 text-xs text-stone-300">
                     <li className="flex items-center gap-2.5">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                       <span>
@@ -388,22 +389,22 @@ export default function SubscriptionClient({
 
                     {isPro ? (
                       <>
-                        <li className="flex items-center gap-2.5 text-indigo-300 font-medium">
-                          <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+                        <li className="flex items-center gap-2.5 text-amber-300 font-medium">
+                          <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
                           <span>Собственный короткий адрес визитки (/c/my-name)</span>
                         </li>
-                        <li className="flex items-center gap-2.5 text-indigo-300 font-medium">
-                          <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+                        <li className="flex items-center gap-2.5 text-amber-300 font-medium">
+                          <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
                           <span>Единый корпоративный брендинг и стиль</span>
                         </li>
-                        <li className="flex items-center gap-2.5 text-indigo-300 font-medium">
-                          <Sparkles className="w-4 h-4 text-indigo-400 shrink-0" />
+                        <li className="flex items-center gap-2.5 text-amber-300 font-medium">
+                          <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
                           <span>Управление сотрудниками компании и аудит</span>
                         </li>
                       </>
                     ) : (
-                      <li className="flex items-center gap-2.5 text-slate-500">
-                        <X className="w-4 h-4 shrink-0 text-slate-600" />
+                      <li className="flex items-center gap-2.5 text-stone-500">
+                        <X className="w-4 h-4 shrink-0 text-stone-600" />
                         <span>Компании и корпоративный брендинг (в Pro)</span>
                       </li>
                     )}
@@ -413,7 +414,7 @@ export default function SubscriptionClient({
 
               <div className="pt-8">
                 {isCurrentActive ? (
-                  <div className="w-full py-3 rounded-xl bg-slate-800 text-slate-300 text-center text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+                  <div className="w-full py-3 rounded-xl bg-stone-850 border border-stone-750 text-stone-200 text-center text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400" />
                     <span>Ваш текущий тариф</span>
                   </div>
@@ -422,8 +423,8 @@ export default function SubscriptionClient({
                     onClick={() => openCheckout(plan)}
                     className={`w-full py-3.5 rounded-xl text-center text-xs font-bold uppercase tracking-wider transition shadow-lg active:scale-[0.99] flex items-center justify-center gap-2 ${
                       isPro
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-indigo-600/25'
-                        : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/25'
+                        ? 'bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-500 hover:to-orange-400 text-white shadow-amber-600/25'
+                        : 'bg-stone-800 hover:bg-stone-750 text-white border border-stone-700'
                     }`}
                   >
                     <span>Выбрать {plan.name}</span>
