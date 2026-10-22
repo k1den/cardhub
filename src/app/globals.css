@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-stone-750: #242220;
-  --color-stone-850: #181614;
+  --color-stone-750: #283042;
+  --color-stone-850: #131825;
 }
 
 :root {

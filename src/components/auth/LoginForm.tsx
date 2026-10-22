@@ -45,9 +45,8 @@ export default function LoginForm() {
         return;
       }
 
-      // Successful login redirect with replace
-      router.replace('/dashboard');
-      router.refresh();
+      // Successful login redirect with full page reload to ensure session cookie is sent across tunnels
+      window.location.href = '/dashboard';
     } catch {
       setErrorMessage('Не удалось связаться с сервером. Повторите попытку позже.');
       setLoading(false);
@@ -78,7 +77,7 @@ export default function LoginForm() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10 px-4">
         <div className="glass-panel py-8 px-6 sm:px-10 rounded-[32px] shadow-2xl border border-stone-800 bg-stone-900/80">
-          <form className="space-y-5" onSubmit={handleSubmit}>
+          <form className="space-y-5" onSubmit={handleSubmit} action="#" method="POST">
             {errorMessage && (
               <div className="p-3.5 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-rose-300 text-sm flex items-start gap-2.5">
                 <AlertCircle className="w-5 h-5 shrink-0 text-rose-400 mt-0.5" />

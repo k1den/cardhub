@@ -104,23 +104,23 @@ export default async function DashboardLayout({
       <MobileNav isAdmin={session.user.role === 'ADMIN'} />
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 py-6 text-center text-xs text-slate-500 mt-auto mb-16 md:mb-0">
+      <footer className="border-t border-stone-800/80 py-6 text-center text-xs text-stone-500 mt-auto mb-16 md:mb-0">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/70" />
             <span>Данные зашифрованы и локализованы в РФ (152-ФЗ / 242-ФЗ) • CardHub © 2026</span>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-500">
-            <Link href="/legal/pd-consent" className="hover:text-slate-300 transition">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-stone-500">
+            <Link href="/legal/pd-consent" className="hover:text-stone-300 transition">
               Согласие на ПДн
             </Link>
-            <Link href="/legal/pd-distribution" className="hover:text-slate-300 transition">
+            <Link href="/legal/pd-distribution" className="hover:text-stone-300 transition">
               Распространение ПДн
             </Link>
-            <Link href="/legal/cookies" className="hover:text-slate-300 transition">
+            <Link href="/legal/cookies" className="hover:text-stone-300 transition">
               Файлы cookie
             </Link>
-            <Link href="/legal/content-rules" className="hover:text-slate-300 transition">
+            <Link href="/legal/content-rules" className="hover:text-stone-300 transition">
               Правила контента (149-ФЗ)
             </Link>
           </div>

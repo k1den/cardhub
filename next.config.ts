@@ -33,7 +33,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "font-src 'self' data:",
-      "connect-src 'self'",
+      "connect-src 'self' wss: ws: https: http:",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -42,6 +42,14 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: [
+    '*.loca.lt',
+    '*.lhr.life',
+    '*.trycloudflare.com',
+    '*.pinggy.link',
+    'localhost:3000',
+  ],
+  devIndicators: false,
   ...(process.env.NODE_ENV === 'production' ? { output: 'standalone' } : {}),
   turbopack: {
     rules: {
