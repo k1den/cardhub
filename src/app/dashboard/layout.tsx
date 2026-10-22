@@ -20,13 +20,13 @@ export default async function DashboardLayout({
   const roleLabel = session.user.role === 'ADMIN' ? 'Администратор' : session.user.role === 'PRO' ? 'Pro' : 'Обычный';
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#0C0F17] text-stone-100 flex flex-col font-sans">
       {/* Top Header */}
-      <header className="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur sticky top-0 z-30 px-4 py-3 sm:px-6 sm:py-3.5">
+      <header className="border-b border-stone-800/80 bg-stone-900/80 backdrop-blur sticky top-0 z-30 px-4 py-3 sm:px-6 sm:py-3.5">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3 sm:gap-6">
             <Link href="/dashboard" className="flex items-center gap-2.5 group">
-              <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20 group-hover:scale-105 transition shrink-0">
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white font-black text-sm shadow-md shadow-amber-600/25 group-hover:scale-105 transition shrink-0">
                 CH
               </span>
               <span className="font-bold tracking-tight text-white text-base sm:text-lg">CardHub</span>
@@ -35,29 +35,29 @@ export default async function DashboardLayout({
             <nav className="hidden md:flex items-center gap-1">
               <Link
                 href="/dashboard"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:text-white hover:bg-stone-800/60 transition"
               >
                 Мои визитки
               </Link>
               <Link
                 href="/dashboard/company"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:text-white hover:bg-stone-800/60 transition flex items-center gap-1.5"
               >
-                <Building2 className="w-3.5 h-3.5 text-indigo-400" />
+                <Building2 className="w-3.5 h-3.5 text-amber-400" />
                 <span>Компания</span>
               </Link>
               <Link
                 href="/dashboard/subscription"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:text-white hover:bg-stone-800/60 transition flex items-center gap-1.5"
               >
-                <CreditCard className="w-3.5 h-3.5 text-blue-400" />
+                <CreditCard className="w-3.5 h-3.5 text-amber-400" />
                 <span>Подписка</span>
               </Link>
               <Link
                 href="/dashboard/settings"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-stone-300 hover:text-white hover:bg-stone-800/60 transition flex items-center gap-1.5"
               >
-                <Settings className="w-3.5 h-3.5 text-slate-400" />
+                <Settings className="w-3.5 h-3.5 text-stone-400" />
                 <span>Настройки</span>
               </Link>
               {session.user.role === 'ADMIN' && (
@@ -73,7 +73,7 @@ export default async function DashboardLayout({
 
             <Link
               href="/dashboard/subscription"
-              className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-400 text-xs font-medium transition"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-400 text-xs font-medium transition"
             >
               <span>{roleLabel}</span>
             </Link>
@@ -81,7 +81,7 @@ export default async function DashboardLayout({
 
           <div className="flex items-center gap-3">
             <div className="text-right hidden sm:block">
-              <div className="text-xs font-medium text-slate-200">{session.user.email}</div>
+              <div className="text-xs font-medium text-stone-200">{session.user.email}</div>
               <div className="text-[10px] text-emerald-400 flex items-center justify-end gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 Email подтвержден

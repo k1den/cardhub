@@ -76,3 +76,78 @@ describe('Auth Validation Schemas & 152-ФЗ Compliance', () => {
     ).toBe(false);
   });
 });
+
+describe('Card Customization & Rich Schema Validation', () => {
+  it('validates rich card configuration with themes, tags, services, highlights and payment requisites', async () => {
+    const { cardFormSchema } = await import('@/lib/validations/card');
+
+    const richCardData = {
+      fullName: 'Алексей Морозов',
+      position: 'Ведущий брокер по недвижимости',
+      companyName: 'Prime Realty',
+      bio: 'Помощь в подборе премиальной недвижимости в Москве и Сочи.',
+      templateId: 'warm_editorial',
+      themeConfig: {
+        primaryColor: '#d97706',
+        fontFamily: 'serif',
+        layout: 'standard',
+        cardTexture: 'mesh',
+        avatarShape: 'squircle',
+        avatarBorder: 'accent',
+        buttonStyle: 'rounded',
+        coverStyle: 'banner',
+        statusBadge: {
+          enabled: true,
+          text: '🟢 На связи онлайн',
+          color: 'emerald',
+        },
+        tags: ['Недвижимость', 'Ипотека 6%', 'Инвестиции'],
+        highlights: [
+          { label: 'Опыт в сфере', value: '10+ лет' },
+          { label: 'Сделок', value: '450+' },
+        ],
+        services: [
+          {
+            title: 'Подбор новостроек',
+            desc: 'Полное юридическое сопровождение',
+            price: 'Бесплатно',
+          },
+        ],
+        paymentRequisites: {
+          enabled: true,
+          bankName: 'Т-Банк',
+          recipientName: 'Алексей М.',
+          phoneOrCard: '+7 (999) 123-45-67',
+          note: 'СБП без комиссии',
+        },
+      },
+      fields: [
+        {
+          type: 'PHONE',
+          label: 'Телефон',
+          value: '+7 (999) 123-45-67',
+          visible: true,
+          sortOrder: 0,
+        },
+        {
+          type: 'TELEGRAM',
+          label: 'Telegram',
+          value: '@alexey_realty',
+          visible: true,
+          sortOrder: 1,
+        },
+      ],
+    };
+
+    const result = cardFormSchema.safeParse(richCardData);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.templateId).toBe('warm_editorial');
+      expect((result.data.themeConfig as any).tags).toHaveLength(3);
+      expect((result.data.themeConfig as any).services).toHaveLength(1);
+      expect((result.data.themeConfig as any).statusBadge.text).toBe('🟢 На связи онлайн');
+      expect((result.data.themeConfig as any).paymentRequisites.enabled).toBe(true);
+    }
+  });
+});
+

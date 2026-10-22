@@ -131,7 +131,7 @@ export default function PublicCardClient({ card, cardUrl }: PublicCardClientProp
                 <a
                   href={qrPngUrl}
                   download={`qr-${card.slug}.png`}
-                  className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2"
+                  className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-medium text-xs transition shadow-lg shadow-amber-600/30 flex items-center justify-center gap-2"
                 >
                   <Download className="w-4 h-4" />
                   <span>Скачать QR в высоком разрешении (PNG)</span>

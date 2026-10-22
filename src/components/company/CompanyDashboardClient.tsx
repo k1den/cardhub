@@ -602,7 +602,7 @@ export default function CompanyDashboardClient({
                 setGeneratedInviteUrl(null);
                 setInviteModalOpen(true);
               }}
-              className="py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2"
+              className="py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-xs font-semibold text-white transition shadow-lg shadow-amber-600/25 flex items-center justify-center gap-2"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Пригласить сотрудника</span>
@@ -618,13 +618,13 @@ export default function CompanyDashboardClient({
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-800 gap-2 overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap">
+      <div className="flex border-b border-stone-800 gap-2 overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap">
         <button
           onClick={() => handleTabChange('members')}
           className={`pb-3 px-4 text-xs font-semibold border-b-2 transition flex items-center gap-2 shrink-0 ${
             activeTab === 'members'
-              ? 'border-blue-500 text-white'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-amber-500 text-white'
+              : 'border-transparent text-stone-400 hover:text-stone-200'
           }`}
         >
           <Users className="w-4 h-4" />
@@ -635,8 +635,8 @@ export default function CompanyDashboardClient({
           onClick={() => handleTabChange('branding')}
           className={`pb-3 px-4 text-xs font-semibold border-b-2 transition flex items-center gap-2 shrink-0 ${
             activeTab === 'branding'
-              ? 'border-blue-500 text-white'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-amber-500 text-white'
+              : 'border-transparent text-stone-400 hover:text-stone-200'
           }`}
         >
           <Palette className="w-4 h-4" />
@@ -647,8 +647,8 @@ export default function CompanyDashboardClient({
           onClick={() => handleTabChange('invitations')}
           className={`pb-3 px-4 text-xs font-semibold border-b-2 transition flex items-center gap-2 shrink-0 ${
             activeTab === 'invitations'
-              ? 'border-blue-500 text-white'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-amber-500 text-white'
+              : 'border-transparent text-stone-400 hover:text-stone-200'
           }`}
         >
           <Mail className="w-4 h-4" />
@@ -659,8 +659,8 @@ export default function CompanyDashboardClient({
           onClick={() => handleTabChange('audit')}
           className={`pb-3 px-4 text-xs font-semibold border-b-2 transition flex items-center gap-2 shrink-0 ${
             activeTab === 'audit'
-              ? 'border-blue-500 text-white'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-amber-500 text-white'
+              : 'border-transparent text-stone-400 hover:text-stone-200'
           }`}
         >
           <ShieldCheck className="w-4 h-4" />

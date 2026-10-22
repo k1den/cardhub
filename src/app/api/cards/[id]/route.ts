@@ -148,7 +148,7 @@ export async function PUT(req: Request, { params }: RouteParams) {
           avatarUrl: data.avatarUrl || null,
           coverUrl: data.coverUrl || null,
           templateId: data.templateId,
-          themeConfig: data.themeConfig,
+          themeConfig: data.themeConfig as any,
           published: data.published,
           isIndexed: data.isIndexed,
         },

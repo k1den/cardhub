@@ -210,21 +210,21 @@ export default async function PublicCardPage({ params, searchParams }: PublicCar
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center py-8 px-4 sm:px-6 relative overflow-hidden">
-      {/* Ambient lights */}
-      <div className="ambient-glow bg-blue-600/20 w-96 h-96 -top-20 -left-20" />
-      <div className="ambient-glow bg-indigo-600/20 w-96 h-96 -bottom-20 -right-20" />
+    <div className="min-h-screen bg-[#0C0F17] text-stone-100 flex flex-col justify-center py-8 px-4 sm:px-6 relative overflow-hidden font-sans">
+      {/* Soft warm ambient lighting */}
+      <div className="ambient-glow bg-amber-600/10 w-96 h-96 -top-20 -left-20" />
+      <div className="ambient-glow bg-orange-700/10 w-96 h-96 -bottom-20 -right-20" />
 
       <main className="relative z-10 w-full flex items-center justify-center my-auto">
         <PublicCardClient card={renderData} cardUrl={cardUrl} />
       </main>
 
-      <footer className="relative z-10 text-center text-xs text-slate-500 py-4 mt-6">
-        <Link href="/" className="hover:text-slate-400 transition inline-flex items-center gap-1.5">
-          <span className="w-4 h-4 rounded bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white text-[9px] font-black">
+      <footer className="relative z-10 text-center text-xs text-stone-500 py-4 mt-6">
+        <Link href="/" className="hover:text-stone-300 transition inline-flex items-center gap-1.5">
+          <span className="w-4 h-4 rounded bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white text-[9px] font-black">
             CH
           </span>
-          <span>Создайте свою визитку на CardHub</span>
+          <span>Создайте свою электронную визитку на CardHub</span>
         </Link>
       </footer>
     </div>
