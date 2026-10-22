@@ -52,7 +52,11 @@ docker compose -f docker-compose.prod.yml run --rm --entrypoint "\
     --force-renewal \
     --non-interactive" certbot
 
+echo "==> Обновление путей SSL в конфигурации Nginx (nginx/conf.d/cardhub.conf)..."
+sed -i "s|/etc/nginx/ssl/cert.pem|/etc/letsencrypt/live/$DOMAIN/fullchain.pem|g" nginx/conf.d/cardhub.conf || true
+sed -i "s|/etc/nginx/ssl/key.pem|/etc/letsencrypt/live/$DOMAIN/privkey.pem|g" nginx/conf.d/cardhub.conf || true
+
 echo "==> Перезагрузка Nginx для применения боевого SSL..."
 docker compose -f docker-compose.prod.yml exec nginx nginx -s reload
 
-echo "==> Готово! Сертификат успешно установлен и будет обновляться автоматически."
+echo "==> Готово! Сертификат Let's Encrypt успешно установлен и будет обновляться автоматически."
