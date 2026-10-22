@@ -22,7 +22,7 @@ function VerifyContent() {
       return;
     }
 
-    // Guard against React 18/19 StrictMode double-execution
+    // Guard against React StrictMode double-execution
     if (hasFired.current) {
       return;
     }
@@ -57,11 +57,11 @@ function VerifyContent() {
   }, [token]);
 
   return (
-    <div className="glass-panel py-10 px-8 rounded-3xl shadow-2xl border border-slate-800 text-center space-y-6">
+    <div className="glass-panel py-10 px-8 rounded-[32px] shadow-2xl border border-stone-800 bg-stone-900/80 text-center space-y-6">
       {loading ? (
         <div className="space-y-4">
-          <Loader2 className="w-12 h-12 text-blue-500 animate-spin mx-auto" />
-          <p className="text-slate-300 font-medium">Подтверждение вашего email...</p>
+          <Loader2 className="w-12 h-12 text-amber-500 animate-spin mx-auto" />
+          <p className="text-stone-300 font-medium">Подтверждение вашего email...</p>
         </div>
       ) : success ? (
         <div className="space-y-4">
@@ -69,13 +69,14 @@ function VerifyContent() {
             <CheckCircle2 className="w-8 h-8" />
           </div>
           <h2 className="text-2xl font-bold text-white">Email подтвержден!</h2>
-          <p className="text-slate-300 text-sm max-w-sm mx-auto">{message}</p>
+          <p className="text-stone-300 text-sm max-w-sm mx-auto leading-relaxed">{message}</p>
           <div className="pt-4">
             <Link
               href="/auth/login"
-              className="inline-flex items-center gap-2 py-3 px-6 rounded-xl font-medium text-white bg-blue-600 hover:bg-blue-500 transition shadow-lg shadow-blue-600/30 text-sm"
+              className="inline-flex items-center gap-2 py-3.5 px-6 rounded-2xl font-semibold text-white bg-amber-600 hover:bg-amber-500 transition shadow-lg shadow-amber-600/25 text-sm"
             >
-              Войти в аккаунт <ArrowRight className="w-4 h-4" />
+              <span>Войти в аккаунт</span>
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -84,20 +85,20 @@ function VerifyContent() {
           <div className="w-16 h-16 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 mx-auto flex items-center justify-center">
             <AlertCircle className="w-8 h-8" />
           </div>
-          <h2 className="text-2xl font-bold text-white">Статус подтверждения</h2>
-          <p className="text-slate-300 text-sm max-w-sm mx-auto">{message}</p>
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link
-              href="/auth/login"
-              className="inline-flex items-center gap-2 py-2.5 px-5 rounded-xl font-medium text-white bg-blue-600 hover:bg-blue-500 transition text-sm shadow-lg shadow-blue-600/20"
-            >
-              Войти в аккаунт <ArrowRight className="w-4 h-4" />
-            </Link>
+          <h2 className="text-2xl font-bold text-white">Ошибка подтверждения</h2>
+          <p className="text-stone-300 text-sm max-w-sm mx-auto leading-relaxed">{message}</p>
+          <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/auth/register"
-              className="text-xs text-slate-400 hover:text-slate-300 transition"
+              className="py-3 px-5 rounded-2xl border border-stone-800 hover:bg-stone-800 text-stone-300 text-sm transition"
             >
               Зарегистрироваться заново
+            </Link>
+            <Link
+              href="/auth/login"
+              className="py-3 px-5 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white text-sm font-semibold transition shadow-md shadow-amber-600/20"
+            >
+              На страницу входа
             </Link>
           </div>
         </div>
@@ -108,12 +109,22 @@ function VerifyContent() {
 
 export default function VerifyPage() {
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
-      <div className="ambient-glow bg-blue-600 w-96 h-96 -top-20 -left-20" />
-      <div className="ambient-glow bg-indigo-600 w-96 h-96 -bottom-20 -right-20" />
+    <div className="min-h-screen bg-[#0C0F17] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden font-sans text-stone-100">
+      {/* Soft warm ambient lighting */}
+      <div className="ambient-glow bg-amber-600/10 w-96 h-96 -top-20 -left-20" />
+      <div className="ambient-glow bg-orange-700/10 w-96 h-96 -bottom-20 -right-20" />
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 px-4">
-        <Suspense fallback={<div className="text-center text-slate-400">Загрузка...</div>}>
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center px-4 sm:px-0">
+        <Link href="/" className="inline-flex items-center gap-2.5 mb-5 group">
+          <span className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-amber-600/25 group-hover:scale-105 transition shrink-0">
+            CH
+          </span>
+          <span className="text-2xl font-black tracking-tight text-white">CardHub</span>
+        </Link>
+      </div>
+
+      <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-md relative z-10 px-4">
+        <Suspense fallback={<div className="text-center py-6 text-stone-400 text-sm">Проверка токена...</div>}>
           <VerifyContent />
         </Suspense>
       </div>

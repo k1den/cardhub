@@ -8,16 +8,16 @@ export const metadata = {
 
 export default function PdDistributionPage() {
   return (
-    <article className="space-y-8 text-slate-300 text-sm leading-relaxed">
+    <article className="space-y-8 text-stone-300 text-sm leading-relaxed">
       {/* Шапка */}
-      <div className="space-y-2 pb-6 border-b border-slate-800">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold">
+      <div className="space-y-2 pb-6 border-b border-stone-800">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
           Статья 10.1 Федерального закона № 152-ФЗ
         </div>
         <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
           Согласие на распространение персональных данных
         </h1>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-stone-400">
           Редакция от 21 октября 2026 г. • Специальная отдельная форма согласия на публичное раскрытие данных
         </p>
       </div>
@@ -25,7 +25,7 @@ export default function PdDistributionPage() {
       {/* 1. Правовая природа */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">1.</span> Предмет и правовая природа согласия
+          <span className="text-amber-500">1.</span> Предмет и правовая природа согласия
         </h2>
         <p>
           1.1. Поскольку цифровая визитка, создаваемая в сервисе <strong>«CardHub»</strong>, является публично доступной в сети Интернет для любого лица, перешедшего по персональной ссылке (URL), отсканировавшего динамический QR-код или приложившего смартфон к запрограммированной физической NFC-карте, субъект персональных данных дает настоящее <strong>отдельное согласие на распространение персональных данных</strong> неопределенному кругу лиц в строгом соответствии со статьей 10.1 Федерального закона от 27.07.2006 № 152-ФЗ.
@@ -38,7 +38,7 @@ export default function PdDistributionPage() {
       {/* 2. Категории и условия распространения */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">2.</span> Перечень данных и порядок определения условий распространения
+          <span className="text-amber-500">2.</span> Перечень данных и порядок определения условий распространения
         </h2>
         <p>
           2.1. Субъект персональных данных <strong>самостоятельно и исключительно по своей воле определяет перечень сведений</strong>, разрешенных им для публичного распространения неограниченному кругу лиц, посредством интерфейса конструктора визиток в Личном кабинете:
@@ -53,11 +53,11 @@ export default function PdDistributionPage() {
           <li>Адреса фактического нахождения офиса и график работы;</li>
           <li>Краткая биографическая справка и ссылки на портфолио.</li>
         </ul>
-        <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+        <div className="p-4 rounded-xl bg-stone-900/70 border border-stone-800 space-y-1.5">
           <p className="font-semibold text-white text-xs">
             Принцип избирательности (ст. 10.1 152-ФЗ):
           </p>
-          <p className="text-xs text-slate-300">
+          <p className="text-xs text-stone-300">
             Любое поле, для которого в Личном кабинете выключен признак видимости, скрывается из открытого доступа, не передается в генерируемый vCard-файл и распространению неограниченному кругу лиц не подлежит.
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function PdDistributionPage() {
       {/* 3. Особенности корпоративных визиток (Pro) */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">3.</span> Особенности корпоративных визиток сотрудников (Тариф Pro)
+          <span className="text-amber-500">3.</span> Особенности корпоративных визиток сотрудников (Тариф Pro)
         </h2>
         <p>
           3.1. При создании корпоративных визиток согласие на распространение персональных данных дается <strong>лично сотрудником компании</strong> в момент принятия приглашения в организацию и регистрации личного аккаунта в Сервисе.
@@ -79,7 +79,7 @@ export default function PdDistributionPage() {
       {/* 4. Запреты и ограничения */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">4.</span> Условия и запреты субъекта персональных данных
+          <span className="text-amber-500">4.</span> Условия и запреты субъекта персональных данных
         </h2>
         <p>
           4.1. Субъект вправе установить запреты на передачу (кроме предоставления доступа) персональных данных третьим лицам, а также запреты на обработку или условия обработки персональных данных.
@@ -92,7 +92,7 @@ export default function PdDistributionPage() {
       {/* 5. Порядок прекращения распространения */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">5.</span> Порядок прекращения распространения персональных данных
+          <span className="text-amber-500">5.</span> Порядок прекращения распространения персональных данных
         </h2>
         <p>
           5.1. Действие согласия на распространение прекращается немедленно в следующих случаях:

@@ -8,16 +8,16 @@ export const metadata = {
 
 export default function PdPolicyPage() {
   return (
-    <article className="space-y-8 text-slate-300 text-sm leading-relaxed">
+    <article className="space-y-8 text-stone-300 text-sm leading-relaxed">
       {/* Шапка */}
-      <div className="space-y-2 pb-6 border-b border-slate-800">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold">
+      <div className="space-y-2 pb-6 border-b border-stone-800">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
           Федеральный закон № 152-ФЗ
         </div>
         <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
           Политика обработки персональных данных
         </h1>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-stone-400">
           Редакция от 21 октября 2026 г. • Действует в отношении всех пользователей платформы CardHub
         </p>
       </div>
@@ -25,7 +25,7 @@ export default function PdPolicyPage() {
       {/* 1. Общие положения */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">1.</span> Общие положения
+          <span className="text-amber-500">1.</span> Общие положения
         </h2>
         <p>
           1.1. Настоящая Политика обработки персональных данных (далее — «Политика») определяет порядок сбора, записи, систематизации, накопления, хранения, уточнения (обновления, изменения), извлечения, использования, передачи (предоставления, доступа), обезличивания, блокирования, удаления и уничтожения персональных данных, осуществляемых сервисом «CardHub» (далее — «Сервис», «Оператор»).
@@ -41,7 +41,7 @@ export default function PdPolicyPage() {
       {/* 2. Основные понятия */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">2.</span> Основные понятия
+          <span className="text-amber-500">2.</span> Основные понятия
         </h2>
         <ul className="space-y-2 list-disc pl-5">
           <li><strong>Персональные данные (ПДн)</strong> — любая информация, относящаяся к прямо или косвенно определенному или определяемому физическому лицу (субъекту персональных данных).</li>
@@ -55,7 +55,7 @@ export default function PdPolicyPage() {
       {/* 3. Принципы обработки ПДн */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">3.</span> Принципы обработки персональных данных
+          <span className="text-amber-500">3.</span> Принципы обработки персональных данных
         </h2>
         <p>Обработка персональных данных в Сервисе осуществляется на основе следующих принципов:</p>
         <ul className="space-y-1 list-disc pl-5">
@@ -71,11 +71,11 @@ export default function PdPolicyPage() {
       {/* 4. Категории субъектов и состав обрабатываемых данных */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">4.</span> Категории субъектов и перечень обрабатываемых данных
+          <span className="text-amber-500">4.</span> Категории субъектов и перечень обрабатываемых данных
         </h2>
         <p>4.1. Оператор обрабатывает персональные данные следующих категорий субъектов:</p>
         <div className="space-y-3">
-          <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div className="p-4 rounded-xl bg-stone-900/70 border border-stone-800 space-y-1.5">
             <h3 className="font-semibold text-white">А. Зарегистрированные пользователи (владельцы аккаунтов):</h3>
             <ul className="list-disc pl-5 space-y-1 text-xs">
               <li>Адрес электронной почты (email) — для аутентификации и направления системных уведомлений;</li>
@@ -85,7 +85,7 @@ export default function PdPolicyPage() {
             </ul>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div className="p-4 rounded-xl bg-stone-900/70 border border-stone-800 space-y-1.5">
             <h3 className="font-semibold text-white">Б. Данные, размещаемые в профиле цифровой визитки:</h3>
             <ul className="list-disc pl-5 space-y-1 text-xs">
               <li>Фамилия, имя, отчество (или профессиональный псевдоним);</li>
@@ -97,7 +97,7 @@ export default function PdPolicyPage() {
             </ul>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+          <div className="p-4 rounded-xl bg-stone-900/70 border border-stone-800 space-y-1.5">
             <h3 className="font-semibold text-white">В. Посетители публичных визиток:</h3>
             <p className="text-xs">
               Агрегированная деперсонализированная статистика переходов: факт перехода с разделением источника (NFC-чип, QR-код, прямой веб-переход) без сохранения и привязки IP-адресов посетителей к персональным профилям.
@@ -109,7 +109,7 @@ export default function PdPolicyPage() {
       {/* 5. Цели обработки ПДн */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">5.</span> Цели сбора и обработки персональных данных
+          <span className="text-amber-500">5.</span> Цели сбора и обработки персональных данных
         </h2>
         <ul className="space-y-1 list-disc pl-5">
           <li>Регистрация и идентификация пользователей на Платформе;</li>
@@ -124,7 +124,7 @@ export default function PdPolicyPage() {
       {/* 6. Правовые основания обработки */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">6.</span> Правовые основания обработки
+          <span className="text-amber-500">6.</span> Правовые основания обработки
         </h2>
         <p>Правовыми основаниями обработки персональных данных Оператором являются:</p>
         <ul className="space-y-1 list-disc pl-5">
@@ -138,7 +138,7 @@ export default function PdPolicyPage() {
       {/* 7. Локализация данных в РФ (242-ФЗ) */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">7.</span> Локализация баз данных в Российской Федерации (242-ФЗ)
+          <span className="text-amber-500">7.</span> Локализация баз данных в Российской Федерации (242-ФЗ)
         </h2>
         <p>
           В соответствии с требованиями Федерального закона от 21.07.2014 № 242-ФЗ, Оператор обеспечивает запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение персональных данных граждан Российской Федерации с использованием баз данных, <strong>находящихся исключительно на территории Российской Федерации</strong>.
@@ -151,7 +151,7 @@ export default function PdPolicyPage() {
       {/* 8. Сроки хранения и «право на забвение» (ст. 21 152-ФЗ) */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">8.</span> Сроки хранения и уничтожение данных (ст. 21 152-ФЗ)
+          <span className="text-amber-500">8.</span> Сроки хранения и уничтожение данных (ст. 21 152-ФЗ)
         </h2>
         <p>
           8.1. Персональные данные хранятся не дольше, чем этого требуют цели обработки, если иной срок хранения не установлен действующим законодательством РФ.
@@ -168,7 +168,7 @@ export default function PdPolicyPage() {
       {/* 9. Права субъекта персональных данных */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">9.</span> Права субъекта персональных данных
+          <span className="text-amber-500">9.</span> Права субъекта персональных данных
         </h2>
         <p>Субъект персональных данных имеет право:</p>
         <ul className="space-y-1 list-disc pl-5">
@@ -183,7 +183,7 @@ export default function PdPolicyPage() {
       {/* 10. Меры по обеспечению безопасности */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">10.</span> Меры по обеспечению безопасности данных (ст. 19 152-ФЗ)
+          <span className="text-amber-500">10.</span> Меры по обеспечению безопасности данных (ст. 19 152-ФЗ)
         </h2>
         <p>
           Оператор принимает необходимые правовые, организационные и технические меры для защиты персональных данных от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования, распространения:
@@ -198,14 +198,14 @@ export default function PdPolicyPage() {
       </section>
 
       {/* 11. Заключительные положения и контакты */}
-      <section className="pt-6 border-t border-slate-800 space-y-3">
+      <section className="pt-6 border-t border-stone-800 space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">11.</span> Контакты для обращений субъектов персональных данных
+          <span className="text-amber-500">11.</span> Контакты для обращений субъектов персональных данных
         </h2>
         <p>
           Все запросы, отзывы согласий и обращения относительно обработки персональных данных направляются субъектом в свободной форме на адрес электронной почты Оператора:
         </p>
-        <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 space-y-1">
+        <div className="p-4 rounded-xl bg-stone-900/70 border border-stone-800 text-xs text-stone-300 space-y-1">
           <p><strong>Email для обращений по ПДн:</strong> privacy@ваш-домен.ru</p>
           <p><strong>Срок рассмотрения запроса:</strong> не более 10 рабочих дней с момента получения.</p>
         </div>

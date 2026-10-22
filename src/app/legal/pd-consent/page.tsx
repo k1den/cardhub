@@ -8,16 +8,16 @@ export const metadata = {
 
 export default function PdConsentPage() {
   return (
-    <article className="space-y-8 text-slate-300 text-sm leading-relaxed">
+    <article className="space-y-8 text-stone-300 text-sm leading-relaxed">
       {/* Шапка */}
-      <div className="space-y-2 pb-6 border-b border-slate-800">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold">
+      <div className="space-y-2 pb-6 border-b border-stone-800">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
           Статья 9 Федерального закона № 152-ФЗ
         </div>
         <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
           Согласие на обработку персональных данных
         </h1>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-stone-400">
           Редакция от 21 октября 2026 г. • Конкретное, предметное, информированное, сознательное и однозначное
         </p>
       </div>
@@ -32,7 +32,7 @@ export default function PdConsentPage() {
       {/* 1. Перечень обрабатываемых данных */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">1.</span> Перечень персональных данных, на обработку которых дается согласие
+          <span className="text-amber-500">1.</span> Перечень персональных данных, на обработку которых дается согласие
         </h2>
         <ul className="space-y-1.5 list-disc pl-5">
           <li>Адрес электронной почты (email);</li>
@@ -49,12 +49,12 @@ export default function PdConsentPage() {
       {/* 2. Цели обработки */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">2.</span> Цели обработки персональных данных
+          <span className="text-amber-500">2.</span> Цели обработки персональных данных
         </h2>
         <ul className="space-y-1 list-disc pl-5">
           <li>Идентификация и аутентификация Субъекта при использовании Сервиса;</li>
           <li>Предоставление функциональных возможностей по созданию, редактированию, хранению и публикации цифровых NFC- и QR-визиток;</li>
-          <li>Исполнение условий <Link href="/legal/offer" className="text-blue-400 hover:underline">Публичной оферты</Link>;</li>
+          <li>Исполнение условий <Link href="/legal/offer" className="text-amber-400 hover:underline">Публичной оферты</Link>;</li>
           <li>Автоматическое формирование и отправка электронных чеков самозанятого через систему «Мой налог» и шлюз ЮKassa;</li>
           <li>Обеспечение технической поддержки и обратной связи;</li>
           <li>Обеспечение безопасности Сервиса, защита от спама, взлома и вредоносных атак.</li>
@@ -64,7 +64,7 @@ export default function PdConsentPage() {
       {/* 3. Перечень действий с данными */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">3.</span> Перечень действий с персональными данными и способы обработки
+          <span className="text-amber-500">3.</span> Перечень действий с персональными данными и способы обработки
         </h2>
         <p>
           3.1. Обработка персональных данных включает в себя следующие действия: сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (предоставление, доступ платежным шлюзам и уполномоченным органам в случаях, установленных законом), обезличивание, блокирование, удаление и уничтожение персональных данных.
@@ -77,7 +77,7 @@ export default function PdConsentPage() {
       {/* 4. Передача третьим лицам */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">4.</span> Передача третьим лицам
+          <span className="text-amber-500">4.</span> Передача третьим лицам
         </h2>
         <p>
           Оператор не передает персональные данные третьим лицам, за исключением случаев:
@@ -91,7 +91,7 @@ export default function PdConsentPage() {
       {/* 5. Срок действия и порядок отзыва согласия */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">5.</span> Срок действия согласия и порядок его отзыва
+          <span className="text-amber-500">5.</span> Срок действия согласия и порядок его отзыва
         </h2>
         <p>
           5.1. Настоящее согласие действует с момента его выражения (проставления отметки в форме регистрации на сайте) до момента удаления учетной записи Субъекта либо до момента отзыва согласия.

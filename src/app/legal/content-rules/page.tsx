@@ -8,16 +8,16 @@ export const metadata = {
 
 export default function ContentRulesPage() {
   return (
-    <article className="space-y-8 text-slate-300 text-sm leading-relaxed">
+    <article className="space-y-8 text-stone-300 text-sm leading-relaxed">
       {/* Шапка */}
-      <div className="space-y-2 pb-6 border-b border-slate-800">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold">
+      <div className="space-y-2 pb-6 border-b border-stone-800">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
           Федеральный закон № 149-ФЗ
         </div>
         <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
           Правила размещения контента и порядок модерации
         </h1>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-stone-400">
           Редакция от 21 октября 2026 г. • Регламент безопасного использования платформы CardHub
         </p>
       </div>
@@ -25,7 +25,7 @@ export default function ContentRulesPage() {
       {/* 1. Общие положения */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">1.</span> Общие положения и ответственность пользователя
+          <span className="text-amber-500">1.</span> Общие положения и ответственность пользователя
         </h2>
         <p>
           1.1. Настоящие Правила разработаны в соответствии с Федеральным законом от 27.07.2006 № 149-ФЗ «Об информации, информационных технологиях и о защите информации», Гражданским кодексом РФ и законодательством РФ о защите прав потребителей.
@@ -38,7 +38,7 @@ export default function ContentRulesPage() {
       {/* 2. Категорически запрещенный контент */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">2.</span> Перечень категорически запрещенной к распространению информации
+          <span className="text-amber-500">2.</span> Перечень категорически запрещенной к распространению информации
         </h2>
         <p>
           В Сервисе CardHub категорически запрещается создание визиток и размещение материалов, которые:
@@ -65,7 +65,7 @@ export default function ContentRulesPage() {
       {/* 3. Порядок рассмотрения жалоб (Notice and Takedown) */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">3.</span> Регламент подачи и рассмотрения жалоб (Notice and Takedown)
+          <span className="text-amber-500">3.</span> Регламент подачи и рассмотрения жалоб (Notice and Takedown)
         </h2>
         <p>
           3.1. Для предотвращения распространения противоправной информации на каждой публичной странице цифровой визитки размещена интерактивная кнопка <strong>«Пожаловаться»</strong>.
@@ -90,7 +90,7 @@ export default function ContentRulesPage() {
       {/* 4. Санкции за нарушение Правил */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">4.</span> Санкции при выявлении нарушений
+          <span className="text-amber-500">4.</span> Санкции при выявлении нарушений
         </h2>
         <p>
           4.1. В случае подтверждения факта нарушения настоящих Правил Оператор вправе применить к нарушителю следующие меры:
@@ -105,7 +105,7 @@ export default function ContentRulesPage() {
       {/* 5. Взаимодействие с государственными органами */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">5.</span> Взаимодействие с органами государственной власти РФ
+          <span className="text-amber-500">5.</span> Взаимодействие с органами государственной власти РФ
         </h2>
         <p>
           Оператор сервиса CardHub действует в строгом соответствии с российским законодательством и незамедлительно исполняет законные требования Роскомнадзора, судебных инстанций и правоохранительных органов Российской Федерации по ограничению доступа к противоправной информации.
@@ -113,11 +113,11 @@ export default function ContentRulesPage() {
       </section>
 
       {/* 6. Контакты службы модерации */}
-      <section className="pt-6 border-t border-slate-800 space-y-3">
+      <section className="pt-6 border-t border-stone-800 space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">6.</span> Контакты для юридических обращений и претензий
+          <span className="text-amber-500">6.</span> Контакты для юридических обращений и претензий
         </h2>
-        <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 space-y-1">
+        <div className="p-4 rounded-xl bg-stone-900/70 border border-stone-800 text-xs text-stone-300 space-y-1">
           <p><strong>Email службы модерации и жалоб (Abuse Desk):</strong> abuse@ваш-домен.ru</p>
           <p><strong>Email по вопросам авторских прав (DMCA/РФ):</strong> copyright@ваш-домен.ru</p>
           <p><strong>Режим работы службы модерации:</strong> Ежедневно, круглосуточный прием обращений.</p>

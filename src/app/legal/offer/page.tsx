@@ -8,16 +8,16 @@ export const metadata = {
 
 export default function OfferPage() {
   return (
-    <article className="space-y-8 text-slate-300 text-sm leading-relaxed">
+    <article className="space-y-8 text-stone-300 text-sm leading-relaxed">
       {/* Шапка документа */}
-      <div className="space-y-2 pb-6 border-b border-slate-800">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold">
+      <div className="space-y-2 pb-6 border-b border-stone-800">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
           Официальный юридический документ
         </div>
         <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
           Публичная оферта на оказание услуг сервиса «CardHub»
         </h1>
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-stone-400">
           Редакция от 21 октября 2026 г. • г. Москва • Вступает в силу с момента публикации
         </p>
       </div>
@@ -35,7 +35,7 @@ export default function OfferPage() {
       {/* 1. Термины и определения */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">1.</span> Термины и определения
+          <span className="text-amber-500">1.</span> Термины и определения
         </h2>
         <ul className="space-y-2 list-disc pl-5">
           <li>
@@ -62,7 +62,7 @@ export default function OfferPage() {
       {/* 2. Предмет Договора */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">2.</span> Предмет Договора
+          <span className="text-amber-500">2.</span> Предмет Договора
         </h2>
         <p>
           2.1. Исполнитель обязуется оказывать Заказчику услуги по предоставлению доступа к функционалу Сервиса «CardHub» на условиях простой (неисключительной) пользовательской лицензии, а Заказчик обязуется оплачивать выбранный Тарифный план в соответствии с условиями настоящей Оферты.
@@ -82,7 +82,7 @@ export default function OfferPage() {
       {/* 3. Порядок регистрации и акцепта */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">3.</span> Регистрация и порядок заключения Договора
+          <span className="text-amber-500">3.</span> Регистрация и порядок заключения Договора
         </h2>
         <p>
           3.1. Для получения доступа к Сервису Заказчик проходит процедуру регистрации, указывая адрес своей электронной почты и пароль, а также проставляет отметки согласия с настоящей Офертой и Политикой обработки персональных данных.
@@ -95,7 +95,7 @@ export default function OfferPage() {
       {/* 4. Стоимость услуг и порядок расчетов */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">4.</span> Тарифные планы, стоимость услуг и чеки
+          <span className="text-amber-500">4.</span> Тарифные планы, стоимость услуг и чеки
         </h2>
         <p>
           4.1. Стоимость платных Тарифов публикуется в Сервисе в разделе «Подписка» и составляет:
@@ -107,11 +107,11 @@ export default function OfferPage() {
         <p>
           4.2. Оплата производится безналичным расчетом в российских рублях посредством банковских карт, СБП или иных способов через аккредитованного платёжного провайдера (ЮKassa / Банк-партнер).
         </p>
-        <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+        <div className="p-4 rounded-xl bg-stone-900/70 border border-stone-800 space-y-2">
           <p className="font-semibold text-white">
             4.3. Особенности налогового режима и выдачи чеков (422-ФЗ и 54-ФЗ):
           </p>
-          <p className="text-xs text-slate-300">
+          <p className="text-xs text-stone-300">
             Исполнитель применяет специальный налоговый режим «Налог на профессиональный доход» (НПД) в соответствии с Федеральным законом от 27.11.2018 № 422-ФЗ. В силу пункта 2.2 статьи 2 Федерального закона от 22.05.2003 № 54-ФЗ Исполнитель <strong>освобожден от применения контрольно-кассовой техники</strong>. Фискальный электронный чек плательщика НПД формируется автоматически посредством сервиса «Мой налог» и направляется на адрес электронной почты Заказчика либо отображается в ссылке платежного провайдера.
           </p>
         </div>
@@ -128,7 +128,7 @@ export default function OfferPage() {
       {/* 5. Порядок сдачи-приемки услуг и возврат средств */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">5.</span> Сдача-приемка услуг и возврат средств
+          <span className="text-amber-500">5.</span> Сдача-приемка услуг и возврат средств
         </h2>
         <p>
           5.1. Услуги по предоставлению доступа к функционалу Сервиса считаются оказанными Исполнителем в полном объеме и надлежащим образом с момента предоставления Заказчику технической возможности использования оплаченного функционала в Личном кабинете. Подписание двусторонних актов не требуется (ст. 421 ГК РФ).
@@ -144,7 +144,7 @@ export default function OfferPage() {
       {/* 6. Права и обязанности сторон */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">6.</span> Права и обязанности Сторон
+          <span className="text-amber-500">6.</span> Права и обязанности Сторон
         </h2>
         <p>
           6.1. <strong>Исполнитель обязуется:</strong>
@@ -167,7 +167,7 @@ export default function OfferPage() {
       {/* 7. Интеллектуальная собственность */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">7.</span> Интеллектуальная собственность
+          <span className="text-amber-500">7.</span> Интеллектуальная собственность
         </h2>
         <p>
           7.1. Программное обеспечение, алгоритмы, дизайн, исходный код, графические элементы и базы данных Сервиса «CardHub» являются объектами интеллектуальной собственности Исполнителя и защищаются законодательством РФ об интеллектуальной собственности.
@@ -180,7 +180,7 @@ export default function OfferPage() {
       {/* 8. Ограничение ответственности */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">8.</span> Ограничение ответственности
+          <span className="text-amber-500">8.</span> Ограничение ответственности
         </h2>
         <p>
           8.1. Сервис предоставляется по общепринятому в международной практике принципу «Как есть» («As is»). Исполнитель не гарантирует, что Сервис будет соответствовать субъективным ожиданиям Заказчика или что работа Сервиса будет абсолютно бесперебойной и безошибочной.
@@ -196,13 +196,13 @@ export default function OfferPage() {
       {/* 9. Срок действия, изменение и порядок разрешения споров */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">9.</span> Срок действия Оферты и разрешение споров
+          <span className="text-amber-500">9.</span> Срок действия Оферты и разрешение споров
         </h2>
         <p>
           9.1. Настоящая Оферта вступает в силу с момента ее публикации в Сервисе и действует бессрочно до момента ее изменения или отзыва Исполнителем.
         </p>
         <p>
-          9.2. Исполнитель вправе в одностороннем порядке изменять условия настоящей Оферты. Новая редакция вступает в силу с момента ее размещения в сети Интернет по постоянному адресу <Link href="/legal/offer" className="text-blue-400 hover:underline">https://ваш-домен.ru/legal/offer</Link>.
+          9.2. Исполнитель вправе в одностороннем порядке изменять условия настоящей Оферты. Новая редакция вступает в силу с момента ее размещения в сети Интернет по постоянному адресу <Link href="/legal/offer" className="text-amber-400 hover:underline">https://ваш-домен.ru/legal/offer</Link>.
         </p>
         <p>
           9.3. Все споры и разногласия разрешаются Сторонами путем переговоров с обязательным соблюдением досудебного претензионного порядка (срок ответа на письменную претензию — 30 календарных дней). При недостижении согласия спор передается на рассмотрение в суд по месту регистрации Исполнителя в соответствии с законодательством РФ.
@@ -210,11 +210,11 @@ export default function OfferPage() {
       </section>
 
       {/* 10. Реквизиты Исполнителя */}
-      <section className="pt-6 border-t border-slate-800 space-y-3">
+      <section className="pt-6 border-t border-stone-800 space-y-3">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="text-blue-500">10.</span> Реквизиты Исполнителя
+          <span className="text-amber-500">10.</span> Реквизиты Исполнителя
         </h2>
-        <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300 space-y-2">
+        <div className="p-5 rounded-2xl bg-stone-900/80 border border-stone-800 text-xs text-stone-300 space-y-2">
           <p>
             <strong>Исполнитель:</strong> Самозанятый гражданин РФ (плательщик налога на профессиональный доход)
           </p>
@@ -230,7 +230,7 @@ export default function OfferPage() {
           <p>
             <strong>Электронная почта по юридическим вопросам:</strong> legal@ваш-домен.ru
           </p>
-          <p className="text-[11px] text-slate-500 pt-2 border-t border-slate-800">
+          <p className="text-[11px] text-stone-500 pt-2 border-t border-stone-800">
             * Перед открытием боевого домена замените данные в квадратных скобках на Ваши реальные реквизиты.
           </p>
         </div>

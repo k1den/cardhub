@@ -1,44 +1,56 @@
+import React from 'react';
 import Link from 'next/link';
+import { ArrowLeft, FileText, Shield } from 'lucide-react';
 
 export default function LegalLayout({ children }: { children: React.ReactNode }) {
   const legalLinks = [
-    { href: '/legal/offer', label: 'Публичная оферта' },
-    { href: '/legal/pd-policy', label: 'Политика обработки ПДн (152-ФЗ)' },
-    { href: '/legal/pd-consent', label: 'Согласие на обработку данных' },
-    { href: '/legal/pd-distribution', label: 'Согласие на распространение (ст. 10.1)' },
-    { href: '/legal/cookies', label: 'Политика файлов cookie' },
-    { href: '/legal/content-rules', label: 'Правила контента (149-ФЗ)' },
+    { href: '/legal', label: 'Все документы' },
+    { href: '/legal/offer', label: 'Оферта' },
+    { href: '/legal/pd-policy', label: 'Политика ПДн (152-ФЗ)' },
+    { href: '/legal/pd-consent', label: 'Согласие на обработку' },
+    { href: '/legal/pd-distribution', label: 'Распространение (ст. 10.1)' },
+    { href: '/legal/cookies', label: 'Cookie' },
+    { href: '/legal/content-rules', label: 'Правила (149-ФЗ)' },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-      <header className="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
+    <div className="min-h-screen bg-[#0C0F17] text-stone-100 flex flex-col font-sans relative overflow-hidden">
+      {/* Soft warm ambient lighting */}
+      <div className="ambient-glow bg-amber-600/10 w-96 h-96 -top-20 -left-20" />
+      <div className="ambient-glow bg-orange-700/10 w-96 h-96 top-1/3 -right-24" />
+
+      {/* Header */}
+      <header className="border-b border-stone-800/80 bg-stone-900/80 backdrop-blur-md px-4 sm:px-6 py-4 sticky top-0 z-40">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link href="/" className="text-xl font-bold tracking-tight text-white flex items-center gap-2.5 group">
-            <span className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-extrabold text-sm shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <span className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white font-black text-sm shadow-md shadow-amber-600/25 group-hover:scale-105 transition shrink-0">
               CH
             </span>
-            <span className="group-hover:text-blue-400 transition-colors">CardHub</span>
+            <span className="font-bold tracking-tight text-white group-hover:text-amber-400 transition">CardHub</span>
           </Link>
 
           <Link
             href="/"
-            className="text-sm font-medium text-slate-400 hover:text-white transition flex items-center gap-1.5 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-xl hover:border-slate-700"
+            className="text-xs font-semibold text-stone-300 hover:text-white transition flex items-center gap-1.5 bg-stone-850 border border-stone-750 px-3.5 py-2 rounded-xl hover:border-stone-700"
           >
-            ← На главную
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>На главную</span>
           </Link>
         </div>
       </header>
 
-      {/* Быстрая навигация по юридическим документам */}
-      <div className="border-b border-slate-800/80 bg-slate-900/30 overflow-x-auto no-scrollbar">
-        <div className="max-w-5xl mx-auto px-6 py-2.5 flex items-center gap-2 text-xs whitespace-nowrap">
-          <span className="text-slate-500 font-semibold uppercase tracking-wider pr-2">Документы:</span>
+      {/* Fast Navigation Tabs over Legal Documents */}
+      <div className="border-b border-stone-800/80 bg-stone-900/40 overflow-x-auto no-scrollbar">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 flex items-center gap-1.5 text-xs whitespace-nowrap">
+          <span className="text-stone-500 font-semibold uppercase tracking-wider pr-2 text-[10px] flex items-center gap-1">
+            <Shield className="w-3 h-3 text-amber-500" />
+            <span>Юр. документы:</span>
+          </span>
           {legalLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="px-3 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition"
+              className="px-3 py-1.5 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800/80 transition text-xs font-medium"
             >
               {link.label}
             </Link>
@@ -46,21 +58,20 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12">
-        <div className="glass-panel p-6 sm:p-10 rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm shadow-xl">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 relative z-10">
+        <div className="glass-panel p-6 sm:p-10 rounded-[32px] border border-stone-800 bg-stone-900/80 shadow-2xl">
           {children}
         </div>
       </main>
 
-      <footer className="border-t border-slate-900 bg-slate-950 py-8 px-6 text-center text-xs text-slate-500 space-y-2">
-        <div>
+      <footer className="border-t border-stone-800/80 bg-[#0A0D14] py-8 px-6 text-center text-xs text-stone-500 space-y-2 mt-auto">
+        <div className="font-medium text-stone-400">
           © 2026 CardHub. Сервис цифровых NFC-визиток. Все права защищены.
         </div>
-        <div className="text-[11px] text-slate-600 max-w-xl mx-auto">
-          Деятельность осуществляется в соответствии с законодательством РФ (152-ФЗ, 149-ФЗ, 242-ФЗ, 422-ФЗ).
+        <div className="text-[11px] text-stone-500 max-w-xl mx-auto">
+          Деятельность осуществляется в строгом соответствии с законодательством РФ (152-ФЗ, 149-ФЗ, 242-ФЗ, 422-ФЗ).
         </div>
       </footer>
     </div>
   );
 }
-
