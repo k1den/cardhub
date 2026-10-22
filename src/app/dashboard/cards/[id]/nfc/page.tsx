@@ -37,8 +37,8 @@ export default async function CardNfcPage({ params }: NfcPageProps) {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+    <div className="w-full min-w-0 max-w-full space-y-6">
+      <div className="w-full min-w-full flex items-center justify-between pb-4 border-b border-stone-800">
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard"

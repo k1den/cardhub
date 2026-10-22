@@ -105,10 +105,9 @@ export default async function CardStatsPage({ params }: StatsPageProps) {
   const maxDayViews = Math.max(...dailyData.map((d) => d.views), 5);
 
   return (
-    <div className="space-y-8">
+    <div className="w-full min-w-0 max-w-full space-y-8">
       {/* Top Header */}
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="w-full min-w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-800">
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard"

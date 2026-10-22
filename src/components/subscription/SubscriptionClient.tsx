@@ -160,15 +160,15 @@ export default function SubscriptionClient({
     : null;
 
   return (
-    <div className="space-y-10">
+    <div className="w-full min-w-0 max-w-full space-y-10">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="w-full min-w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-800">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
-            <CreditCard className="w-7 h-7 text-blue-500" />
+            <CreditCard className="w-7 h-7 text-amber-500" />
             <span>Подписка и тарифы</span>
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-stone-400 mt-1">
             Управление тарифным планом, онлайн-оплата через ЮKassa (54-ФЗ) и чеки
           </p>
         </div>

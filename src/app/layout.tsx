@@ -5,9 +5,10 @@ import CookieConsentBanner from '@/components/legal/CookieConsentBanner';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
+  maximumScale: 1,
+  userScalable: false,
   viewportFit: 'cover',
-  themeColor: '#020617',
+  themeColor: '#0C0F17',
 };
 
 export const metadata: Metadata = {
@@ -22,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className="h-full antialiased dark">
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans selection:bg-blue-600 selection:text-white">
+    <html lang="ru" className="h-full w-full max-w-full antialiased dark overflow-x-clip">
+      <body className="min-h-full w-full max-w-full overflow-x-clip flex flex-col bg-[#0C0F17] text-stone-100 font-sans selection:bg-amber-600 selection:text-white">
         {children}
         <CookieConsentBanner />
       </body>

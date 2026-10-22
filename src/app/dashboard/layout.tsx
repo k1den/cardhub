@@ -20,10 +20,10 @@ export default async function DashboardLayout({
   const roleLabel = session.user.role === 'ADMIN' ? 'Администратор' : session.user.role === 'PRO' ? 'Pro' : 'Обычный';
 
   return (
-    <div className="min-h-screen bg-[#0C0F17] text-stone-100 flex flex-col font-sans">
+    <div className="min-h-screen w-full min-w-full max-w-full bg-[#0C0F17] text-stone-100 flex flex-col font-sans overflow-x-clip">
       {/* Top Header */}
-      <header className="border-b border-stone-800/80 bg-stone-900/80 backdrop-blur sticky top-0 z-30 px-4 py-3 sm:px-6 sm:py-3.5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <header className="w-full min-w-full border-b border-stone-800/80 bg-stone-900/80 backdrop-blur sticky top-0 z-30 px-4 py-3 sm:px-6 sm:py-3.5">
+        <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3 sm:gap-6">
             <Link href="/dashboard" className="flex items-center gap-2.5 group">
               <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white font-black text-sm shadow-md shadow-amber-600/25 group-hover:scale-105 transition shrink-0">
@@ -96,7 +96,7 @@ export default async function DashboardLayout({
       </header>
 
       {/* Main Container with bottom padding for mobile navigation bar */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-6 pb-24 md:pb-8">
+      <main className="flex-1 w-full min-w-0 max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-24 md:pb-8">
         {children}
       </main>
 
@@ -104,8 +104,8 @@ export default async function DashboardLayout({
       <MobileNav isAdmin={session.user.role === 'ADMIN'} />
 
       {/* Footer */}
-      <footer className="border-t border-stone-800/80 py-6 text-center text-xs text-stone-500 mt-auto mb-16 md:mb-0">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <footer className="w-full min-w-full border-t border-stone-800/80 py-6 text-center text-xs text-stone-500 mt-auto mb-16 md:mb-0">
+        <div className="w-full max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/70" />
             <span>Данные зашифрованы и локализованы в РФ (152-ФЗ / 242-ФЗ) • CardHub © 2026</span>

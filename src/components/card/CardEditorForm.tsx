@@ -456,9 +456,9 @@ export default function CardEditorForm({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="w-full min-w-0 max-w-full space-y-6">
       {/* Top Header */}
-      <div className="flex items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-stone-800">
+      <div className="w-full min-w-full flex items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-stone-800">
         <div className="flex items-center gap-2.5 min-w-0">
           <Link
             href="/dashboard"
@@ -517,7 +517,7 @@ export default function CardEditorForm({
       )}
 
       {/* Mobile Switcher between Editor Form & Live Preview */}
-      <div className="lg:hidden flex items-center p-1 rounded-2xl bg-stone-900 border border-stone-800 text-xs font-semibold">
+      <div className="w-full min-w-0 lg:hidden flex items-center p-1 rounded-2xl bg-stone-900 border border-stone-800 text-xs font-semibold">
         <button
           type="button"
           onClick={() => setMobileView('editor')}
@@ -546,74 +546,76 @@ export default function CardEditorForm({
       </div>
 
       {/* Main Two-Column Layout */}
-      <div className="grid lg:grid-cols-12 gap-8 items-start">
+      <div className="w-full min-w-0 max-w-full grid lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Form Tabs */}
         <div
-          className={`lg:col-span-7 space-y-6 ${
+          className={`w-full min-w-0 max-w-full lg:col-span-7 space-y-6 ${
             mobileView === 'preview' ? 'hidden lg:block' : 'block'
           }`}
         >
           {/* Tabs Navigation */}
-          <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-stone-900/90 border border-stone-800 text-xs font-semibold overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap">
-            <button
-              onClick={() => setActiveTab('profile')}
-              className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
-                activeTab === 'profile'
-                  ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-stone-400 hover:text-stone-200'
-              }`}
-            >
-              <Smartphone className="w-4 h-4" />
-              <span>Профиль</span>
-            </button>
+          <div className="w-full min-w-0 max-w-full overflow-x-auto no-scrollbar scroll-smooth">
+            <div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-stone-900/90 border border-stone-800 text-xs font-semibold whitespace-nowrap min-w-full sm:min-w-0">
+              <button
+                onClick={() => setActiveTab('profile')}
+                className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
+                  activeTab === 'profile'
+                    ? 'bg-amber-600 text-white shadow-md'
+                    : 'text-stone-400 hover:text-stone-200'
+                }`}
+              >
+                <Smartphone className="w-4 h-4" />
+                <span>Профиль</span>
+              </button>
 
-            <button
-              onClick={() => setActiveTab('fields')}
-              className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
-                activeTab === 'fields'
-                  ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-stone-400 hover:text-stone-200'
-              }`}
-            >
-              <Phone className="w-4 h-4" />
-              <span>Контакты ({fields.length})</span>
-            </button>
+              <button
+                onClick={() => setActiveTab('fields')}
+                className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
+                  activeTab === 'fields'
+                    ? 'bg-amber-600 text-white shadow-md'
+                    : 'text-stone-400 hover:text-stone-200'
+                }`}
+              >
+                <Phone className="w-4 h-4" />
+                <span>Контакты ({fields.length})</span>
+              </button>
 
-            <button
-              onClick={() => setActiveTab('content')}
-              className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
-                activeTab === 'content'
-                  ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-stone-400 hover:text-stone-200'
-              }`}
-            >
-              <Briefcase className="w-4 h-4" />
-              <span>Услуги и контент</span>
-            </button>
+              <button
+                onClick={() => setActiveTab('content')}
+                className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
+                  activeTab === 'content'
+                    ? 'bg-amber-600 text-white shadow-md'
+                    : 'text-stone-400 hover:text-stone-200'
+                }`}
+              >
+                <Briefcase className="w-4 h-4" />
+                <span>Услуги и контент</span>
+              </button>
 
-            <button
-              onClick={() => setActiveTab('design')}
-              className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
-                activeTab === 'design'
-                  ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-stone-400 hover:text-stone-200'
-              }`}
-            >
-              <Palette className="w-4 h-4" />
-              <span>Дизайн и стиль</span>
-            </button>
+              <button
+                onClick={() => setActiveTab('design')}
+                className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
+                  activeTab === 'design'
+                    ? 'bg-amber-600 text-white shadow-md'
+                    : 'text-stone-400 hover:text-stone-200'
+                }`}
+              >
+                <Palette className="w-4 h-4" />
+                <span>Дизайн и стиль</span>
+              </button>
 
-            <button
-              onClick={() => setActiveTab('settings')}
-              className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
-                activeTab === 'settings'
-                  ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-stone-400 hover:text-stone-200'
-              }`}
-            >
-              <Sliders className="w-4 h-4" />
-              <span>Публикация</span>
-            </button>
+              <button
+                onClick={() => setActiveTab('settings')}
+                className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
+                  activeTab === 'settings'
+                    ? 'bg-amber-600 text-white shadow-md'
+                    : 'text-stone-400 hover:text-stone-200'
+                }`}
+              >
+                <Sliders className="w-4 h-4" />
+                <span>Публикация</span>
+              </button>
+            </div>
           </div>
 
           {/* TAB 1: Profile Details & Status */}
@@ -1539,7 +1541,7 @@ export default function CardEditorForm({
 
         {/* Right Column: Live Mobile Mockup */}
         <div
-          className={`lg:col-span-5 sticky top-24 ${
+          className={`w-full min-w-0 max-w-full lg:col-span-5 sticky top-24 ${
             mobileView === 'editor' ? 'hidden lg:block' : 'block'
           }`}
         >

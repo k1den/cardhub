@@ -163,14 +163,14 @@ export default function UserSettingsClient({ user }: UserSettingsClientProps) {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="w-full min-w-0 max-w-4xl mx-auto space-y-8">
       {/* Header */}
-      <div className="pb-4 border-b border-slate-800">
+      <div className="w-full min-w-full pb-4 border-b border-stone-800">
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
-          <Shield className="w-7 h-7 text-blue-500" />
+          <Shield className="w-7 h-7 text-amber-500" />
           <span>Настройки безопасности и приватности</span>
         </h1>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-sm text-stone-400 mt-1">
           Двухфакторная аутентификация (2FA), выгрузка и управление персональными данными (152-ФЗ)
         </p>
       </div>

@@ -60,9 +60,9 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div className="space-y-8 font-sans">
+    <div className="w-full min-w-0 max-w-full space-y-8 font-sans">
       {/* Top Banner / Welcome */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-800">
+      <div className="w-full min-w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-800">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
             Личный кабинет
