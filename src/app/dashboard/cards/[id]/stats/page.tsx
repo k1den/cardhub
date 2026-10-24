@@ -19,6 +19,7 @@ import {
   Sparkles,
   Layers,
 } from 'lucide-react';
+import DailyStatsChart from '@/components/card/DailyStatsChart';
 
 interface StatsPageProps {
   params: Promise<{ id: string }>;
@@ -109,7 +110,6 @@ export default async function CardStatsPage({ params }: StatsPageProps) {
   });
 
   const dailyData = Array.from(dailyMap.values());
-  const maxDayViews = Math.max(...dailyData.map((d) => d.views), 5);
 
   const nfcPercent = totalViews > 0 ? Math.round((nfcViews / totalViews) * 100) : 0;
   const qrPercent = totalViews > 0 ? Math.round((qrViews / totalViews) * 100) : 0;
@@ -307,74 +307,7 @@ export default async function CardStatsPage({ params }: StatsPageProps) {
       </div>
 
       {/* Daily Dynamics Visual Chart */}
-      <div className="glass-panel p-6 sm:p-8 rounded-[32px] border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900/80 shadow-xl dark:shadow-2xl space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-base sm:text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-amber-500" />
-              <span>Динамика просмотров по дням (последние 14 дней)</span>
-            </h3>
-            <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
-              Подсчёт ведётся на защищенном сервере в реальном времени
-            </p>
-          </div>
-        </div>
-
-        {/* Bar Chart Representation */}
-        <div className="overflow-x-auto no-scrollbar pt-6 pb-2">
-          <div className="min-w-[440px] sm:min-w-0 h-56 flex items-end justify-between gap-1.5 sm:gap-2.5 px-2">
-            {dailyData.map((d) => {
-              const heightPercent = Math.max((d.views / maxDayViews) * 100, 5);
-
-              return (
-                <div key={d.date} className="flex-1 flex flex-col items-center gap-2 group h-full justify-end relative">
-                  {/* Tooltip on hover */}
-                  <div className="opacity-0 group-hover:opacity-100 transition duration-150 absolute bottom-full mb-2 z-20 text-[11px] bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-750 px-3 py-2 rounded-2xl shadow-xl text-stone-900 dark:text-stone-100 pointer-events-none whitespace-nowrap min-w-[120px]">
-                    <div className="font-bold border-b border-stone-100 dark:border-stone-800 pb-1 mb-1">
-                      {d.label}: {d.views} просм.
-                    </div>
-                    {d.nfc > 0 && <div className="text-orange-600 dark:text-orange-400">NFC: {d.nfc}</div>}
-                    {d.qr > 0 && <div className="text-rose-600 dark:text-rose-400">QR: {d.qr}</div>}
-                    {d.clicks > 0 && <div className="text-amber-600 dark:text-amber-400">Клики: {d.clicks}</div>}
-                    {d.vcard > 0 && <div className="text-emerald-600 dark:text-emerald-400">vCard: {d.vcard}</div>}
-                  </div>
-
-                  {/* Bar */}
-                  <div
-                    className="w-full max-w-[28px] rounded-t-xl bg-gradient-to-t from-amber-600 via-orange-500 to-amber-400 group-hover:from-amber-500 group-hover:to-orange-400 transition-all shadow-sm group-hover:shadow-md group-hover:shadow-amber-500/25"
-                    style={{ height: `${heightPercent}%` }}
-                  />
-
-                  {/* Date Label */}
-                  <span className="text-[10px] font-medium text-stone-500 dark:text-stone-400 group-hover:text-stone-900 dark:group-hover:text-white transition">
-                    {d.label}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Chart Legend */}
-        <div className="flex flex-wrap items-center justify-center gap-6 pt-5 border-t border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400">
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-amber-500 shadow-xs" />
-            <span className="font-medium text-stone-800 dark:text-stone-200">Все просмотры</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-orange-500 shadow-xs" />
-            <span>NFC-стикеры (?s=nfc)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-rose-500 shadow-xs" />
-            <span>QR-код (?s=qr)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-emerald-500 shadow-xs" />
-            <span>Сохранения vCard</span>
-          </div>
-        </div>
-      </div>
+      <DailyStatsChart data={dailyData} />
 
       {/* Privacy Guarantee Box (152-ФЗ / 242-ФЗ) */}
       <div className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400 flex items-start gap-3.5 shadow-sm">
