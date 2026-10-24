@@ -61,14 +61,23 @@ html.light .ambient-glow {
 
 /* Light theme overrides for hardcoded dark surfaces and borders */
 html.light .bg-stone-900,
+html.light .bg-stone-900\/95,
 html.light .bg-stone-900\/90,
 html.light .bg-stone-900\/80,
+html.light .bg-stone-900\/70,
 html.light .bg-stone-900\/60,
+html.light .bg-stone-900\/50,
+html.light .bg-stone-900\/40,
+html.light .bg-stone-900\/30,
+html.light .bg-stone-900\/20,
 html.light .bg-stone-850,
 html.light .bg-slate-900,
+html.light .bg-slate-900\/95,
 html.light .bg-slate-900\/90,
 html.light .bg-slate-900\/80,
+html.light .bg-slate-900\/70,
 html.light .bg-slate-900\/60,
+html.light .bg-slate-900\/50,
 html.light .bg-slate-900\/40,
 html.light .bg-slate-900\/30,
 html.light .bg-\[\#0E1119\],
@@ -86,7 +95,7 @@ html.light .bg-slate-950 {
 
 html.light .bg-stone-800,
 html.light .bg-slate-800 {
-  background-color: #f1f5f9 !important;
+  background-color: #f8fafc !important;
 }
 
 html.light .border-stone-800,
@@ -124,17 +133,28 @@ html.light .glass-panel {
   color: #0f172a;
 }
 
-/* All headings dark */
-html.light h1,
-html.light h2,
-html.light h3,
-html.light h4,
-html.light h5,
-html.light h6 {
+/* Headings in light mode: default to dark, preserve colored headings */
+html.light h1:not([class*="text-amber-"]):not([class*="text-orange-"]):not([class*="text-emerald-"]):not([class*="text-red-"]):not([class*="text-transparent"]),
+html.light h2:not([class*="text-amber-"]):not([class*="text-orange-"]):not([class*="text-emerald-"]):not([class*="text-red-"]):not([class*="text-transparent"]),
+html.light h3:not([class*="text-amber-"]):not([class*="text-orange-"]):not([class*="text-emerald-"]):not([class*="text-red-"]):not([class*="text-transparent"]),
+html.light h4:not([class*="text-amber-"]):not([class*="text-orange-"]):not([class*="text-emerald-"]):not([class*="text-red-"]):not([class*="text-transparent"]),
+html.light h5:not([class*="text-amber-"]):not([class*="text-orange-"]):not([class*="text-emerald-"]):not([class*="text-red-"]):not([class*="text-transparent"]),
+html.light h6:not([class*="text-amber-"]):not([class*="text-orange-"]):not([class*="text-emerald-"]):not([class*="text-red-"]):not([class*="text-transparent"]) {
   color: #0f172a !important;
 }
 
-/* Turn text-white into dark slate/black unless inside a solid vibrant button */
+/* Accent colors high-contrast in light mode */
+html.light .text-amber-600,
+html.light span.text-amber-600 {
+  color: #d97706 !important;
+}
+
+html.light .text-amber-500,
+html.light span.text-amber-500 {
+  color: #b45309 !important;
+}
+
+/* Turn text-white into dark slate/black unless inside a solid vibrant button or badge */
 html.light .text-white:not([class*="bg-amber-600"] *):not([class*="bg-red-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-blue-600"] *):not([class*="bg-orange-500"] *):not(button.bg-amber-600):not(button.bg-red-600):not(button.bg-emerald-600):not(button.bg-blue-600):not(a.bg-amber-600):not(a.bg-red-600):not(a.bg-emerald-600):not(a.bg-blue-600) {
   color: #0f172a !important;
 }

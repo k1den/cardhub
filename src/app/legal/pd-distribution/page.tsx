@@ -8,23 +8,23 @@ export const metadata = {
 
 export default function PdDistributionPage() {
   return (
-    <article className="space-y-8 text-stone-300 text-sm leading-relaxed">
+    <article className="space-y-8 text-stone-700 dark:text-stone-300 text-sm leading-relaxed">
       {/* Шапка */}
-      <div className="space-y-2 pb-6 border-b border-stone-800">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
+      <div className="space-y-2 pb-6 border-b border-stone-200 dark:border-stone-800">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold">
           Статья 10.1 Федерального закона № 152-ФЗ
         </div>
-        <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
           Согласие на распространение персональных данных
         </h1>
-        <p className="text-xs text-stone-400">
+        <p className="text-xs text-stone-500 dark:text-stone-400">
           Редакция от 21 октября 2026 г. • Специальная отдельная форма согласия на публичное раскрытие данных
         </p>
       </div>
 
       {/* 1. Правовая природа */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">1.</span> Предмет и правовая природа согласия
         </h2>
         <p>
@@ -37,7 +37,7 @@ export default function PdDistributionPage() {
 
       {/* 2. Категории и условия распространения */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">2.</span> Перечень данных и порядок определения условий распространения
         </h2>
         <p>
@@ -53,11 +53,11 @@ export default function PdDistributionPage() {
           <li>Адреса фактического нахождения офиса и график работы;</li>
           <li>Краткая биографическая справка и ссылки на портфолио.</li>
         </ul>
-        <div className="p-4 rounded-xl bg-stone-900/70 border border-stone-800 space-y-1.5">
-          <p className="font-semibold text-white text-xs">
+        <div className="p-4 rounded-xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-800 space-y-1.5 shadow-sm dark:shadow-none text-stone-700 dark:text-stone-300">
+          <p className="font-semibold text-stone-900 dark:text-white text-xs">
             Принцип избирательности (ст. 10.1 152-ФЗ):
           </p>
-          <p className="text-xs text-stone-300">
+          <p className="text-xs text-stone-600 dark:text-stone-300">
             Любое поле, для которого в Личном кабинете выключен признак видимости, скрывается из открытого доступа, не передается в генерируемый vCard-файл и распространению неограниченному кругу лиц не подлежит.
           </p>
         </div>
@@ -65,7 +65,7 @@ export default function PdDistributionPage() {
 
       {/* 3. Особенности корпоративных визиток (Pro) */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">3.</span> Особенности корпоративных визиток сотрудников (Тариф Pro)
         </h2>
         <p>
@@ -78,7 +78,7 @@ export default function PdDistributionPage() {
 
       {/* 4. Запреты и ограничения */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">4.</span> Условия и запреты субъекта персональных данных
         </h2>
         <p>
@@ -91,7 +91,7 @@ export default function PdDistributionPage() {
 
       {/* 5. Порядок прекращения распространения */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">5.</span> Порядок прекращения распространения персональных данных
         </h2>
         <p>

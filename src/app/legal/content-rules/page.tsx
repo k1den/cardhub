@@ -8,23 +8,23 @@ export const metadata = {
 
 export default function ContentRulesPage() {
   return (
-    <article className="space-y-8 text-stone-300 text-sm leading-relaxed">
+    <article className="space-y-8 text-stone-700 dark:text-stone-300 text-sm leading-relaxed">
       {/* Шапка */}
-      <div className="space-y-2 pb-6 border-b border-stone-800">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
+      <div className="space-y-2 pb-6 border-b border-stone-200 dark:border-stone-800">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold">
           Федеральный закон № 149-ФЗ
         </div>
-        <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
           Правила размещения контента и порядок модерации
         </h1>
-        <p className="text-xs text-stone-400">
+        <p className="text-xs text-stone-500 dark:text-stone-400">
           Редакция от 21 октября 2026 г. • Регламент безопасного использования платформы CardHub
         </p>
       </div>
 
       {/* 1. Общие положения */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">1.</span> Общие положения и ответственность пользователя
         </h2>
         <p>
@@ -37,7 +37,7 @@ export default function ContentRulesPage() {
 
       {/* 2. Категорически запрещенный контент */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">2.</span> Перечень категорически запрещенной к распространению информации
         </h2>
         <p>
@@ -64,7 +64,7 @@ export default function ContentRulesPage() {
 
       {/* 3. Порядок рассмотрения жалоб (Notice and Takedown) */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">3.</span> Регламент подачи и рассмотрения жалоб (Notice and Takedown)
         </h2>
         <p>
@@ -89,7 +89,7 @@ export default function ContentRulesPage() {
 
       {/* 4. Санкции за нарушение Правил */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">4.</span> Санкции при выявлении нарушений
         </h2>
         <p>
@@ -104,7 +104,7 @@ export default function ContentRulesPage() {
 
       {/* 5. Взаимодействие с государственными органами */}
       <section className="space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">5.</span> Взаимодействие с органами государственной власти РФ
         </h2>
         <p>
@@ -113,11 +113,11 @@ export default function ContentRulesPage() {
       </section>
 
       {/* 6. Контакты службы модерации */}
-      <section className="pt-6 border-t border-stone-800 space-y-3">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+      <section className="pt-6 border-t border-stone-200 dark:border-stone-800 space-y-3">
+        <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-500">6.</span> Контакты для юридических обращений и претензий
         </h2>
-        <div className="p-4 rounded-xl bg-stone-900/70 border border-stone-800 text-xs text-stone-300 space-y-1">
+        <div className="p-4 rounded-xl bg-white dark:bg-stone-900/70 border border-stone-200 dark:border-stone-800 text-xs text-stone-700 dark:text-stone-300 space-y-1 shadow-sm dark:shadow-none">
           <p><strong>Email службы модерации и жалоб (Abuse Desk):</strong> abuse@ваш-домен.ru</p>
           <p><strong>Email по вопросам авторских прав (DMCA/РФ):</strong> copyright@ваш-домен.ru</p>
           <p><strong>Режим работы службы модерации:</strong> Ежедневно, круглосуточный прием обращений.</p>

@@ -66,17 +66,17 @@ export default function LegalIndexPage() {
   ];
 
   return (
-    <article className="space-y-8 text-stone-300 text-sm leading-relaxed">
+    <article className="space-y-8 text-stone-700 dark:text-stone-300 text-sm leading-relaxed">
       {/* Header */}
-      <div className="space-y-2 pb-6 border-b border-stone-800">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
+      <div className="space-y-2 pb-6 border-b border-stone-200 dark:border-stone-800">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold">
           <Shield className="w-3.5 h-3.5" />
           <span>Правовая прозрачность и соответствие законодательству РФ</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
           Юридические документы и соглашения
         </h1>
-        <p className="text-xs text-stone-400">
+        <p className="text-xs text-stone-500 dark:text-stone-400">
           Актуальные редакции правовых документов платформы CardHub от 21 октября 2026 г.
         </p>
       </div>
@@ -88,7 +88,7 @@ export default function LegalIndexPage() {
             <Link
               key={idx}
               href={doc.href}
-              className="p-5 rounded-3xl bg-stone-900/60 border border-stone-800 hover:border-amber-500/30 transition flex flex-col justify-between group space-y-4"
+              className="p-5 rounded-3xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800 hover:border-amber-500/50 transition flex flex-col justify-between group space-y-4 shadow-sm hover:shadow-md"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -98,22 +98,22 @@ export default function LegalIndexPage() {
                   >
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-stone-800 border border-stone-700 text-stone-300">
+                  <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300">
                     {doc.law}
                   </span>
                 </div>
 
                 <div>
-                  <h2 className="font-bold text-white text-sm group-hover:text-amber-400 transition">
+                  <h2 className="font-bold text-stone-900 dark:text-white text-sm group-hover:text-amber-600 dark:group-hover:text-amber-400 transition">
                     {doc.title}
                   </h2>
-                  <p className="text-xs text-stone-400 mt-1 leading-relaxed">
+                  <p className="text-xs text-stone-600 dark:text-stone-400 mt-1 leading-relaxed">
                     {doc.desc}
                   </p>
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-stone-800/80 flex items-center justify-between text-xs font-semibold text-amber-400 group-hover:text-amber-300">
+              <div className="pt-2 border-t border-stone-200 dark:border-stone-800/80 flex items-center justify-between text-xs font-semibold text-amber-600 dark:text-amber-400 group-hover:text-amber-700 dark:group-hover:text-amber-300">
                 <span>Читать документ</span>
                 <ArrowRight className="w-3.5 h-3.5 transition group-hover:translate-x-1" />
               </div>
@@ -122,10 +122,10 @@ export default function LegalIndexPage() {
         })}
       </div>
 
-      <div className="p-5 rounded-3xl bg-stone-900/60 border border-stone-800 text-xs text-stone-400 space-y-1.5">
-        <h3 className="font-bold text-white text-sm">Обратная связь по правовым вопросам</h3>
+      <div className="p-5 rounded-3xl bg-white dark:bg-stone-900/60 border border-stone-200 dark:border-stone-800 text-xs text-stone-600 dark:text-stone-400 space-y-1.5 shadow-sm">
+        <h3 className="font-bold text-stone-900 dark:text-white text-sm">Обратная связь по правовым вопросам</h3>
         <p>
-          По любым вопросам относительно положений оферты, обработки персональных данных или направления запросов вы можете связаться со службой поддержки по адресу: <strong className="text-stone-200">privacy@ваш-домен.ru</strong>
+          По любым вопросам относительно положений оферты, обработки персональных данных или направления запросов вы можете связаться со службой поддержки по адресу: <strong className="text-stone-900 dark:text-stone-200 font-semibold">privacy@ваш-домен.ru</strong>
         </p>
       </div>
     </article>

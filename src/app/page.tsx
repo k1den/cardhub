@@ -50,7 +50,7 @@ export default async function HomePage() {
 
         <h1 className="text-3xl sm:text-6xl lg:text-7xl font-black tracking-tight text-stone-900 dark:text-white max-w-4xl mx-auto leading-[1.14]">
           Цифровая визитка, <br className="hidden sm:inline" />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-orange-500 to-amber-500 dark:from-amber-200 dark:via-orange-300 dark:to-amber-400">
+          <span className="text-amber-600 dark:text-amber-400">
             которую приятно держать и передавать
           </span>
         </h1>
