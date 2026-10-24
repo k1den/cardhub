@@ -96,37 +96,37 @@ export default function LandingHeader({ isAuthenticated }: LandingHeaderProps) {
 
       {/* Mobile Drawer Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden pt-4 pb-3 border-t border-slate-800/80 mt-3 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="flex flex-col space-y-1 px-1 text-sm font-medium text-slate-300">
+        <div className="md:hidden pt-4 pb-3 border-t border-stone-200 dark:border-stone-800/80 mt-3 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="flex flex-col space-y-1 px-1 text-sm font-medium text-stone-700 dark:text-stone-300">
             <a
               href="#how-it-works"
               onClick={closeMenu}
-              className="py-2.5 px-3 rounded-lg hover:bg-slate-800/70 hover:text-white transition"
+              className="py-2.5 px-3 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-850 hover:text-stone-900 dark:hover:text-white transition"
             >
               Как это работает
             </a>
             <a
               href="#pricing"
               onClick={closeMenu}
-              className="py-2.5 px-3 rounded-lg hover:bg-slate-800/70 hover:text-white transition"
+              className="py-2.5 px-3 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-850 hover:text-stone-900 dark:hover:text-white transition"
             >
               Тарифы
             </a>
             <a
               href="#security"
               onClick={closeMenu}
-              className="py-2.5 px-3 rounded-lg hover:bg-slate-800/70 hover:text-white transition"
+              className="py-2.5 px-3 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-850 hover:text-stone-900 dark:hover:text-white transition"
             >
               Безопасность (152-ФЗ)
             </a>
           </div>
 
-          <div className="pt-4 mt-3 border-t border-slate-800/80 px-1 space-y-2">
+          <div className="pt-4 mt-3 border-t border-stone-200 dark:border-stone-800/80 px-1 space-y-2">
             {isAuthenticated ? (
               <Link
                 href="/dashboard"
                 onClick={closeMenu}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-sm shadow-md shadow-blue-600/30"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-amber-600 to-orange-500 text-white font-semibold text-sm shadow-md shadow-amber-600/25"
               >
                 <span>Перейти в личный кабинет</span>
                 <ArrowRight className="w-4 h-4" />
@@ -136,7 +136,7 @@ export default function LandingHeader({ isAuthenticated }: LandingHeaderProps) {
                 <Link
                   href="/auth/register"
                   onClick={closeMenu}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-md shadow-blue-600/30"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm shadow-md shadow-amber-600/25 transition"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span>Создать визитку бесплатно</span>
@@ -144,7 +144,7 @@ export default function LandingHeader({ isAuthenticated }: LandingHeaderProps) {
                 <Link
                   href="/auth/login"
                   onClick={closeMenu}
-                  className="w-full flex items-center justify-center py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-sm font-medium"
+                  className="w-full flex items-center justify-center py-2.5 rounded-xl bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-stone-700 dark:text-stone-300 text-sm font-medium hover:text-stone-900 dark:hover:text-white transition"
                 >
                   Войти в аккаунт
                 </Link>

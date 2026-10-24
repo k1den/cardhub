@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/prisma';
 import WebNfcWriter from '@/components/nfc/WebNfcWriter';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Radio } from 'lucide-react';
 
 interface NfcPageProps {
   params: Promise<{ id: string }>;
@@ -38,20 +38,25 @@ export default async function CardNfcPage({ params }: NfcPageProps) {
 
   return (
     <div className="w-full min-w-0 max-w-full space-y-6">
-      <div className="w-full min-w-full flex items-center justify-between pb-4 border-b border-stone-800">
+      {/* Top Header Bar */}
+      <div className="w-full min-w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-200 dark:border-stone-800">
         <div className="flex items-center gap-3">
           <Link
             href="/dashboard"
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition"
+            className="p-2.5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:border-amber-500/50 transition shadow-sm"
+            title="Назад к визиткам"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
-            <h1 className="text-2xl font-black text-white tracking-tight">
-              Запись на NFC-метку
+            <h1 className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight flex items-center gap-2.5">
+              <span className="p-1.5 rounded-xl bg-orange-500/10 text-orange-500">
+                <Radio className="w-5 h-5" />
+              </span>
+              <span>Запись на NFC-метку</span>
             </h1>
-            <p className="text-xs text-slate-400">
-              Визитка: <strong className="text-slate-200">{card.fullName}</strong>
+            <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
+              Визитка: <strong className="text-stone-800 dark:text-stone-200">{card.fullName}</strong>
             </p>
           </div>
         </div>
@@ -59,10 +64,10 @@ export default async function CardNfcPage({ params }: NfcPageProps) {
         <Link
           href={`/c/${card.slug}`}
           target="_blank"
-          className="inline-flex items-center gap-1.5 py-2 px-3.5 rounded-xl border border-slate-800 bg-slate-900/80 text-xs text-slate-300 hover:text-white transition"
+          className="inline-flex items-center gap-2 py-2.5 px-4 rounded-2xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:border-amber-500/50 transition shadow-sm"
         >
           <span>Открыть визитку</span>
-          <ExternalLink className="w-3.5 h-3.5" />
+          <ExternalLink className="w-3.5 h-3.5 text-stone-400" />
         </Link>
       </div>
 
