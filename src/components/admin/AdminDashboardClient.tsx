@@ -518,15 +518,15 @@ export default function AdminDashboardClient({
               </div>
 
               {/* Recent Audit Logs Snapshot */}
-              <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-white text-sm flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-emerald-400" />
-                    <span>Свежие события аудита платформы</span>
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 dark:bg-slate-900/60 border border-slate-800/80 space-y-4 overflow-hidden">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-bold text-white text-sm flex items-center gap-2 min-w-0">
+                    <FileText className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="truncate">Свежие события аудита платформы</span>
                   </h3>
                   <button
                     onClick={() => switchTab('audit')}
-                    className="text-xs text-blue-400 hover:underline"
+                    className="text-xs text-blue-400 hover:underline shrink-0"
                   >
                     Посмотреть все &rarr;
                   </button>
@@ -539,21 +539,21 @@ export default function AdminDashboardClient({
                     </div>
                   ) : (
                     recentLogs.map((log) => (
-                      <div key={log.id} className="py-3 flex items-center justify-between text-xs">
-                        <div className="space-y-0.5">
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-[11px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">
+                      <div key={log.id} className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs min-w-0">
+                        <div className="space-y-1 min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-1.5 min-w-0">
+                            <span className="font-mono text-[10px] sm:text-[11px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold break-all">
                               {log.action}
                             </span>
-                            <span className="text-slate-400">
+                            <span className="text-slate-400 truncate max-w-[200px] sm:max-w-none text-[11px]">
                               {log.actor?.email || 'Система'}
                             </span>
                           </div>
-                          <div className="text-[11px] text-slate-500">
-                            Цель: {log.targetType} ({log.targetId})
+                          <div className="text-[11px] text-slate-500 break-all">
+                            Цель: <span className="text-slate-400">{log.targetType}</span> ({log.targetId})
                           </div>
                         </div>
-                        <div className="text-right text-[11px] text-slate-500">
+                        <div className="text-left sm:text-right text-[11px] text-slate-500 shrink-0 font-mono whitespace-nowrap">
                           {new Date(log.createdAt).toLocaleString('ru-RU')}
                         </div>
                       </div>
@@ -569,10 +569,10 @@ export default function AdminDashboardClient({
       {/* TAB 2: 149-FZ REPORTS MODERATION */}
       {activeTab === 'reports' && (
         <div className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 p-4 rounded-xl border border-slate-800 overflow-hidden">
             <div>
               <h2 className="font-bold text-white text-sm flex items-center gap-2">
-                <Flag className="w-4 h-4 text-red-400" />
+                <Flag className="w-4 h-4 text-red-400 shrink-0" />
                 <span>Очередь модерации контента (149-ФЗ «Об информации...»)</span>
               </h2>
               <p className="text-xs text-slate-400 mt-0.5">
@@ -580,23 +580,25 @@ export default function AdminDashboardClient({
               </p>
             </div>
 
-            <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs">
-              {(['PENDING', 'RESOLVED', 'REJECTED', 'ALL'] as const).map((status) => (
-                <button
-                  key={status}
-                  onClick={() => setReportsFilter(status)}
-                  className={`px-3 py-1.5 rounded-md font-medium transition ${
-                    reportsFilter === status
-                      ? 'bg-slate-800 text-white font-semibold'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  {status === 'PENDING' && 'В ожидании'}
-                  {status === 'RESOLVED' && 'Удовлетворены'}
-                  {status === 'REJECTED' && 'Отклонены'}
-                  {status === 'ALL' && 'Все'}
-                </button>
-              ))}
+            <div className="w-full sm:w-auto overflow-x-auto no-scrollbar pb-1 sm:pb-0">
+              <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs min-w-max">
+                {(['PENDING', 'RESOLVED', 'REJECTED', 'ALL'] as const).map((status) => (
+                  <button
+                    key={status}
+                    onClick={() => setReportsFilter(status)}
+                    className={`px-3 py-1.5 rounded-md font-medium transition ${
+                      reportsFilter === status
+                        ? 'bg-slate-800 text-white font-semibold'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    {status === 'PENDING' && 'В ожидании'}
+                    {status === 'RESOLVED' && 'Удовлетворены'}
+                    {status === 'REJECTED' && 'Отклонены'}
+                    {status === 'ALL' && 'Все'}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -934,23 +936,23 @@ export default function AdminDashboardClient({
                   className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-slate-700/80 transition space-y-1.5"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-bold">
+                    <div className="flex flex-wrap items-center gap-2 min-w-0">
+                      <span className="font-mono text-[10px] sm:text-[11px] px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-bold break-all">
                         {log.action}
                       </span>
-                      <span className="text-slate-300 font-medium">
+                      <span className="text-slate-300 font-medium text-xs truncate max-w-[220px] sm:max-w-none">
                         {log.actor?.email || 'Системный процесс'}
                       </span>
                     </div>
-                    <div className="text-[11px] text-slate-500 font-mono">
+                    <div className="text-[11px] text-slate-500 font-mono shrink-0 whitespace-nowrap">
                       {new Date(log.createdAt).toLocaleString('ru-RU')}
                     </div>
                   </div>
 
-                  <div className="text-[11px] text-slate-400 flex flex-wrap items-center gap-x-4">
+                  <div className="text-[11px] text-slate-400 flex flex-wrap items-center gap-x-4 break-all">
                     <span>
                       Цель: <strong className="text-slate-200">{log.targetType}</strong> (
-                      <span className="font-mono">{log.targetId}</span>)
+                      <span className="font-mono break-all">{log.targetId}</span>)
                     </span>
                     {log.ipAddress && (
                       <span className="font-mono text-slate-500">IP: {log.ipAddress}</span>

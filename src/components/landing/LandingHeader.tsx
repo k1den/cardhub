@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, ArrowRight, Radio, Sparkles } from 'lucide-react';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 interface LandingHeaderProps {
   isAuthenticated: boolean;
@@ -14,26 +15,28 @@ export default function LandingHeader({ isAuthenticated }: LandingHeaderProps) {
   const closeMenu = () => setMobileMenuOpen(false);
 
   return (
-    <header className="glass-panel border-b border-stone-800/80 sticky top-0 z-50 px-4 sm:px-6 py-3.5">
+    <header className="glass-panel border-b border-stone-200 dark:border-stone-800/80 sticky top-0 z-50 px-4 sm:px-6 py-3.5 transition-colors">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group" onClick={closeMenu}>
           <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white font-black text-base sm:text-lg shadow-lg shadow-amber-600/25 group-hover:scale-105 transition shrink-0">
             CH
           </span>
-          <span className="text-lg sm:text-xl font-bold tracking-tight text-white">CardHub</span>
+          <span className="text-lg sm:text-xl font-bold tracking-tight text-stone-900 dark:text-white">CardHub</span>
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-300">
-          <a href="#how-it-works" className="hover:text-amber-400 transition">Как это работает</a>
-          <a href="#showcase" className="hover:text-amber-400 transition">Стили визиток</a>
-          <a href="#pricing" className="hover:text-amber-400 transition">Тарифы</a>
-          <a href="#security" className="hover:text-amber-400 transition">Безопасность</a>
+        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600 dark:text-stone-300">
+          <a href="#how-it-works" className="hover:text-amber-500 dark:hover:text-amber-400 transition">Как это работает</a>
+          <a href="#showcase" className="hover:text-amber-500 dark:hover:text-amber-400 transition">Стили визиток</a>
+          <a href="#pricing" className="hover:text-amber-500 dark:hover:text-amber-400 transition">Тарифы</a>
+          <a href="#security" className="hover:text-amber-500 dark:hover:text-amber-400 transition">Безопасность</a>
         </nav>
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
+
           {isAuthenticated ? (
             <Link
               href="/dashboard"
@@ -46,7 +49,7 @@ export default function LandingHeader({ isAuthenticated }: LandingHeaderProps) {
             <>
               <Link
                 href="/auth/login"
-                className="text-sm font-medium text-stone-300 hover:text-white px-3.5 py-2 rounded-xl hover:bg-stone-850 transition"
+                className="text-sm font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white px-3.5 py-2 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-850 transition"
               >
                 Войти
               </Link>
@@ -62,6 +65,8 @@ export default function LandingHeader({ isAuthenticated }: LandingHeaderProps) {
 
         {/* Mobile Hamburger Button */}
         <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle />
+
           {isAuthenticated ? (
             <Link
               href="/dashboard"
@@ -72,7 +77,7 @@ export default function LandingHeader({ isAuthenticated }: LandingHeaderProps) {
           ) : (
             <Link
               href="/auth/login"
-              className="text-xs font-medium text-stone-300 hover:text-white px-2.5 py-1.5 rounded-lg border border-stone-800"
+              className="text-xs font-medium text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white px-2.5 py-1.5 rounded-lg border border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-transparent"
             >
               Войти
             </Link>
@@ -81,7 +86,7 @@ export default function LandingHeader({ isAuthenticated }: LandingHeaderProps) {
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="p-2 rounded-xl bg-stone-900 border border-stone-800 text-stone-300 hover:text-white transition cursor-pointer"
+            className="p-2 rounded-xl bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition cursor-pointer"
             aria-label={mobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

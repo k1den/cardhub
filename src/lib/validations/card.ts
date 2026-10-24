@@ -8,9 +8,9 @@ export const cardFieldSchema = z.object({
   label: z.string().max(64, 'Название поля не должно превышать 64 символа'),
   value: z
     .string()
-    .min(1, 'Значение не может быть пустым')
     .max(500, 'Слишком длинное значение')
     .refine((val) => {
+      if (!val || val.trim().length === 0) return true;
       // Validate URLs to reject javascript:, data:, etc.
       if (/^[a-zA-Z0-9+.-]+:/.test(val.trim())) {
         return isSafeUrl(val);

@@ -33,7 +33,19 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { name, website, brandColor, brandFont, logoUrl, slug } = body;
+    const {
+      name,
+      website,
+      brandColor,
+      brandSecondaryColor,
+      brandFont,
+      logoUrl,
+      coverUrl,
+      tagline,
+      brandPattern,
+      themeConfig,
+      slug,
+    } = body;
 
     if (!name || typeof name !== 'string' || name.trim().length < 2) {
       return NextResponse.json(
@@ -46,8 +58,13 @@ export async function POST(req: Request) {
       name: name.trim(),
       website,
       brandColor,
+      brandSecondaryColor,
       brandFont,
       logoUrl,
+      coverUrl,
+      tagline,
+      brandPattern,
+      themeConfig,
       slug,
     });
 
@@ -72,7 +89,19 @@ export async function PUT(req: Request) {
     }
 
     const body = await req.json();
-    const { companyId, name, website, brandColor, brandFont, logoUrl } = body;
+    const {
+      companyId,
+      name,
+      website,
+      brandColor,
+      brandSecondaryColor,
+      brandFont,
+      logoUrl,
+      coverUrl,
+      tagline,
+      brandPattern,
+      themeConfig,
+    } = body;
 
     if (!companyId) {
       return NextResponse.json({ error: 'Не указан идентификатор компании' }, { status: 400 });
@@ -82,8 +111,13 @@ export async function PUT(req: Request) {
       name,
       website,
       brandColor,
+      brandSecondaryColor,
       brandFont,
       logoUrl,
+      coverUrl,
+      tagline,
+      brandPattern,
+      themeConfig,
     });
 
     return NextResponse.json({

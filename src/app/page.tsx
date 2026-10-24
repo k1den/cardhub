@@ -31,7 +31,7 @@ export default async function HomePage() {
   const session = await getSession();
 
   return (
-    <div className="min-h-screen bg-[#0C0F17] text-stone-100 flex flex-col relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0C0F17] text-stone-900 dark:text-stone-100 flex flex-col relative overflow-hidden font-sans transition-colors duration-200">
       {/* Soft warm ambient lighting (natural, comforting, pleasant for human eyes) */}
       <div className="ambient-glow bg-amber-600/10 w-[400px] sm:w-[650px] h-[400px] sm:h-[650px] -top-24 -left-20" />
       <div className="ambient-glow bg-orange-700/10 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] top-1/3 -right-24" />
@@ -43,19 +43,19 @@ export default async function HomePage() {
       {/* Hero Section */}
       <section className="relative z-10 pt-12 sm:pt-20 pb-16 sm:pb-24 px-4 sm:px-6 max-w-6xl mx-auto text-center">
         {/* Soft Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold mb-6">
           <Radio className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
           <span>Электронные NFC-визитки, QR-коды и ссылки в одно касание</span>
         </div>
 
-        <h1 className="text-3xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white max-w-4xl mx-auto leading-[1.14]">
+        <h1 className="text-3xl sm:text-6xl lg:text-7xl font-black tracking-tight text-stone-900 dark:text-white max-w-4xl mx-auto leading-[1.14]">
           Цифровая визитка, <br className="hidden sm:inline" />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-orange-300 to-amber-400">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-orange-500 to-amber-500 dark:from-amber-200 dark:via-orange-300 dark:to-amber-400">
             которую приятно держать и передавать
           </span>
         </h1>
 
-        <p className="mt-4 sm:mt-6 text-base sm:text-xl text-stone-300 max-w-2xl mx-auto leading-relaxed">
+        <p className="mt-4 sm:mt-6 text-base sm:text-xl text-stone-600 dark:text-stone-300 max-w-2xl mx-auto leading-relaxed">
           Приложите телефон собеседника к вашему стикеру или покажите QR-код. Контакты, услуги и мессенджеры сохраняются мгновенно без установки приложений.
         </p>
 
@@ -70,7 +70,7 @@ export default async function HomePage() {
           </Link>
           <a
             href="#showcase"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-4 rounded-2xl bg-stone-900/90 hover:bg-stone-850 border border-stone-800 text-stone-200 font-semibold text-sm sm:text-base transition"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-4 rounded-2xl bg-white dark:bg-stone-900/90 hover:bg-stone-100 dark:hover:bg-stone-850 border border-stone-200 dark:border-stone-800 text-stone-800 dark:text-stone-200 font-semibold text-sm sm:text-base transition shadow-sm"
           >
             Посмотреть примеры
           </a>

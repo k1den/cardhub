@@ -406,24 +406,26 @@ export default function CardEditorForm({
     setSaving(true);
 
     const payload = {
-      fullName,
-      position: position || null,
-      companyName: companyName || null,
-      bio: bio || null,
-      avatarUrl: avatarUrl || null,
-      coverUrl: coverUrl || null,
-      slug: slug || null,
+      fullName: fullName.trim(),
+      position: position?.trim() || null,
+      companyName: companyName?.trim() || null,
+      bio: bio?.trim() || null,
+      avatarUrl: avatarUrl?.trim() || null,
+      coverUrl: coverUrl?.trim() || null,
+      slug: slug?.trim() || null,
       templateId,
       themeConfig: liveThemeConfig,
       published,
       isIndexed,
-      fields: fields.map((f, i) => ({
-        type: f.type,
-        label: f.label,
-        value: f.value,
-        visible: f.visible,
-        sortOrder: i,
-      })),
+      fields: fields
+        .filter((f) => f.value && f.value.trim().length > 0)
+        .map((f, i) => ({
+          type: f.type,
+          label: f.label || 'Контакт',
+          value: f.value.trim(),
+          visible: f.visible,
+          sortOrder: i,
+        })),
     };
 
     try {
@@ -439,7 +441,16 @@ export default function CardEditorForm({
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMessage(data.error || 'Ошибка при сохранении визитки');
+        let msg = data.error || 'Ошибка при сохранении визитки';
+        if (data.details && typeof data.details === 'object') {
+          const detailStrings = Object.entries(data.details)
+            .map(([field, errs]) => Array.isArray(errs) ? `${errs.join(', ')}` : String(errs))
+            .filter(Boolean);
+          if (detailStrings.length > 0) {
+            msg += `: ${detailStrings.join('; ')}`;
+          }
+        }
+        setErrorMessage(msg);
         setSaving(false);
         return;
       }

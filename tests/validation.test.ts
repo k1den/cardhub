@@ -149,5 +149,30 @@ describe('Card Customization & Rich Schema Validation', () => {
       expect((result.data.themeConfig as any).paymentRequisites.enabled).toBe(true);
     }
   });
+
+  it('successfully validates card with empty or partially filled contact fields', async () => {
+    const { cardFormSchema } = await import('@/lib/validations/card');
+
+    // Case from user screenshot: user filled in basic info, but left some/all default fields empty
+    const cardWithEmptyFields = {
+      fullName: 'Илья',
+      position: 'Разработчик',
+      companyName: 'Высота',
+      bio: '123',
+      fields: [
+        { type: 'PHONE', label: 'Телефон', value: '' },
+        { type: 'TELEGRAM', label: 'Telegram', value: '' },
+        { type: 'WHATSAPP', label: 'WhatsApp', value: '' },
+        { type: 'EMAIL', label: 'Email', value: '' },
+      ],
+      themeConfig: {
+        tags: ['Недвижимость', 'Инвестиции', 'Консультации'],
+      },
+    };
+
+    const result = cardFormSchema.safeParse(cardWithEmptyFields);
+    expect(result.success).toBe(true);
+  });
 });
+
 

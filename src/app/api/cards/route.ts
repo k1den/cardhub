@@ -123,13 +123,14 @@ export async function POST(req: Request) {
         },
       });
 
-      if (data.fields && data.fields.length > 0) {
+      const validFields = (data.fields || []).filter((f) => f.value && f.value.trim().length > 0);
+      if (validFields.length > 0) {
         await tx.cardField.createMany({
-          data: data.fields.map((f, index) => ({
+          data: validFields.map((f, index) => ({
             cardId: card.id,
             type: f.type,
             label: f.label,
-            value: f.value,
+            value: f.value.trim(),
             visible: f.visible,
             sortOrder: f.sortOrder ?? index,
           })),

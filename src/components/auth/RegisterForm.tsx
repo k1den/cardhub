@@ -121,7 +121,25 @@ export default function RegisterForm() {
               {errorMessage && (
                 <div className="p-3.5 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-rose-300 text-sm flex items-start gap-2.5">
                   <AlertCircle className="w-5 h-5 shrink-0 text-rose-400 mt-0.5" />
-                  <span>{errorMessage}</span>
+                  <div className="flex-1">
+                    <span>{errorMessage}</span>
+                    {errorMessage.includes('уже зарегистрирован') && (
+                      <div className="mt-2.5 flex items-center gap-3 pt-2 border-t border-rose-500/20 text-xs">
+                        <Link
+                          href="/auth/login"
+                          className="font-bold text-amber-400 hover:text-amber-300 underline"
+                        >
+                          Войти в аккаунт →
+                        </Link>
+                        <Link
+                          href="/auth/forgot-password"
+                          className="text-stone-300 hover:text-white underline"
+                        >
+                          Сбросить пароль
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 

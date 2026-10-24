@@ -152,17 +152,22 @@ model Consent {
 }
 
 model Company {
-  id          String       @id @default(uuid())
-  name        String
-  logoUrl     String?
-  brandColor  String?
-  brandFont   String?
-  website     String?
-  slug        String?      @unique
-  isFrozen    Boolean      @default(false)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  deletedAt   DateTime?
+  id                  String       @id @default(uuid())
+  name                String
+  logoUrl             String?
+  brandColor          String?
+  brandSecondaryColor String?
+  brandFont           String?
+  coverUrl            String?
+  tagline             String?
+  brandPattern        String?
+  themeConfig         Json?
+  website             String?
+  slug                String?      @unique
+  isFrozen            Boolean      @default(false)
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  deletedAt           DateTime?
 
   memberships   Membership[]
   cards         Card[]

@@ -23,8 +23,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className="h-full w-full max-w-full antialiased dark overflow-x-clip">
-      <body className="min-h-full w-full max-w-full overflow-x-clip flex flex-col bg-[#0C0F17] text-stone-100 font-sans selection:bg-amber-600 selection:text-white">
+    <html lang="ru" className="h-full w-full max-w-full antialiased dark overflow-x-clip" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('cardhub_theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d){document.documentElement.classList.add('dark');document.documentElement.classList.remove('light');document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-full w-full max-w-full overflow-x-clip flex flex-col bg-[#F8FAFC] dark:bg-[#0C0F17] text-stone-900 dark:text-stone-100 font-sans selection:bg-amber-600 selection:text-white transition-colors duration-200">
         {children}
         <CookieConsentBanner />
       </body>

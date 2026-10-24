@@ -22,13 +22,13 @@ export async function POST(req: Request) {
 
     const formData = await req.formData();
     const file = formData.get('file') as File | null;
-    const type = (formData.get('type') as 'avatar' | 'cover') || 'avatar';
+    const type = (formData.get('type') as 'avatar' | 'cover' | 'logo') || 'avatar';
 
     if (!file) {
       return NextResponse.json({ error: 'Файл не передан' }, { status: 400 });
     }
 
-    if (type !== 'avatar' && type !== 'cover') {
+    if (type !== 'avatar' && type !== 'cover' && type !== 'logo') {
       return NextResponse.json({ error: 'Неверный тип изображения' }, { status: 400 });
     }
 

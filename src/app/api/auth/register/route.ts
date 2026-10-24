@@ -39,13 +39,11 @@ export async function POST(req: Request) {
     });
 
     if (existingUser) {
-      // In compliance with section 8, do not disclose whether user exists
       return NextResponse.json(
         {
-          success: true,
-          message: 'Если указанный адрес свободен, мы отправили ссылку для подтверждения на ваш email.',
+          error: 'Пользователь с таким email уже зарегистрирован. Пожалуйста, войдите в аккаунт или восстановите пароль.',
         },
-        { status: 200 }
+        { status: 409 }
       );
     }
 

@@ -24,13 +24,13 @@ const MAX_COVER_BYTES = 3 * 1024 * 1024;  // 3 MB
  */
 export async function processAndSaveImage(
   buffer: Buffer,
-  type: 'avatar' | 'cover'
+  type: 'avatar' | 'cover' | 'logo'
 ): Promise<ProcessedImage> {
-  const maxBytes = type === 'avatar' ? MAX_AVATAR_BYTES : MAX_COVER_BYTES;
+  const maxBytes = type === 'cover' ? MAX_COVER_BYTES : MAX_AVATAR_BYTES;
 
   if (buffer.length > maxBytes) {
     throw new Error(
-      `Размер файла превышает лимит (${type === 'avatar' ? '2 МБ' : '3 МБ'})`
+      `Размер файла превышает лимит (${type === 'cover' ? '3 МБ' : '2 МБ'})`
     );
   }
 
@@ -52,6 +52,12 @@ export async function processAndSaveImage(
     transformer = transformer.resize(800, 800, {
       fit: 'cover',
       position: 'center',
+    });
+  } else if (type === 'logo') {
+    // Resize company logo to max 600x600 maintaining aspect ratio
+    transformer = transformer.resize(600, 600, {
+      fit: 'inside',
+      withoutEnlargement: true,
     });
   } else {
     // Resize cover to max 1600x900

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth/session';
 import LogoutButton from '@/components/dashboard/LogoutButton';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import {
   ShieldAlert,
   Users,
@@ -34,9 +35,9 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-200">
       {/* Admin Header */}
-      <header className="border-b border-amber-500/20 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-3 sm:px-6 sm:py-3.5 shadow-lg shadow-black/40">
+      <header className="border-b border-stone-200 dark:border-amber-500/20 bg-white/90 dark:bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-3 sm:px-6 sm:py-3.5 shadow-sm dark:shadow-lg dark:shadow-black/40 transition-colors">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link href="/admin" className="flex items-center gap-2.5 group">
@@ -86,21 +87,23 @@ export default async function AdminLayout({
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-4">
+            <ThemeToggle />
+
             <Link
               href="/dashboard"
-              className="text-xs font-medium text-slate-400 hover:text-slate-200 bg-slate-800/50 hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700/60 transition flex items-center gap-1.5"
+              className="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 bg-stone-100 dark:bg-slate-800/50 hover:bg-stone-200 dark:hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-stone-200 dark:border-slate-700/60 transition flex items-center gap-1.5"
             >
               <LayoutDashboard className="w-3.5 h-3.5" />
-              <span>Личный кабинет</span>
+              <span className="hidden sm:inline">Личный кабинет</span>
             </Link>
 
-            <div className="h-6 w-px bg-slate-800 hidden sm:block" />
+            <div className="h-6 w-px bg-stone-200 dark:bg-slate-800 hidden sm:block" />
 
             <div className="text-right hidden sm:block">
-              <div className="text-xs font-medium text-slate-200">{session.user.email}</div>
-              <div className="text-[10px] text-amber-400 flex items-center justify-end gap-1">
-                <Lock className="w-3 h-3 text-amber-400" />
+              <div className="text-xs font-medium text-slate-800 dark:text-slate-200">{session.user.email}</div>
+              <div className="text-[10px] text-amber-500 dark:text-amber-400 flex items-center justify-end gap-1">
+                <Lock className="w-3 h-3" />
                 Суперпользователь
               </div>
             </div>

@@ -7,8 +7,13 @@ export interface CreateCompanyInput {
   name: string;
   website?: string;
   brandColor?: string;
+  brandSecondaryColor?: string;
   brandFont?: string;
   logoUrl?: string;
+  coverUrl?: string;
+  tagline?: string;
+  brandPattern?: string;
+  themeConfig?: any;
   slug?: string;
 }
 
@@ -16,8 +21,13 @@ export interface UpdateCompanyInput {
   name?: string;
   website?: string;
   brandColor?: string;
+  brandSecondaryColor?: string;
   brandFont?: string;
   logoUrl?: string;
+  coverUrl?: string;
+  tagline?: string;
+  brandPattern?: string;
+  themeConfig?: any;
   slug?: string;
 }
 
@@ -128,9 +138,14 @@ export class CompanyService {
         data: {
           name: data.name.trim(),
           website: data.website?.trim() || null,
-          brandColor: data.brandColor || '#3b82f6',
+          brandColor: data.brandColor || '#d97706',
+          brandSecondaryColor: data.brandSecondaryColor || '#ea580c',
           brandFont: data.brandFont || 'sans',
           logoUrl: data.logoUrl || null,
+          coverUrl: data.coverUrl || null,
+          tagline: data.tagline?.trim() || null,
+          brandPattern: data.brandPattern || 'smooth',
+          themeConfig: data.themeConfig || null,
           slug: companySlug,
         },
       });
@@ -197,8 +212,13 @@ export class CompanyService {
           name: data.name?.trim(),
           website: data.website !== undefined ? data.website.trim() || null : undefined,
           brandColor: data.brandColor,
+          brandSecondaryColor: data.brandSecondaryColor !== undefined ? data.brandSecondaryColor : undefined,
           brandFont: data.brandFont,
           logoUrl: data.logoUrl !== undefined ? data.logoUrl || null : undefined,
+          coverUrl: data.coverUrl !== undefined ? data.coverUrl || null : undefined,
+          tagline: data.tagline !== undefined ? data.tagline?.trim() || null : undefined,
+          brandPattern: data.brandPattern !== undefined ? data.brandPattern : undefined,
+          themeConfig: data.themeConfig !== undefined ? data.themeConfig : undefined,
         },
       });
 

@@ -87,6 +87,12 @@ export interface CardRenderData {
     name: string;
     logoUrl?: string | null;
     brandColor?: string | null;
+    brandSecondaryColor?: string | null;
+    brandFont?: string | null;
+    coverUrl?: string | null;
+    tagline?: string | null;
+    brandPattern?: string | null;
+    themeConfig?: any;
     website?: string | null;
   } | null;
 }
@@ -108,10 +114,11 @@ export default function CardRenderer({
   const [copiedRequisites, setCopiedRequisites] = useState(false);
 
   const theme = card.themeConfig || {};
-  const primaryColor = theme.primaryColor || card.company?.brandColor || '#d97706';
-  const fontFamily = theme.fontFamily || 'sans';
+  const primaryColor = card.company?.brandColor || theme.primaryColor || '#d97706';
+  const secondaryColor = card.company?.brandSecondaryColor || theme.secondaryColor || '#ea580c';
+  const fontFamily = (card.company?.brandFont) || theme.fontFamily || 'sans';
   const template = card.templateId || 'warm_editorial';
-  const cardTexture = theme.cardTexture || 'smooth';
+  const cardTexture = (card.company?.brandPattern) || theme.cardTexture || 'smooth';
   const avatarShape = theme.avatarShape || 'squircle';
   const avatarBorder = theme.avatarBorder || 'accent';
   const buttonStyle = theme.buttonStyle || 'rounded';
@@ -314,9 +321,9 @@ export default function CardRenderer({
             coverStyle === 'compact' ? 'h-24 sm:h-28' : 'h-36 sm:h-44'
           }`}
           style={{
-            background: card.coverUrl
-              ? `url(${card.coverUrl}) center/cover no-repeat`
-              : `linear-gradient(135deg, ${primaryColor}40 0%, ${
+            background: (card.coverUrl || card.company?.coverUrl)
+              ? `url(${card.coverUrl || card.company?.coverUrl}) center/cover no-repeat`
+              : `linear-gradient(135deg, ${primaryColor}40 0%, ${secondaryColor}25 50%, ${
                   isLightTheme ? '#E7E5E4' : '#0B0F17'
                 } 100%)`,
           }}
@@ -458,12 +465,36 @@ export default function CardRenderer({
                     <img
                       src={card.company.logoUrl}
                       alt={card.company.name}
-                      className="w-4 h-4 rounded object-contain inline-block"
+                      className="w-4 h-4 rounded-md object-contain inline-block border border-black/10 dark:border-white/10"
                     />
                   )}
                   <span>{card.companyName || card.company?.name}</span>
                 </span>
               )}
+            </div>
+          )}
+
+          {/* Corporate Tagline */}
+          {card.company?.tagline && (
+            <p className="text-[11px] font-medium text-stone-500 dark:text-stone-400 italic">
+              «{card.company.tagline}»
+            </p>
+          )}
+
+          {/* Corporate Verified Badge */}
+          {card.company && (
+            <div className="pt-0.5">
+              <span
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border shadow-xs"
+                style={{
+                  backgroundColor: `${primaryColor}14`,
+                  borderColor: `${primaryColor}30`,
+                  color: primaryColor,
+                }}
+              >
+                <Briefcase className="w-2.5 h-2.5" />
+                <span>{card.company.themeConfig?.badgeText || 'Корпоративная визитка'}</span>
+              </span>
             </div>
           )}
         </div>
