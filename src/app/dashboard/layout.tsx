@@ -36,27 +36,27 @@ export default async function DashboardLayout({
             <nav className="hidden md:flex items-center gap-1">
               <Link
                 href="/dashboard"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800/60 transition"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800/60 transition"
               >
                 Мои визитки
               </Link>
               <Link
                 href="/dashboard/company"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800/60 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800/60 transition flex items-center gap-1.5"
               >
-                <Building2 className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                <Building2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                 <span>Компания</span>
               </Link>
               <Link
                 href="/dashboard/subscription"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800/60 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800/60 transition flex items-center gap-1.5"
               >
-                <CreditCard className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                <CreditCard className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                 <span>Подписка</span>
               </Link>
               <Link
                 href="/dashboard/settings"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800/60 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800/60 transition flex items-center gap-1.5"
               >
                 <Settings className="w-3.5 h-3.5 text-stone-500 dark:text-stone-400" />
                 <span>Настройки</span>
@@ -64,9 +64,9 @@ export default async function DashboardLayout({
               {session.user.role === 'ADMIN' && (
                 <Link
                   href="/admin"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold text-amber-600 dark:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 transition flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-lg text-xs font-bold text-amber-800 dark:text-amber-300 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 transition flex items-center gap-1.5 shadow-sm"
                 >
-                  <ShieldCheck className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                   <span>Админка</span>
                 </Link>
               )}
@@ -74,7 +74,7 @@ export default async function DashboardLayout({
 
             <Link
               href="/dashboard/subscription"
-              className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-medium transition"
+              className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-800 dark:text-amber-400 text-xs font-bold transition"
             >
               <span>{roleLabel}</span>
             </Link>

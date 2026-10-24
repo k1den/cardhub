@@ -435,66 +435,66 @@ export default function AdminDashboardClient({
             <>
               {/* Stat Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 shadow-lg">
+                <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-stone-200 dark:border-slate-800/80 shadow-sm dark:shadow-lg">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-slate-400">Пользователи</span>
-                    <Users className="w-4 h-4 text-blue-400" />
+                    <span className="text-xs font-medium text-stone-600 dark:text-slate-400">Пользователи</span>
+                    <Users className="w-4 h-4 text-blue-500" />
                   </div>
-                  <div className="text-2xl font-black text-white">{metrics?.totalUsers ?? 0}</div>
-                  <div className="text-[11px] text-emerald-400 mt-1">
+                  <div className="text-2xl font-black text-stone-900 dark:text-white">{metrics?.totalUsers ?? 0}</div>
+                  <div className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1">
                     {metrics?.verifiedUsers ?? 0} подтвержденных email
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 shadow-lg">
+                <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-stone-200 dark:border-slate-800/80 shadow-sm dark:shadow-lg">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-slate-400">Цифровые визитки</span>
-                    <CreditCard className="w-4 h-4 text-indigo-400" />
+                    <span className="text-xs font-medium text-stone-600 dark:text-slate-400">Цифровые визитки</span>
+                    <CreditCard className="w-4 h-4 text-indigo-500" />
                   </div>
-                  <div className="text-2xl font-black text-white">{metrics?.totalCards ?? 0}</div>
-                  <div className="text-[11px] text-blue-400 mt-1">
+                  <div className="text-2xl font-black text-stone-900 dark:text-white">{metrics?.totalCards ?? 0}</div>
+                  <div className="text-[11px] text-blue-600 dark:text-blue-400 mt-1">
                     {metrics?.publishedCards ?? 0} опубликовано
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 shadow-lg">
+                <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-stone-200 dark:border-slate-800/80 shadow-sm dark:shadow-lg">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-slate-400">Pro подписки & Доход</span>
-                    <Building2 className="w-4 h-4 text-emerald-400" />
+                    <span className="text-xs font-medium text-stone-600 dark:text-slate-400">Pro подписки & Доход</span>
+                    <Building2 className="w-4 h-4 text-emerald-500" />
                   </div>
-                  <div className="text-2xl font-black text-white">
+                  <div className="text-2xl font-black text-stone-900 dark:text-white">
                     {metrics?.activeSubscriptions ?? 0}
                   </div>
-                  <div className="text-[11px] text-emerald-400 mt-1">
+                  <div className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1">
                     {metrics?.totalRevenueRub?.toLocaleString('ru-RU') ?? 0} ₽ выручка
                   </div>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-slate-900/60 border border-red-500/20 shadow-lg">
+                <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/60 border border-red-200 dark:border-red-500/20 shadow-sm dark:shadow-lg">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-red-300">Очередь жалоб (149-ФЗ)</span>
-                    <Flag className="w-4 h-4 text-red-400" />
+                    <span className="text-xs font-medium text-red-600 dark:text-red-300">Очередь жалоб (149-ФЗ)</span>
+                    <Flag className="w-4 h-4 text-red-500" />
                   </div>
-                  <div className="text-2xl font-black text-red-400">
+                  <div className="text-2xl font-black text-red-600 dark:text-red-400">
                     {metrics?.pendingReports ?? 0}
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-1">
+                  <div className="text-[11px] text-stone-500 dark:text-slate-400 mt-1">
                     {metrics?.pendingReports === 0 ? 'Все жалобы обработаны' : 'Требуют модерации'}
                   </div>
                 </div>
               </div>
 
               {/* Compliance & Quick Action Banner */}
-              <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-amber-950/20 border border-amber-500/20">
+              <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-stone-100 to-amber-500/5 dark:from-slate-900 dark:via-slate-900/90 dark:to-amber-950/20 border border-amber-500/30">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                      <h3 className="font-bold text-white text-sm">
+                      <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                      <h3 className="font-bold text-stone-900 dark:text-white text-sm">
                         Статус соответствия законодательству РФ
                       </h3>
                     </div>
-                    <p className="text-xs text-slate-400 max-w-2xl">
+                    <p className="text-xs text-stone-700 dark:text-slate-400 max-w-2xl leading-relaxed">
                       Платформа работает в строгом соответствии с <strong>152-ФЗ</strong> (согласия, экспорт и удаление), 
                       <strong> 242-ФЗ</strong> (локализация баз данных в РФ, отсутствие внешних CDN/шрифтов), 
                       <strong> 54-ФЗ</strong> (онлайн-фискализация ЮKassa) и <strong>149-ФЗ</strong> (модерация запрещенного контента).
@@ -503,13 +503,13 @@ export default function AdminDashboardClient({
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => switchTab('reports')}
-                      className="px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-semibold transition"
+                      className="px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-semibold transition shadow-sm"
                     >
                       Модерация жалоб
                     </button>
                     <button
                       onClick={() => switchTab('users')}
-                      className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition"
+                      className="px-3.5 py-2 rounded-xl bg-white hover:bg-stone-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-stone-800 dark:text-slate-200 text-xs font-semibold transition border border-stone-300 dark:border-transparent shadow-sm"
                     >
                       Пользователи
                     </button>

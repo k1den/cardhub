@@ -469,20 +469,20 @@ export default function CardEditorForm({
   return (
     <div className="w-full min-w-0 max-w-full space-y-6">
       {/* Top Header */}
-      <div className="w-full min-w-full flex items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-stone-800">
+      <div className="w-full min-w-full flex items-center justify-between gap-3 pb-3 sm:pb-4 border-b border-stone-200 dark:border-stone-800">
         <div className="flex items-center gap-2.5 min-w-0">
           <Link
             href="/dashboard"
-            className="p-2 sm:p-2.5 rounded-2xl bg-stone-900 border border-stone-800 text-stone-400 hover:text-white transition shrink-0"
+            className="p-2 sm:p-2.5 rounded-2xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-900 border border-stone-300 dark:border-stone-800 text-stone-700 hover:text-stone-950 dark:text-stone-400 dark:hover:text-white transition shrink-0"
             title="Назад в панель управления"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div className="min-w-0">
-            <h1 className="text-base sm:text-2xl font-black text-white tracking-tight truncate">
+            <h1 className="text-base sm:text-2xl font-black text-stone-900 dark:text-white tracking-tight truncate">
               {isEditing ? 'Настройка визитки' : 'Создание визитки'}
             </h1>
-            <p className="text-xs text-stone-400 hidden sm:block truncate">
+            <p className="text-xs text-stone-600 dark:text-stone-400 hidden sm:block truncate">
               Контакты, услуги, статус и глубокая кастомизация внешнего вида
             </p>
           </div>
@@ -493,7 +493,7 @@ export default function CardEditorForm({
             <Link
               href={`/c/${initialCard.slug}`}
               target="_blank"
-              className="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-stone-800 bg-stone-900/80 text-xs text-stone-300 hover:text-white transition"
+              className="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-stone-300 dark:border-stone-800 bg-stone-100 dark:bg-stone-900/80 text-xs font-semibold text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white transition shadow-sm"
               title="Открыть публичную визитку"
             >
               <ExternalLink className="w-3.5 h-3.5" />
@@ -514,28 +514,28 @@ export default function CardEditorForm({
 
       {/* Notifications */}
       {errorMessage && (
-        <div className="p-4 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-rose-300 text-sm flex items-center gap-2.5">
-          <AlertCircle className="w-5 h-5 shrink-0 text-rose-400" />
+        <div className="p-4 rounded-2xl border border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-300 text-sm flex items-center gap-2.5">
+          <AlertCircle className="w-5 h-5 shrink-0 text-rose-500" />
           <span>{errorMessage}</span>
         </div>
       )}
 
       {successMessage && (
-        <div className="p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-sm flex items-center gap-2.5">
-          <Check className="w-5 h-5 shrink-0 text-emerald-400" />
+        <div className="p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-sm flex items-center gap-2.5">
+          <Check className="w-5 h-5 shrink-0 text-emerald-500" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {/* Mobile Switcher between Editor Form & Live Preview */}
-      <div className="w-full min-w-0 lg:hidden flex items-center p-1 rounded-2xl bg-stone-900 border border-stone-800 text-xs font-semibold">
+      <div className="w-full min-w-0 lg:hidden flex items-center p-1 rounded-2xl bg-stone-100 dark:bg-stone-900 border border-stone-300 dark:border-stone-800 text-xs font-semibold">
         <button
           type="button"
           onClick={() => setMobileView('editor')}
           className={`flex-1 py-2.5 rounded-xl flex items-center justify-center gap-2 transition ${
             mobileView === 'editor'
               ? 'bg-amber-600 text-white shadow-md'
-              : 'text-stone-400 hover:text-stone-200'
+              : 'text-stone-600 hover:text-stone-950 dark:text-stone-400 dark:hover:text-stone-200'
           }`}
         >
           <Layout className="w-4 h-4" />
@@ -548,7 +548,7 @@ export default function CardEditorForm({
           className={`flex-1 py-2.5 rounded-xl flex items-center justify-center gap-2 transition ${
             mobileView === 'preview'
               ? 'bg-amber-600 text-white shadow-md'
-              : 'text-stone-400 hover:text-stone-200'
+              : 'text-stone-600 hover:text-stone-950 dark:text-stone-400 dark:hover:text-stone-200'
           }`}
         >
           <Eye className="w-4 h-4" />
@@ -566,13 +566,13 @@ export default function CardEditorForm({
         >
           {/* Tabs Navigation */}
           <div className="w-full min-w-0 max-w-full overflow-x-auto no-scrollbar scroll-smooth">
-            <div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-stone-900/90 border border-stone-800 text-xs font-semibold whitespace-nowrap min-w-full sm:min-w-0">
+            <div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-stone-100 dark:bg-stone-900/90 border border-stone-300 dark:border-stone-800 text-xs font-semibold whitespace-nowrap min-w-full sm:min-w-0">
               <button
                 onClick={() => setActiveTab('profile')}
                 className={`flex items-center gap-2 py-2 px-3.5 rounded-xl transition shrink-0 ${
                   activeTab === 'profile'
                     ? 'bg-amber-600 text-white shadow-md'
-                    : 'text-stone-400 hover:text-stone-200'
+                    : 'text-stone-600 hover:text-stone-950 dark:text-stone-400 dark:hover:text-stone-200'
                 }`}
               >
                 <Smartphone className="w-4 h-4" />

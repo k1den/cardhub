@@ -70,18 +70,23 @@ html.light .bg-slate-900\/90,
 html.light .bg-slate-900\/80,
 html.light .bg-slate-900\/60,
 html.light .bg-slate-900\/40,
-html.light .bg-slate-900\/30 {
-  background-color: #ffffff;
+html.light .bg-slate-900\/30,
+html.light .bg-\[\#0E1119\],
+html.light .bg-\[\#0e1119\],
+html.light .bg-\[\#0C0F17\],
+html.light .bg-\[\#131722\],
+html.light .bg-\[\#181d2a\] {
+  background-color: #ffffff !important;
 }
 
 html.light .bg-stone-950,
 html.light .bg-slate-950 {
-  background-color: #f8fafc;
+  background-color: #f8fafc !important;
 }
 
 html.light .bg-stone-800,
 html.light .bg-slate-800 {
-  background-color: #f1f5f9;
+  background-color: #f1f5f9 !important;
 }
 
 html.light .border-stone-800,
@@ -91,56 +96,112 @@ html.light .border-stone-750,
 html.light .border-slate-800,
 html.light .border-slate-800\/80,
 html.light .border-slate-800\/60 {
-  border-color: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
 html.light .divide-stone-800\/60 > :not(:last-child),
 html.light .divide-slate-800\/60 > :not(:last-child) {
-  border-color: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Headings and primary text in light mode */
-html.light h1:not([class*="text-amber-"]):not([class*="text-orange-"]):not([class*="text-emerald-"]):not([class*="text-red-"]),
-html.light h2:not([class*="text-amber-"]):not([class*="text-orange-"]):not([class*="text-emerald-"]):not([class*="text-red-"]),
-html.light h3:not([class*="text-amber-"]):not([class*="text-orange-"]):not([class*="text-emerald-"]):not([class*="text-red-"]) {
+/* Light theme gradients fallback to light */
+html.light [class*="from-slate-900"],
+html.light [class*="from-stone-900"],
+html.light [class*="from-amber-950"],
+html.light [class*="from-rose-950"] {
+  background: #ffffff !important;
+}
+
+/* Light theme typography: convert text to crisp dark slate / black */
+html.light,
+html.light body,
+html.light header,
+html.light nav,
+html.light main,
+html.light footer,
+html.light .glass-card,
+html.light .glass-panel {
   color: #0f172a;
 }
 
-/* Ensure text on colored buttons and badges stays white */
-html.light button[class*="bg-amber-"],
-html.light button[class*="bg-red-"],
-html.light button[class*="bg-emerald-"],
-html.light button[class*="bg-blue-"],
-html.light a[class*="bg-amber-"],
-html.light a[class*="bg-red-"],
-html.light a[class*="bg-emerald-"],
-html.light a[class*="bg-blue-"] {
-  color: #ffffff;
+/* All headings dark */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6 {
+  color: #0f172a !important;
 }
 
-/* Text adjustments for light theme */
-html.light .glass-card .text-white,
-html.light .glass-panel .text-white,
-html.light main .text-white:not(button):not(button *):not(a):not(a *):not(span[class*="bg-"]):not(span[class*="text-amber"]):not(span[class*="text-orange"]):not(span[class*="text-emerald"]):not(span[class*="text-red"]) {
-  color: #0f172a;
+/* Turn text-white into dark slate/black unless inside a solid vibrant button */
+html.light .text-white:not([class*="bg-amber-600"] *):not([class*="bg-red-600"] *):not([class*="bg-emerald-600"] *):not([class*="bg-blue-600"] *):not([class*="bg-orange-500"] *):not(button.bg-amber-600):not(button.bg-red-600):not(button.bg-emerald-600):not(button.bg-blue-600):not(a.bg-amber-600):not(a.bg-red-600):not(a.bg-emerald-600):not(a.bg-blue-600) {
+  color: #0f172a !important;
 }
 
-html.light .glass-card .text-stone-300,
-html.light .glass-panel .text-stone-300,
-html.light main .text-stone-300:not(button):not(button *):not(a):not(a *) {
-  color: #334155;
+/* High contrast dark text for gray/slate shades */
+html.light .text-stone-100,
+html.light .text-stone-200,
+html.light .text-slate-100,
+html.light .text-slate-200 {
+  color: #0f172a !important;
 }
 
-html.light .glass-card .text-stone-400,
-html.light .glass-panel .text-stone-400,
-html.light main .text-stone-400:not(button):not(button *):not(a):not(a *) {
-  color: #64748b;
+html.light .text-stone-300,
+html.light .text-slate-300 {
+  color: #1e293b !important;
 }
 
-html.light .glass-card .text-stone-500,
-html.light .glass-panel .text-stone-500,
-html.light main .text-stone-500:not(button):not(button *):not(a):not(a *) {
-  color: #64748b;
+html.light .text-stone-400,
+html.light .text-slate-400 {
+  color: #334155 !important;
+}
+
+html.light .text-stone-500,
+html.light .text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Tints and badges text contrast */
+html.light [class*="bg-amber-500/10"],
+html.light [class*="bg-amber-500/20"],
+html.light [class*="bg-amber-500/15"] {
+  color: #92400e !important;
+}
+
+html.light [class*="bg-emerald-500/10"],
+html.light [class*="bg-emerald-500/20"] {
+  color: #065f46 !important;
+}
+
+html.light [class*="bg-red-500/10"],
+html.light [class*="bg-red-500/20"],
+html.light [class*="bg-rose-500/10"] {
+  color: #991b1b !important;
+}
+
+html.light [class*="bg-blue-500/10"],
+html.light [class*="bg-blue-500/20"] {
+  color: #1e40af !important;
+}
+
+/* Only solid dark/vibrant action buttons keep crisp white text */
+html.light button.bg-amber-600,
+html.light button.bg-amber-500,
+html.light button.bg-red-600,
+html.light button.bg-rose-600,
+html.light button.bg-emerald-600,
+html.light button.bg-blue-600,
+html.light a.bg-amber-600,
+html.light a.bg-amber-500,
+html.light a.bg-red-600,
+html.light a.bg-rose-600,
+html.light a.bg-emerald-600,
+html.light a.bg-blue-600,
+html.light .bg-gradient-to-r.from-amber-600,
+html.light .bg-gradient-to-tr.from-amber-500,
+html.light .bg-gradient-to-tr.from-amber-600 {
+  color: #ffffff !important;
 }
 
 /* Inputs, textareas and selects in light mode */

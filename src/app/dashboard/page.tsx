@@ -62,12 +62,12 @@ export default async function DashboardPage() {
   return (
     <div className="w-full min-w-0 max-w-full space-y-8 font-sans">
       {/* Top Banner / Welcome */}
-      <div className="w-full min-w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-800">
+      <div className="w-full min-w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-200 dark:border-stone-800">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white tracking-tight">
             Личный кабинет
           </h1>
-          <p className="text-sm text-stone-400 mt-1">
+          <p className="text-sm text-stone-600 dark:text-stone-400 mt-1">
             Управляйте вашей электронной визиткой, стикерами NFC и аналитикой
           </p>
         </div>
@@ -85,30 +85,30 @@ export default async function DashboardPage() {
 
       {/* Quick Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        <div className="glass-card p-5 rounded-3xl space-y-2 border border-stone-800">
-          <div className="flex items-center justify-between text-stone-400 text-xs font-medium">
+        <div className="glass-card p-5 rounded-3xl space-y-2 border border-stone-200 dark:border-stone-800 shadow-sm dark:shadow-none">
+          <div className="flex items-center justify-between text-stone-600 dark:text-stone-400 text-xs font-medium">
             <span>Просмотры визитки</span>
-            <Eye className="w-4 h-4 text-amber-400" />
+            <Eye className="w-4 h-4 text-amber-500" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-white">{totalViews}</div>
+          <div className="text-2xl sm:text-3xl font-black text-stone-900 dark:text-white">{totalViews}</div>
           <div className="text-[11px] text-stone-500">За последние 30 дней</div>
         </div>
 
-        <div className="glass-card p-5 rounded-3xl space-y-2 border border-stone-800">
-          <div className="flex items-center justify-between text-stone-400 text-xs font-medium">
+        <div className="glass-card p-5 rounded-3xl space-y-2 border border-stone-200 dark:border-stone-800 shadow-sm dark:shadow-none">
+          <div className="flex items-center justify-between text-stone-600 dark:text-stone-400 text-xs font-medium">
             <span>Переходы по NFC-меткам</span>
-            <Radio className="w-4 h-4 text-orange-400" />
+            <Radio className="w-4 h-4 text-orange-500" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-orange-400">{totalNfc}</div>
+          <div className="text-2xl sm:text-3xl font-black text-orange-600 dark:text-orange-400">{totalNfc}</div>
           <div className="text-[11px] text-stone-500">Касания стикера смартфоном</div>
         </div>
 
-        <div className="glass-card p-5 rounded-3xl space-y-2 border border-stone-800">
-          <div className="flex items-center justify-between text-stone-400 text-xs font-medium">
+        <div className="glass-card p-5 rounded-3xl space-y-2 border border-stone-200 dark:border-stone-800 shadow-sm dark:shadow-none">
+          <div className="flex items-center justify-between text-stone-600 dark:text-stone-400 text-xs font-medium">
             <span>Сохранений контакта (vCard)</span>
-            <Download className="w-4 h-4 text-emerald-400" />
+            <Download className="w-4 h-4 text-emerald-500" />
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-emerald-400">{totalVCard}</div>
+          <div className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400">{totalVCard}</div>
           <div className="text-[11px] text-stone-500">Добавлено в телефонную книгу</div>
         </div>
       </div>
@@ -176,21 +176,21 @@ export default async function DashboardPage() {
       {/* Cards List or Empty State */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <h2 className="text-lg font-bold text-stone-900 dark:text-white flex items-center gap-2">
             <CreditCard className="w-5 h-5 text-amber-500" />
             <span>Мои электронные визитки ({cards.length})</span>
           </h2>
         </div>
 
         {cards.length === 0 ? (
-          <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-stone-800 text-center space-y-5">
-            <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 mx-auto flex items-center justify-center">
+          <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-stone-200 dark:border-stone-800 text-center space-y-5">
+            <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-500 dark:text-amber-400 mx-auto flex items-center justify-center">
               <Sparkles className="w-8 h-8" />
             </div>
 
             <div className="max-w-md mx-auto space-y-2">
-              <h3 className="text-xl font-bold text-white">У вас пока нет созданных визиток</h3>
-              <p className="text-sm text-stone-400 leading-relaxed">
+              <h3 className="text-xl font-bold text-stone-900 dark:text-white">У вас пока нет созданных визиток</h3>
+              <p className="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
                 Создайте вашу персональную страницу со стильным оформлением, контактами, мессенджерами и услугами.
               </p>
             </div>
@@ -214,7 +214,7 @@ export default async function DashboardPage() {
               return (
                 <div
                   key={card.id}
-                  className="glass-card p-6 rounded-3xl space-y-4 border border-stone-800 flex flex-col justify-between hover:border-amber-500/30 transition"
+                  className="glass-card p-6 rounded-3xl space-y-4 border border-stone-200 dark:border-stone-800 flex flex-col justify-between hover:border-amber-500/40 transition shadow-sm dark:shadow-none"
                 >
                   <div className="space-y-3">
                     {/* Header with Avatar & Status */}
@@ -243,10 +243,10 @@ export default async function DashboardPage() {
                         </div>
 
                         <div>
-                          <h4 className="font-bold text-white text-base leading-snug">
+                          <h4 className="font-bold text-stone-900 dark:text-white text-base leading-snug">
                             {card.fullName}
                           </h4>
-                          <p className="text-xs text-stone-400 truncate max-w-[150px]">
+                          <p className="text-xs text-stone-600 dark:text-stone-400 truncate max-w-[150px]">
                             {card.position || card.companyName || 'Без должности'}
                           </p>
                         </div>
@@ -255,8 +255,8 @@ export default async function DashboardPage() {
                       <span
                         className={`text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0 ${
                           card.published
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                            : 'bg-stone-800 text-stone-400'
+                            ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20'
+                            : 'bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-transparent'
                         }`}
                       >
                         {card.published ? 'Активна' : 'Черновик'}
@@ -264,12 +264,12 @@ export default async function DashboardPage() {
                     </div>
 
                     {/* Short Link */}
-                    <div className="p-2.5 rounded-2xl bg-stone-900 border border-stone-800 text-xs font-mono text-stone-300 flex items-center justify-between">
+                    <div className="p-2.5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs font-mono text-stone-700 dark:text-stone-300 flex items-center justify-between">
                       <span className="truncate">/c/{card.slug}</span>
                       <Link
                         href={`/c/${card.slug}`}
                         target="_blank"
-                        className="text-amber-400 hover:text-amber-300 ml-2"
+                        className="text-amber-600 dark:text-amber-400 hover:text-amber-500 ml-2"
                         title="Открыть визитку в новой вкладке"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -277,7 +277,7 @@ export default async function DashboardPage() {
                     </div>
 
                     {/* Stats pill */}
-                    <div className="flex items-center gap-3 text-[11px] text-stone-400 pt-1">
+                    <div className="flex items-center gap-3 text-[11px] text-stone-600 dark:text-stone-400 pt-1">
                       <span className="flex items-center gap-1">
                         <Eye className="w-3.5 h-3.5 text-stone-500" />
                         <span>{cardViews} просм.</span>
@@ -288,23 +288,23 @@ export default async function DashboardPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="pt-3 border-t border-stone-800/80 flex items-center gap-2">
+                  <div className="pt-3 border-t border-stone-200 dark:border-stone-800/80 flex items-center gap-2">
                     <Link
                       href={`/dashboard/cards/${card.id}/edit`}
-                      className="flex-1 text-center py-2 px-3 rounded-xl bg-stone-850 hover:bg-stone-800 text-white text-xs font-semibold transition"
+                      className="flex-1 text-center py-2 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-850 dark:hover:bg-stone-800 text-stone-900 dark:text-white border border-stone-300 dark:border-transparent text-xs font-semibold transition"
                     >
                       Редактировать
                     </Link>
                     <Link
                       href={`/dashboard/cards/${card.id}/nfc`}
-                      className="py-2 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 text-xs font-medium transition flex items-center gap-1"
+                      className="py-2 px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-500/30 text-xs font-bold transition flex items-center gap-1 shadow-sm"
                       title="Записать на NFC"
                     >
                       <Radio className="w-3.5 h-3.5" /> NFC
                     </Link>
                     <Link
                       href={`/dashboard/cards/${card.id}/stats`}
-                      className="py-2 px-3 rounded-xl bg-stone-850 hover:bg-stone-800 text-stone-300 text-xs font-medium transition flex items-center gap-1"
+                      className="py-2 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-850 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-300 dark:border-transparent text-xs font-medium transition flex items-center gap-1"
                       title="Статистика"
                     >
                       <BarChart3 className="w-3.5 h-3.5" />

@@ -46,42 +46,42 @@ export default async function AdminLayout({
               </span>
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold tracking-tight text-white">CardHub</span>
-                  <span className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  <span className="font-bold tracking-tight text-stone-900 dark:text-white">CardHub</span>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-amber-500/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/20 dark:border-amber-500/30">
                     Admin
                   </span>
                 </div>
-                <span className="text-[10px] text-slate-400">Управление платформой</span>
+                <span className="text-[10px] text-stone-500 dark:text-slate-400">Управление платформой</span>
               </div>
             </Link>
 
             <nav className="hidden md:flex items-center gap-1">
               <Link
                 href="/admin"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-slate-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800/80 transition flex items-center gap-1.5"
               >
-                <BarChart2 className="w-3.5 h-3.5 text-amber-400" />
+                <BarChart2 className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
                 <span>Обзор</span>
               </Link>
               <Link
                 href="/admin?tab=reports"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-slate-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800/80 transition flex items-center gap-1.5"
               >
-                <Flag className="w-3.5 h-3.5 text-red-400" />
+                <Flag className="w-3.5 h-3.5 text-red-500 dark:text-red-400" />
                 <span>Модерация 149-ФЗ</span>
               </Link>
               <Link
                 href="/admin?tab=users"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-slate-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800/80 transition flex items-center gap-1.5"
               >
-                <Users className="w-3.5 h-3.5 text-blue-400" />
+                <Users className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
                 <span>Пользователи</span>
               </Link>
               <Link
                 href="/admin?tab=audit"
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 dark:text-slate-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800/80 transition flex items-center gap-1.5"
               >
-                <FileText className="w-3.5 h-3.5 text-emerald-400" />
+                <FileText className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
                 <span>Журнал аудита</span>
               </Link>
             </nav>
@@ -92,7 +92,7 @@ export default async function AdminLayout({
 
             <Link
               href="/dashboard"
-              className="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 bg-stone-100 dark:bg-slate-800/50 hover:bg-stone-200 dark:hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-stone-200 dark:border-slate-700/60 transition flex items-center gap-1.5"
+              className="text-xs font-semibold text-stone-700 dark:text-slate-400 hover:text-stone-950 dark:hover:text-slate-200 bg-stone-100 dark:bg-slate-800/50 hover:bg-stone-200 dark:hover:bg-slate-800 px-3 py-1.5 rounded-lg border border-stone-200 dark:border-slate-700/60 transition flex items-center gap-1.5"
             >
               <LayoutDashboard className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Личный кабинет</span>
@@ -101,8 +101,8 @@ export default async function AdminLayout({
             <div className="h-6 w-px bg-stone-200 dark:bg-slate-800 hidden sm:block" />
 
             <div className="text-right hidden sm:block">
-              <div className="text-xs font-medium text-slate-800 dark:text-slate-200">{session.user.email}</div>
-              <div className="text-[10px] text-amber-500 dark:text-amber-400 flex items-center justify-end gap-1">
+              <div className="text-xs font-bold text-stone-900 dark:text-slate-200">{session.user.email}</div>
+              <div className="text-[10px] text-amber-600 dark:text-amber-400 flex items-center justify-end gap-1 font-medium">
                 <Lock className="w-3 h-3" />
                 Суперпользователь
               </div>
