@@ -63,8 +63,8 @@ export default function DailyStatsChart({ data }: DailyStatsChartProps) {
             const tooltipAlignClass = isNearRight
               ? 'right-0'
               : isNearLeft
-              ? 'left-0'
-              : 'left-1/2 -translate-x-1/2';
+                ? 'left-0'
+                : 'left-1/2 -translate-x-1/2';
 
             return (
               <div
@@ -107,20 +107,18 @@ export default function DailyStatsChart({ data }: DailyStatsChartProps) {
                     </div>
                     {/* Tooltip Arrow Pointer */}
                     <div
-                      className={`w-2.5 h-2.5 bg-stone-900/95 dark:bg-stone-950 border-r border-b border-stone-700/80 rotate-45 mx-auto -mt-1.5 ${
-                        isNearRight ? 'mr-4 ml-auto' : isNearLeft ? 'ml-4 mr-auto' : ''
-                      }`}
+                      className={`w-2.5 h-2.5 bg-stone-900/95 dark:bg-stone-950 border-r border-b border-stone-700/80 rotate-45 mx-auto -mt-1.5 ${isNearRight ? 'mr-4 ml-auto' : isNearLeft ? 'ml-4 mr-auto' : ''
+                        }`}
                     />
                   </div>
                 )}
 
                 {/* The Bar */}
                 <div
-                  className={`w-full max-w-[32px] rounded-t-2xl transition-all duration-200 relative ${
-                    isHovered
+                  className={`w-full max-w-[32px] rounded-t-2xl transition-all duration-200 relative ${isHovered
                       ? 'bg-gradient-to-t from-amber-600 via-orange-500 to-amber-300 shadow-lg shadow-amber-500/40 ring-2 ring-amber-400 scale-[1.04]'
                       : 'bg-gradient-to-t from-amber-600/70 via-orange-500/80 to-amber-400/90 hover:from-amber-600 hover:to-orange-400'
-                  }`}
+                    }`}
                   style={{ height: `${heightPercent}%` }}
                 >
                   {/* Subtle highlight pill inside bar if views > 0 */}
@@ -131,11 +129,10 @@ export default function DailyStatsChart({ data }: DailyStatsChartProps) {
 
                 {/* Date Label under the bar */}
                 <span
-                  className={`text-[10px] sm:text-[11px] font-semibold transition-colors duration-150 ${
-                    isHovered
+                  className={`text-[10px] sm:text-[11px] font-semibold transition-colors duration-150 ${isHovered
                       ? 'text-amber-600 dark:text-amber-400 scale-105 font-bold'
                       : 'text-stone-500 dark:text-stone-400'
-                  }`}
+                    }`}
                 >
                   {d.label}
                 </span>
@@ -153,11 +150,11 @@ export default function DailyStatsChart({ data }: DailyStatsChartProps) {
         </div>
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-orange-500 shadow-xs" />
-          <span>NFC-стикеры (?s=nfc)</span>
+          <span>NFC-стикеры</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-rose-500 shadow-xs" />
-          <span>QR-код (?s=qr)</span>
+          <span>QR-код</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-emerald-500 shadow-xs" />
